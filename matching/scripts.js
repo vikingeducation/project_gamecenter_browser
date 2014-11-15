@@ -1,6 +1,4 @@
 
-//upper bound should be 26 or so
-
 function shuffle(array) {
   var counter = array.length, temp, index;
 
@@ -49,50 +47,8 @@ function setUpBoard(rows, cols) {
     'width' : (100 * cols) + 'px'
   });
 
-
 };
 
-// function turnCardsUp(card, value){
-//   // FIRST FLIP
-//   if(turned_card_values.length == 0){
-
-//     card.style.background = #FFF;
-//     card.innerhtml = value;
-//     turned_card_values.push(value);
-
-//     // SECOND FLIP
-//   } else if(turned_card_values.length == 1){
-//     card.style.background = #FFF;
-//     card.innerhtml = value;
-//     turned_card_values.push(value);
-
-//     // MATCH CASE
-//     if(turned_card_values[0] == turned_card_values[1]){
-//       counter += 1;
-//       count_of_cards_up += 2;
-//       turned_card_values = [];
-
-//       // GAME WIN CASE
-//       if(count_of_cards_up == selected_card_faces.length){
-//         alert("You won! It took syou COUNTER turns");
-//         newBoard();
-//       }
-//       // cards don't match flip things down.
-//     } else {
-
-//       function returnCards(){
-//         counter += 1;
-//         turned_card_values = [];
-//         var card1 = GETCARD;
-//         var card2 = GETCARD;
-//         card1.style.background = #AAA;
-//         card1.innerhtml = "";
-//         card2.style.background = #AAA;
-//         card2.innerhtml = "";
-//       }
-//     }
-//   }
-// }
 
 function setUpDeck(numCards) {
   var arr = [];
@@ -107,13 +63,7 @@ function setUpDeck(numCards) {
 function turnCardUp(card) {
   if (card.children().filter(".front").hasClass("hidden")) {
     card.children().filter(".front").removeClass("hidden");
-    cardValue = card.data("val");
-
-    if((moves.length > 0) && (moves[0].attr("id") == card.attr("id"))){
-      alert("invalid move. you must pick a different card");
-    } else {
-      match(card);
-      }
+    match(card);
   }
 }
 
@@ -128,12 +78,9 @@ function match(card){
     moves.push(card);
   } else {
     moves.push(card);
-    if(moves[0].data("val") == moves[1].data("val")){
-      alert("you got one" + moves[0]);
-    } else {
+    if (moves[0].data("val") !== moves[1].data("val")){
       turnCardDown(moves[0]);
       turnCardDown(card);
-      $('span').text("no match");
     }
     moves = []
   }
@@ -145,23 +92,22 @@ function checkVictory() {
   }
 }
 
-// function setDimensions(rows, col) {
-//   while !((rows * col)%2 == 0 && side >= 2) {
-//     return prompt("How many" + side)
-//   }
-// }
-
 
 
 $(document).ready(function () {
-  do {
+
+  while(true) {
     rows = prompt("How many rows, bros?");
     cols = prompt("How many columns, golems?");
-  }
-  while (((rows * cols) % 2 !== 0) || rows < 2 || cols < 2);
+    numCards = rows * cols;
 
-  var numCards = rows * cols;
-  moves = []
+    if ( (numCards % 2 == 0) || (rows >= 2) || (cols >= 2) ) break
+
+    //only runs if you got something wrong
+    alert('Try again. You need an even number of cards total, and there must be at least 2 rows and 2 columns.');
+  }
+
+  moves = [];
   var deck = setUpDeck(numCards);
 
 
