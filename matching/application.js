@@ -1,23 +1,15 @@
+var matchingGame = {
 
-
-var Game = {
-
-	var initialize = function(num){
-		for (var i=0; i<num; i++) {
-			$(".cards").append('<tr>');
+	init: function(num){
+    for (var i=0; i<num; i++) {
+			$(".cards").append('<tr></tr>');
 
 			for(var j=0; j<num; j++) {
-				$(".cards").find('<tr>').last.append('<td>X</td>');
-
+				$(".cards tr").append('<td>X</td>');
 			}
-			$(".cards").find('</td>').last.append('</tr>');
 		}
 	}
 
-
-
-
-
-
-
 };
+
+$( document ).ready( function(){matchingGame.init(2);} );
