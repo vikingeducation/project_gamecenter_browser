@@ -1,0 +1,21 @@
+#board {
+/*  background: #ccc;*/
+  border: #999 1px solid;
+  width: 500px;
+  height: 500px;
+  padding: 20px;
+  margin: 0px auto;
+}
+
+.card {
+	height: 90px;
+	width: 90px;
+	border: solid 1px;
+	display: inline-block;
+	background-color: red;
+	margin: 5px;
+}
+
+#tile {
+  
+}
