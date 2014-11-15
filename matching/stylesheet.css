@@ -13,7 +13,12 @@
 	border: solid 1px;
 	display: inline-block;
 	background-color: red;
-	margin: 5px;
+	margin: 4px;
+  box-sizing: border-box;
+}
+
+.front {
+  visibility: hidden;
 }
 
 #tile {
