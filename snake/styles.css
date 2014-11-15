@@ -4,7 +4,7 @@
     height:10px;
     margin-right:3px;
     margin-bottom:3px;
-    background-color:#F7F7F7;  
+    background-color:#F7F7F7;
 }
 
 .snake {
@@ -13,4 +13,8 @@
 
 .food {
 	background-color:green !important;
+}
+
+.snake-head {
+  background-color: black !important;
 }

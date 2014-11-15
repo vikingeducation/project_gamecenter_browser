@@ -8,21 +8,23 @@ var snakeGame = {
 	init: function(){
 		var num = 20;
 		var counter=1;
+    snakeLength = [];
     for (var i=0; i<num; i++) {
 			$(".gameBoard").append('<tr></tr>');
 			for(var j=0; j<num; j++) {
 				$(".gameBoard tr").last().append('<td id='+counter+'></td>');
 				counter+=1;
 			}
-		}	
-		snakeGame.draw_snake(num);	
+		}
+		snakeGame.draw_snake(num);
 		snakeGame.draw_food(num);
 		snakeGame.play(num);
   },
 
   draw_snake: function(num){
   	snake_id = Math.round(Math.random()*(num*num)) + 1;
-  	$(".gameBoard td#"+snake_id).addClass("snake");
+  	$(".gameBoard td#"+snake_id).addClass("snake-head");
+    snakeLength.push(parseInt(snake_id));
   },
 
   draw_food: function(num){
@@ -57,31 +59,50 @@ var snakeGame = {
   },
 
   move: function(direction,num){
-  	var currentID = parseInt($('td.snake').attr('id'));
-  	alert(currentID);
+  	var currentID = parseInt($('td.snake-head').attr('id'));
+    var nextID;
 
   	switch(direction) {
 			case 'r':
-				var nextID = currentID+1;
-				alert(nextID);
+				nextID = currentID+1;
 				break;
 			case 'l':
-				var nextID = currentID-1;
-				alert(nextID);
+				nextID = currentID-1;
 				break;
 			case 'u':
-				var nextID = currentID-num;
-				alert(nextID);
+				nextID = currentID-num;
 				break;
 			case 'd':
-				var nextID = currentID+num;
-				alert(nextID);
+				nextID = currentID+num;
 				break;
 		}
 
-		$('#'+currentID).removeClass('snake');
-		$('#'+nextID).addClass('snake');
+		$('#'+currentID).removeClass('snake-head');
+		$('#'+nextID).addClass('snake-head');
 
+    if($('#'+nextID).hasClass('food'))
+      { $('#'+nextID).removeClass('food');
+        snakeGame.draw_food(num); }
+    else
+      { snakeLength.shift(); }
+
+    if($('#'+nextID).hasClass('snake')
+      || nextID > num*num || nextID < 1
+      || (nextID % num == 0 && nextID == currentID - 1)
+      || (currentID % num == 0 && nextID == currentID + 1) )
+      { alert('GAME OVER\nFinal Length:' + (snakeLength.length + 1));
+        snakeLength = [];
+        currentMove = undefined;
+        $('td').removeClass('snake');
+        $('td').removeClass('snake-head'); }
+    else {
+      snakeLength.push(nextID);
+
+      $('td').removeClass('snake');
+
+      snakeLength.forEach(function(section)
+        { $("#"+section).addClass('snake'); });
+    }
 
   }
 
