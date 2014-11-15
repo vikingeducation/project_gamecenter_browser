@@ -1,0 +1,23 @@
+Snake pseudo code
+
+my approach thinking
+	Options for the game board
+		1. canvas and we can manipulate all visual elements using the built in x and y
+		2. divs confined to a specified width
+		3. a table with a bunch of cells
+	The snake
+		The snake is an array of coordinates
+		Motion is faked by painting each of the coordinates
+		Every render the coordinates on the head and tail get updated for the given direction
+
+Needs to get made
+	Render the board
+		X by X cells
+	Render the snake
+		each segment occupies a cell on the board
+		increases in size whenever it eats some shit
+	Render the food
+		disapears when it's eaten
+	Game loop
+		renders the snake every X ms
+		breaks if the snake runs into something

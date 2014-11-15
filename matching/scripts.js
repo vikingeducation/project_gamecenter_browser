@@ -36,7 +36,7 @@ function renderCards(deck) {
 
  		$('#board').append(
 			"<div class='card' data-val = '" + cardValue + "'  id=\'card" + i + "\'>" +
-			"<div class='front'>" + cardValue + "</div>" +
+			"<div class='front hidden'>" + cardValue + "</div>" +
       "<div class='back'></div>" +
 			"</div>"
 		);
@@ -105,17 +105,22 @@ function setUpDeck(numCards) {
 }
 
 function turnCardUp(card) {
-  card.children().filter(".front").removeClass("hidden");
-  cardValue = card.data("val");
-  if((moves.length > 0) && (moves[0].attr("id") == card.attr("id"))){
-    alert("invalid move. you must pick a different card")    
-  } else {
-    match(card);
-    }
+  if (card.children().filter(".front").hasClass("hidden")) {
+    card.children().filter(".front").removeClass("hidden");
+    cardValue = card.data("val");
+
+    if((moves.length > 0) && (moves[0].attr("id") == card.attr("id"))){
+      alert("invalid move. you must pick a different card");
+    } else {
+      match(card);
+      }
+  }
 }
 
 function turnCardDown(card) {
-  card.children().filter(".front").addClass("hidden");
+  setTimeout(function(){
+    card.children().filter(".front").addClass("hidden");
+  }, 500);
 }
 
 function match(card){
@@ -126,18 +131,39 @@ function match(card){
     if(moves[0].data("val") == moves[1].data("val")){
       alert("you got one" + moves[0]);
     } else {
-      alert("no match")
+      turnCardDown(moves[0]);
+      turnCardDown(card);
+      $('span').text("no match");
     }
     moves = []
   }
 }
 
+function checkVictory() {
+  if ($('.hidden').length == 0) {
+    alert("You have won");
+  }
+}
+
+// function setDimensions(rows, col) {
+//   while !((rows * col)%2 == 0 && side >= 2) {
+//     return prompt("How many" + side)
+//   }
+// }
+
+
+
 $(document).ready(function () {
-  var rows = 4;
-  var cols = 4;
+  do {
+    rows = prompt("How many rows, bros?");
+    cols = prompt("How many columns, golems?");
+  }
+  while (((rows * cols) % 2 !== 0) || rows < 2 || cols < 2);
+
   var numCards = rows * cols;
   moves = []
   var deck = setUpDeck(numCards);
+
 
   setUpBoard(rows, cols);
 	renderCards(deck);
@@ -145,6 +171,7 @@ $(document).ready(function () {
   $('.card').click(function(e){
     var $target = $(e.target);
     turnCardUp($target);
+    checkVictory();
   });
 
 });
