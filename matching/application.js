@@ -67,3 +67,11 @@ Array.prototype.shuffle = function(){
 
 
 $( document ).ready( function(){matchingGame.init();} );
+
+
+
+
+
+
+
+
