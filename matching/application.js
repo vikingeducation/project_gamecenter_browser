@@ -1,11 +1,17 @@
 var matchingGame = {
 
-	init: function(num){
+	init: function(){
+    var num = 1;
+
+    while ( num % 2 !== 0 ) {
+      num = prompt("How many rows would you like?");
+    }
+
     for (var i=0; i<num; i++) {
 			$(".cards").append('<tr></tr>');
 
 			for(var j=0; j<num; j++) {
-				$(".cards tr").last().append('<td><p></p></td>');
+				$(".cards tr").last().append('<td><p id='+j+i+'></p></td>');
 			}
 		}
 		this.add_value_to_cell(num);
@@ -40,13 +46,17 @@ var matchingGame = {
 				choices=[];
 			}
       $(this).find("p").show();
-			choices.push($(this).find("p"));
-			if (choices[0].text() == choices[1].text()){
+      choices.push($(this).find("p"));
+
+			if ( choices[0].attr('id') != choices[1].attr('id') && choices[0].text() == choices[1].text()){
         alert('Match!');
       } else if (choices[1]) {
         setTimeout(function() {
         choices[0].hide();
         choices[1].hide(); }, 1000);
+      } else {
+        choices[0].hide();
+        choices = [];
       }
 		});
 	}
@@ -59,4 +69,4 @@ Array.prototype.shuffle = function(){
 };
 
 
-$( document ).ready( function(){matchingGame.init(4);} );
+$( document ).ready( function(){matchingGame.init();} );
