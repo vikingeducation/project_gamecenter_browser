@@ -1,0 +1,6 @@
+.gameBoard td {
+	border: 1px solid black;
+	height: 5px;
+	width: 5px;
+  text-align: center;
+}
