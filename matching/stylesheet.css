@@ -18,6 +18,9 @@
 }
 
 .front {
+}
+
+.hidden {
   visibility: hidden;
 }
 

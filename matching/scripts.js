@@ -104,12 +104,39 @@ function setUpDeck(numCards) {
   return shuffle(arr);
 }
 
+function turnCardUp(card) {
+  card.children().filter(".front").removeClass("hidden");
+  cardValue = card.data("val");
+  if((moves.length > 0) && (moves[0].attr("id") == card.attr("id"))){
+    alert("invalid move. you must pick a different card")    
+  } else {
+    match(card);
+    }
+}
+
+function turnCardDown(card) {
+  card.children().filter(".front").addClass("hidden");
+}
+
+function match(card){
+  if(moves.length == 0){
+    moves.push(card);
+  } else {
+    moves.push(card);
+    if(moves[0].data("val") == moves[1].data("val")){
+      alert("you got one" + moves[0]);
+    } else {
+      alert("no match")
+    }
+    moves = []
+  }
+}
 
 $(document).ready(function () {
   var rows = 4;
   var cols = 4;
   var numCards = rows * cols;
-
+  moves = []
   var deck = setUpDeck(numCards);
 
   setUpBoard(rows, cols);
@@ -117,8 +144,7 @@ $(document).ready(function () {
 
   $('.card').click(function(e){
     var $target = $(e.target);
-    alert($target.attr('id'));
-    // turnCardsUp($target);
+    turnCardUp($target);
   });
 
 });
