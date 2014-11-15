@@ -5,55 +5,51 @@ var matchingGame = {
 			$(".cards").append('<tr></tr>');
 
 			for(var j=0; j<num; j++) {
-				$(".cards tr").last().append('<td class="hidden-card"></td>');
+				$(".cards tr").last().append('<td><p></p></td>');
 			}
 		}
 		this.add_value_to_cell(num);
-	},
-
-	generate_matches: function(num){
-		var num_pairs = (num*num)/2;
-		var pairs = [];
-		for (var i=0; i<num_pairs; i++) {
-			random_num = i ;
-			pairs.push(random_num);
-			pairs.push(random_num);
-		}
-
-		return pairs;
-	},
-
-	add_value_to_cell: function(num){
-		var pairs_array = matchingGame.generate_matches(num);
-		$('td').each(function(){
-			$(this).text(pairs_array.shuffle().pop());
-		});
 		matchingGame.play_game();
+  },
+
+  generate_matches: function(num){
+    var num_pairs = (num*num)/2;
+    var pairs = [];
+    for (var i=0; i<num_pairs; i++) {
+      random_num = i ;
+      pairs.push(random_num);
+      pairs.push(random_num);
+    }
+
+    return pairs;
+  },
+
+  add_value_to_cell: function(num){
+    var pairs_array = matchingGame.generate_matches(num);
+    $('td p').each(function(){
+      $(this).text(pairs_array.shuffle().pop());
+      $(this).hide();
+    });
 	},
 
 	play_game: function(){
 		gameover = false;
-		choices=[];
+		var choices=[];
 		$('td').on('click',function(){
 			if (choices.length ==2){
 				choices=[];
 			}
-      $(this).removeClass("hidden-card");
-			choices.push($(this));
+      $(this).find("p").show();
+			choices.push($(this).find("p"));
 			if (choices[0].text() == choices[1].text()){
         alert('Match!');
       } else if (choices[1]) {
         setTimeout(function() {
-        choices[0].addClass("hidden-card");
-        choices[1].addClass("hidden-card"); }, 1000);
+        choices[0].hide();
+        choices[1].hide(); }, 1000);
       }
 		});
-	},
-
-	make_move: function(){
-
 	}
-
 
 };
 

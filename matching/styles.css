@@ -2,8 +2,5 @@
 	border: 1px solid black;
 	height: 100px;
 	width: 100px;
-}
-
-.hidden-card {
-  color: white;
+  text-align: center;
 }
