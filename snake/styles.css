@@ -1,9 +1,16 @@
-.gameBoard td {
+.gameBoard td  {
     float:left;
     width:10px;
     height:10px;
     margin-right:3px;
     margin-bottom:3px;
-    background-color:#F7F7F7;
-  
+    background-color:#F7F7F7;  
+}
+
+.snake {
+	background-color:red !important;
+}
+
+.food {
+	background-color:green !important;
 }
