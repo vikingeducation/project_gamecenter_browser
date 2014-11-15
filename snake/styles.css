@@ -1,6 +1,9 @@
 .gameBoard td {
-	border: 1px solid black;
-	height: 5px;
-	width: 5px;
-  text-align: center;
+    float:left;
+    width:10px;
+    height:10px;
+    margin-right:3px;
+    margin-bottom:3px;
+    background-color:#F7F7F7;
+  
 }
