@@ -54,9 +54,6 @@ var matchingGame = {
         setTimeout(function() {
         choices[0].hide();
         choices[1].hide(); }, 1000);
-      } else {
-        choices[0].hide();
-        choices = [];
       }
 		});
 	}
