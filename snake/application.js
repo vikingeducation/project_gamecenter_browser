@@ -1,45 +1,46 @@
-  LEFT=37;
-  RIGHT=39;
-  UP=38;
-  DOWN=40;
+LEFT  = 37;
+RIGHT = 39;
+UP    = 38;
+DOWN  = 40;
+
 var snakeGame = {
   init: function(){
-    var num = 20;
     var counter=1;
-    for (var i=0; i<num; i++) {
+    for (var i=0; i<snakeGame.scale; i++) {
       $(".gameBoard").append('<tr></tr>');
-      for(var j=0; j<num; j++) {
+      for(var j=0; j<snakeGame.scale; j++) {
         $(".gameBoard tr").last().append('<td id='+counter+'></td>');
         counter+=1;
       }
     }
-    snakeGame.draw_snake(num);
-    snakeGame.draw_food(num);
-    snakeGame.play(num);
+    snakeGame.draw_snake();
+    snakeGame.draw_food();
+    snakeGame.play();
   },
 
   snake: [],
+  scale: 20,
 
-  draw_snake: function(num){
-    snake_id = Math.round(Math.random()*(num*num)) + 1;
+  draw_snake: function(){
+    snake_id = Math.round(Math.random()*(snakeGame.scale*snakeGame.scale)) + 1;
     $(".gameBoard td#"+snake_id).addClass("snake-head snake");
     snakeGame.snake.push(snake_id);
   },
 
-  draw_food: function(num){
-    var food_id = Math.round(Math.random()*(num*num)) + 1;
+  draw_food: function(){
+    var food_id = Math.round(Math.random()*(snakeGame.scale*snakeGame.scale)) + 1;
     while ($(".gameBoard td#"+food_id).hasClass('snake')){
-      food_id = Math.round(Math.random()*(num*num)) + 1;
+      food_id = Math.round(Math.random()*(snakeGame.scale*snakeGame.scale)) + 1;
     }
     $(".gameBoard td#"+food_id).addClass("food");
   },
 
-  play: function(num){
+  play: function(){
     var currentMove = '';
 
     setInterval(function() {
       if (currentMove !== '') {
-        snakeGame.move(currentMove,num);
+        snakeGame.move(currentMove);
       }
     }, 100);
 
@@ -54,45 +55,43 @@ var snakeGame = {
         currentMove = 'd';
       }
     });
-
   },
 
-  move: function(direction,num){
-    var currentID = parseInt($('td.snake-head').attr('id'));
-    var nextID;
-
+  setNext: function(direction, currentID) {
     switch(direction) {
       case 'r':
-        nextID = currentID+1;
-        break;
+        return currentID+1;
       case 'l':
-        nextID = currentID-1;
-        break;
+        return currentID-1;
       case 'u':
-        nextID = currentID-num;
-        break;
+        return currentID-snakeGame.scale;
       case 'd':
-        nextID = currentID+num;
-        break;
+        return currentID+snakeGame.scale;
     }
+  },
 
-    $('#'+currentID).removeClass('snake-head');
-    $('#'+nextID).addClass('snake-head');
+  move: function(direction){
+    var $current  = $('td.snake-head');
+    var currentID = parseInt($current.attr('id'));
+    var nextID    = snakeGame.setNext(direction, currentID);
+    var $next     = $('#'+nextID);
 
-    if($('#'+nextID).hasClass('food'))
-      { $('#'+nextID).removeClass('food');
-        snakeGame.draw_food(num);
+    if($next.hasClass('food'))
+      { $next.removeClass('food');
+        snakeGame.draw_food();
         $('#score-box').text(snakeGame.snake.length+1); }
     else
       { snakeGame.snake.shift(); }
 
-    if($('#'+nextID).hasClass('snake') || nextID > num*num || nextID < 1 || (nextID % num === 0 && nextID == currentID - 1) || (currentID % num === 0 && nextID == currentID + 1) )
+    if($next.hasClass('snake') || nextID > snakeGame.scale*snakeGame.scale || nextID < 1 || (nextID % snakeGame.scale === 0 && nextID == currentID - 1) || (currentID % snakeGame.scale === 0 && nextID == currentID + 1) )
       { alert('GAME OVER\nFinal Length: ' + (snakeGame.snake.length + 1));
         snakeGame.snake = [];
         currentMove = undefined;
         $('td').removeClass('snake');
         $('td').removeClass('snake-head'); }
     else {
+      $current.removeClass('snake-head');
+      $next.addClass('snake-head');
       snakeGame.snake.push(nextID);
 
       $('td').removeClass('snake');
