@@ -29,7 +29,7 @@ var snakeGame = {
 
   draw_food: function(num){
   	var food_id = Math.round(Math.random()*(num*num)) + 1;
-  	while (food_id == snake_id){
+  	while (food_id == snake_id || snakeLength.contains(food_id)){
   		food_id = Math.round(Math.random()*(num*num)) + 1;
   	}
   	$(".gameBoard td#"+food_id).addClass("food");
