@@ -5,14 +5,14 @@ var snake = {
 
   //hard-coded for now
   // 10 x 10
-  "height" : 10,
-  "width" : 10,
+  "height" : 20,
+  "width" : 20,
 
 
   //current direction the snake is moving
   //keypresses can change this, linked to the
   //changeDirection function below
-  "direction" : 'up',
+  "direction" : "up",
 
   //the coordinates of the snake segments,
   //a queue we can push onto and shift off of
@@ -43,6 +43,7 @@ var snake = {
     var headY = this.snakeHead()[1];
 
     console.log(this.direction);
+
     switch(this.direction) {
       case "up":
         this.snakeCoords.push([headX, headY + 1]);
@@ -98,13 +99,40 @@ var snake = {
 
   //this is what the OnKeyUp event will call,
   //after parsing the keypress
-  changeDirection : function(direction){
+  changeDirection : function(event){
+
+    // should we have onKeyDown/press?
+    $(document).keydown(function(e) {
+
+      switch(e.which) {
+
+          case 37: // left
+            if (snake.direction != "left") snake.direction = "left"
+            break;
+
+          case 38: // up
+            if (snake.direction != "up") snake.direction = "up"
+            break;
+
+          case 39: // right
+            if (snake.direction != "right") snake.direction = "right"
+            break;
+
+          case 40: // down
+            if (snake.direction != "down") snake.direction = "down"
+            break;
+
+          default: return; // exit this handler for other keys
+        }
+        e.preventDefault(); // prevent the default action
+    });
 
   },
 
   //returns true if the snake has hit
   //itself or the end of the board
   collisionDetected : function(){
+
     // set bounds of board from [0, 0] to [height,  width]
     // if the snake head contains the coords of the bounds
     // or itself, return true
@@ -168,6 +196,30 @@ var snake = {
 $(document).ready(function() {
 
 
+  $(document).keydown(function(e) {
+
+    switch(e.which) {
+
+        case 37: // left
+          if (snake.direction != "right") snake.direction = "left"
+          break;
+
+        case 38: // up
+          if (snake.direction != "down") snake.direction = "up"
+          break;
+
+        case 39: // right
+          if (snake.direction != "left") snake.direction = "right"
+          break;
+
+        case 40: // down
+          if (snake.direction != "up") snake.direction = "down"
+          break;
+
+        default: return; // exit this handler for other keys
+      }
+      e.preventDefault(); // prevent the default action
+  });
 
   // just to test it worked
 
