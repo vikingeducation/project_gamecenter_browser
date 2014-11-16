@@ -1,0 +1,28 @@
+#board {
+  height: 600px;
+  width: 600px;
+  border: 1px solid;
+  background-color: lightgrey;
+  margin: 50px auto;
+  padding: 0;
+}
+
+.cell {
+  /*I DON'T KNOW WHY WE NEED THIS -4PX ON BOTTOM BUT WE DO*/
+  /*CANT FIGURE OUT WHERE THE PROBLEM IS COMING FROM*/
+  margin: 1px 1px -3px 1px;
+  display: inline-block;
+  box-sizing: border-box;
+}
+
+.snake {
+  background-color: lightgreen;
+}
+
+.food {
+  background-color: red;
+}
+
+h1 {
+  text-align: center;
+}
