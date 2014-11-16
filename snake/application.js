@@ -45,27 +45,19 @@ var snakeGame = {
     }, 100);
 
     $(document).keydown(function(event) {
-      if (event.which === RIGHT) {
-        currentMove = 'r';
-      } else if (event.which === LEFT) {
-        currentMove = 'l';
-      } else if (event.which === UP) {
-        currentMove = 'u';
-      } else if (event.which === DOWN) {
-        currentMove = 'd';
-      }
+      currentMove = event.which;
     });
   },
 
   setNext: function(direction, currentID) {
     switch(direction) {
-      case 'r':
+      case RIGHT:
         return currentID+1;
-      case 'l':
+      case LEFT:
         return currentID-1;
-      case 'u':
+      case UP:
         return currentID-snakeGame.scale;
-      case 'd':
+      case DOWN:
         return currentID+snakeGame.scale;
     }
   },
