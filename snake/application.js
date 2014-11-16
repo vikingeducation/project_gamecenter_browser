@@ -40,7 +40,8 @@ var snakeGame = {
     }, 100);
 
     $(document).keydown(function(event) {
-      currentMove = event.which;
+      if(event.which >= 37 && event.which <= 40)
+        { currentMove = event.which; }
     });
   },
 
@@ -50,7 +51,6 @@ var snakeGame = {
       case 38: return currentID-this.scale; // up
       case 39: return currentID+1;          // right
       case 40: return currentID+this.scale; // down
-      default: return currentID;            // default game over
     }
   },
 
