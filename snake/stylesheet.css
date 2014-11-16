@@ -8,11 +8,11 @@
 }
 
 .cell {
-  /*I DON'T KNOW WHY WE NEED THIS -4PX ON BOTTOM BUT WE DO*/
-  /*CANT FIGURE OUT WHERE THE PROBLEM IS COMING FROM*/
+  /* -3 is to offset built in margin on inline-block*/
   margin: 1px 1px -3px 1px;
   display: inline-block;
   box-sizing: border-box;
+  background-color: lightgreen;
 }
 
 .snake {
