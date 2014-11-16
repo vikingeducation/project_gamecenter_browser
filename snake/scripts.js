@@ -71,6 +71,8 @@ $(document).ready(function() {
         for (y = 0; y < this.height; y++) {
           $('#board').append("<div class='cell' ></div>");
 
+          //i kept getting errors trying to one-line it in the append
+
           //take the newly created div and give it data coordinates
           $('.cell').last().attr('data-x', x);
           $('.cell').last().attr('data-y', y); 
@@ -108,7 +110,8 @@ $(document).ready(function() {
 
 
 
-  //We need an OnKeyUp event listener here
+  //We need an on('keyup', function(){}) event 
+  // listener here
   //so you can control the snake
 
 
