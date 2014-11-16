@@ -1,14 +1,9 @@
-LEFT  = 37;
-RIGHT = 39;
-UP    = 38;
-DOWN  = 40;
-
 var snakeGame = {
   init: function(){
     var counter=1;
-    for (var i=0; i<snakeGame.scale; i++) {
+    for (var i=0; i<this.scale; i++) {
       $(".gameBoard").append('<tr></tr>');
-      for(var j=0; j<snakeGame.scale; j++) {
+      for(var j=0; j<this.scale; j++) {
         $(".gameBoard tr").last().append('<td id='+counter+'></td>');
         counter+=1;
       }
@@ -22,15 +17,15 @@ var snakeGame = {
   scale: 20,
 
   draw_snake: function(){
-    snake_id = Math.round(Math.random()*(snakeGame.scale*snakeGame.scale)) + 1;
+    snake_id = Math.round(Math.random()*(this.scale*this.scale)) + 1;
     $(".gameBoard td#"+snake_id).addClass("snake-head snake");
     snakeGame.snake.push(snake_id);
   },
 
   draw_food: function(){
-    var food_id = Math.round(Math.random()*(snakeGame.scale*snakeGame.scale)) + 1;
+    var food_id = Math.round(Math.random()*(this.scale*this.scale)) + 1;
     while ($(".gameBoard td#"+food_id).hasClass('snake')){
-      food_id = Math.round(Math.random()*(snakeGame.scale*snakeGame.scale)) + 1;
+      food_id = Math.round(Math.random()*(this.scale*this.scale)) + 1;
     }
     $(".gameBoard td#"+food_id).addClass("food");
   },
@@ -51,20 +46,16 @@ var snakeGame = {
 
   setNext: function(direction, currentID) {
     switch(direction) {
-      case RIGHT:
-        return currentID+1;
-      case LEFT:
-        return currentID-1;
-      case UP:
-        return currentID-snakeGame.scale;
-      case DOWN:
-        return currentID+snakeGame.scale;
+      case 37: return currentID-1;          // left
+      case 38: return currentID-this.scale; // up
+      case 39: return currentID+1;          // right
+      case 40: return currentID+this.scale; // down
     }
   },
 
   move: function(direction){
     var $current  = $('td.snake-head');
-    var currentID = parseInt($current.attr('id'));
+    var currentID = parseInt($current.attr('id'), 10);
     var nextID    = snakeGame.setNext(direction, currentID);
     var $next     = $('#'+nextID);
 
@@ -75,7 +66,11 @@ var snakeGame = {
     else
       { snakeGame.snake.shift(); }
 
-    if($next.hasClass('snake') || nextID > snakeGame.scale*snakeGame.scale || nextID < 1 || (nextID % snakeGame.scale === 0 && nextID == currentID - 1) || (currentID % snakeGame.scale === 0 && nextID == currentID + 1) )
+    if($next.hasClass('snake') ||
+        nextID > this.scale*this.scale ||
+        nextID < 1 ||
+        (nextID % this.scale === 0 && nextID == currentID - 1) ||
+        (currentID % this.scale === 0 && nextID == currentID + 1) )
       { alert('GAME OVER\nFinal Length: ' + (snakeGame.snake.length + 1));
         snakeGame.snake = [];
         currentMove = undefined;
