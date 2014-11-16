@@ -28,8 +28,26 @@ $(document).ready(function() {
 
     },
 
+    //returns boolean
+    touchingFood : function(){
+
+    },
+
+    growSnake : function(){
+
+    },
+
+    //this is what the OnKeyUp event will call, 
+    //after parsing the keypress
     changeDirection : function(direction){
 
+    },
+
+    //returns true if the snake has hit
+    //itself or the end of the board
+    collisionDetected : function(){
+      //add in true conditions
+      return false;
     },
 
     //single turn
@@ -41,6 +59,8 @@ $(document).ready(function() {
     gameLoop : function(){
       while(true){
         takeTurn();
+        if ( collisionDetected() ) break;
+        if ( touchingFood() ){ growSnake(); };
       };
     },
 
