@@ -11,7 +11,7 @@ var matchingGame = {
 			$(".cards").append('<tr></tr>');
 
 			for(var j=0; j<num; j++) {
-				$(".cards tr").last().append('<td><p id='+j+i+'></p></td>');
+				$(".cards tr").last().append('<td><p class="unmatched" id='+j+i+'></p></td>');
 			}
 		}
 		this.add_value_to_cell(num);
@@ -39,21 +39,20 @@ var matchingGame = {
 	},
 
 	play_game: function(){
-		gameover = false;
-		var choices=[];
 		$('td').on('click',function(){
-			if (choices.length ==2){
-				choices=[];
-			}
+      $(this).find("p.unmatched").addClass('selected');
       $(this).find("p").show();
-      choices.push($(this).find("p"));
+      var $selection = $('p.selected');
 
-			if ( choices[0].attr('id') != choices[1].attr('id') && choices[0].text() == choices[1].text()){
-        alert('Match!');
-      } else if (choices[1]) {
-        setTimeout(function() {
-        choices[0].hide();
-        choices[1].hide(); }, 1000);
+      if($selection.length >= 2) {
+        if ($($selection[0]).attr('id') != $($selection[1]).attr('id') && $($selection[0]).text() == $($selection[1]).text())
+          { alert('match');
+            $selection.removeClass('selected');
+            $selection.removeClass('unmatched');
+        } else {
+          $selection.removeClass('selected');
+          setTimeout(function() { $selection.filter('.unmatched').hide(); }, 1000);
+        }
       }
 		});
 	}
