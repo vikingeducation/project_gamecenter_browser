@@ -2,7 +2,8 @@
 
 
 var snake = {
-
+  'speed' : 150,
+  "score" : 0,
   //hard-coded for now
   // 10 x 10
   "height" : 20,
@@ -26,7 +27,7 @@ var snake = {
   createSnake : function(){
     //pick spot for snake to appear
     //push those coords onto snakeCoords
-    length = 3
+    length = 8
     for ( i = 0; i < length; i++) {
       this.snakeCoords.push([0, i]);
       this.findCoords(this.snakeHead()).addClass("snake");
@@ -77,24 +78,34 @@ var snake = {
   },
   // this takes coords and converts them to jquery objects
   findCoords : function(coords) {
-    var x = coords[0]
-    var y = coords[1]
-    var rowY = '.row' + y
-    var colX = '.col' + x
-    return $(rowY).filter(colX)
+    var x = coords[0];
+    var y = coords[1];
+    var rowY = '.row' + y;
+    var colX = '.col' + x;
+    return $(rowY).filter(colX);
   },
 
   createFood : function(){
-
+    var x = Math.floor(Math.random() * this.width);
+    var y = Math.floor(Math.random() * this.height);
+    this.findCoords([x, y]).addClass('food');
   },
 
   //returns boolean
   touchingFood : function(){
-
+    return $('.food').filter('.snake').length
   },
+
   //add to coordinates after food
   growSnake : function(){
 
+    this.score += 1;
+
+    $('.food').removeClass('food');
+
+    this.snakeCoords.unshift(this.lastTail);
+
+    this.createFood();
   },
 
   //this is what the OnKeyUp event will call,
@@ -138,10 +149,24 @@ var snake = {
     // or itself, return true
     var headX = this.snakeHead()[0];
     var headY = this.snakeHead()[1];
+    var snakeWithoutHead = this.snakeCoords.slice(0, this.snakeCoords.length - 2);
+    snakeWithoutHead.push(this.lastTail);
 
-    if ( headX >= (this.width - 1) || headX < 0) {
+    var selfCollision = function(){
+      var collided = false;
+      snakeWithoutHead.forEach(function(value, index, array){
+        if (headX == value[0] && headY == value[1]){
+          collided = true;
+        }
+      });
+      return collided;
+    };
+
+    if ( headX > (this.width - 1) || headX < 0) {
       return true;
-    } else if ( headY >= (this.height - 1) || headY < 0) {
+    } else if ( headY > (this.height - 1) || headY < 0) {
+      return true;
+    } else if ( selfCollision() ){
       return true;
     } else {
       return false;
@@ -156,11 +181,14 @@ var snake = {
 
   gameLoop : function(){
     var loop = setInterval (function() {
-      snake.moveSnake();
       snake.renderSnake();
-      if ( snake.collisionDetected() ) clearInterval(loop);
       if ( snake.touchingFood() ){ snake.growSnake(); }
-    }, 1000)
+      snake.moveSnake();
+      if ( snake.collisionDetected() ){
+          clearInterval(loop);
+          alert("HA! YOU LOSE. YOUR SCORE WAS " + snake.score);
+        };
+    }, this.speed)
   },
 
   buildBoard : function(){
