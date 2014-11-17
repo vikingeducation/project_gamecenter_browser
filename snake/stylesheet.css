@@ -1,0 +1,31 @@
+#board {
+  height: 600px;
+  width: 600px;
+  border: 1px solid;
+  background-color: lightgrey;
+  margin: 50px auto;
+  padding: 0;
+}
+
+.cell {
+  /* -3 is to offset built in margin on inline-block*/
+  margin: 1px 1px 1px 1px;
+  float: left;
+  box-sizing: border-box;
+}
+
+.snake {
+  background-color: red;
+}
+
+.food {
+  background-color: green;
+}
+
+h1 {
+  text-align: center;
+}
+
+h2 {
+  text-align: center;
+}
