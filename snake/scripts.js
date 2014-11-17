@@ -86,8 +86,10 @@ var snake = {
   },
 
   createFood : function(){
-    var x = Math.floor(Math.random() * this.width);
-    var y = Math.floor(Math.random() * this.height);
+    do {
+      var x = Math.floor(Math.random() * this.width);
+      var y = Math.floor(Math.random() * this.height);
+    } while (this.findCoords([x,y]).filter('.snake').length); //never put food on a snake
     this.findCoords([x, y]).addClass('food');
   },
 
