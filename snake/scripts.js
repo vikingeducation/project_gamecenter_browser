@@ -2,12 +2,12 @@
 
 
 var snake = {
-  'speed' : 150,
+  'interval' : 100,
   "score" : 0,
   //hard-coded for now
   // 10 x 10
-  "height" : 20,
-  "width" : 20,
+  "height" : 30,
+  "width" : 30,
 
 
   //current direction the snake is moving
@@ -99,8 +99,8 @@ var snake = {
   //add to coordinates after food
   growSnake : function(){
 
-    this.score += 1;
-
+    this.score += 100;
+    $('span').text(this.score);
     $('.food').removeClass('food');
 
     this.snakeCoords.unshift(this.lastTail);
@@ -186,9 +186,9 @@ var snake = {
       snake.moveSnake();
       if ( snake.collisionDetected() ){
           clearInterval(loop);
-          alert("HA! YOU LOSE. YOUR SCORE WAS " + snake.score);
+          $('h2').text("HA! YOU LOSE. YOUR SCORE WAS " + snake.score);
         };
-    }, this.speed)
+    }, this.interval)
   },
 
   buildBoard : function(){
