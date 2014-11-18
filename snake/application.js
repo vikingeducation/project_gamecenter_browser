@@ -37,7 +37,7 @@ var snakeGame = {
       if (currentMove !== '') {
         snakeGame.move(currentMove);
       }
-    }, 100);
+    }, 150);
 
     $(document).keydown(function(event) {
       if(event.which >= 37 && event.which <= 40)

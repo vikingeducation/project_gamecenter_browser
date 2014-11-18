@@ -7,6 +7,10 @@
     background-color:#F7F7F7;
 }
 
+.gameBoard {
+  border: 1px solid black;
+}
+
 .snake {
 	background-color:red !important;
 }
