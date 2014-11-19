@@ -11,3 +11,16 @@
 #tile {
   
 }
+
+nav {
+  border-radius: 4px;
+  border: 1px solid;
+  background-color: lightblue;
+  width: 150px;
+  height: 80px;
+  float: left;
+}
+
+a {
+  text-align: center;
+}

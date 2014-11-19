@@ -29,3 +29,17 @@ h1 {
 h2 {
   text-align: center;
 }
+
+nav {
+  border-radius: 4px;
+  border: 1px solid;
+  background-color: lightblue;
+  width: 150px;
+  height: 80px;
+  float: left;
+  text-align: center;
+}
+
+a {
+  text-align: center;
+}
