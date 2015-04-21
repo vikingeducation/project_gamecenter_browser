@@ -1,21 +1,21 @@
+"use strict";
 var view = {
   init: function(){
-    while(gridSize % 2 === 1){
-      gridSize = prompt("Please enter an even number to start your game!","4");
+    while(model.gridSize % 2 === 1){
+      model.gridSize = prompt("Please enter an even number to start your game!","4");
     }
 
-    $container = $( '#container' );
-    for (var i = 1; i <= size; i++) {
-      view.addRow($container, size);
+    var $container = $( '#container' );
+    for (var i = 1; i <= model.gridSize; i++) {
+      view.addRow($container, model.gridSize);
     }
   },
 
-  gridSize: 1,
 
   addRow: function(grid, columns){
     grid.append('<div class="row"></div>');
     for (var i = 1; i <= columns; i++) {
-      $row = $('#container .row').last();
+      var $row = $('#container .row').last();
       $row.append('<div class="card"></div>');
     }
   }
@@ -25,19 +25,21 @@ var controller = {
   init: function(){
     view.init();
 
-    var cardList = model.generateCardList(view.gridSize)
+    var cardList = model.generateCardList(model.gridSize)
   }
 };
 
 var model = {
 
+  gridSize: 1,
+
   generateCardList: function(numOfCards){
-    model.shuffle(model.generateOrderedArray(numOfCards));
-  }
+    return model.shuffle(model.generateOrderedArray(numOfCards));
+  },
 
   generateOrderedArray: function(numOfCards){
     var orderedArray = [];
-    for( i = 1; i < numOfCards/2; i++ ) {
+    for( var i = 1; i < numOfCards/2; i++ ) {
       orderedArray.push(i);
       orderedArray.push(i);
     }
