@@ -1,6 +1,10 @@
 var view = {
   init: function(){
-    var size = prompt("Please enter an even number to start your game!","4");
+    var size = 1;
+    while(size % 2 === 1){
+      size = prompt("Please enter an even number to start your game!","4");
+    }
+
     $container = $( '#container' );
     for (var i = 1; i <= size; i++) {
       view.addRow($container, size);
@@ -20,6 +24,10 @@ var controller = {
   init: function(){
     view.init();
   }
+};
+
+var model = {
+
 };
 
 $( document ).ready(function() {
