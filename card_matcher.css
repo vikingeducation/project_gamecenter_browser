@@ -1,0 +1,12 @@
+.row{
+  clear: left;
+}
+
+.card{
+  height: 50px;
+  width: 50px;
+  background-color: #3d9970;
+  border: 1px solid #F012BE;
+  margin: 10px;
+  float: left;
+}
