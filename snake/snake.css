@@ -1,0 +1,20 @@
+
+.row {
+  clear: left;
+}
+
+.cell {
+  height: 40px;
+  width: 40px;
+  float: left;
+  background-color: #eee;
+}
+
+#apple {
+  background-color: #FF0000;
+  border-radius: 50%;
+}
+
+.snake {
+  background-color: #00FF66
+}

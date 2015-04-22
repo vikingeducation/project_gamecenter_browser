@@ -1,18 +1,34 @@
+
+
 var model = {
   //this is where we gen board! :D
-  board: funciton(){
+  board: function(){
 
   },
 
-  gridSize: 6
+  gridSize: {
+    height: 6,
+    width: 10
+  }
 
 };
 
 var view = {
   init: function(gridSize){
-    for( var y = gridSize; y > 0; y--){
-      $('#container').append
-      //WHERE WE LEFT OFF
+    for( var y = gridSize.height; y > 0; y--){
+      var $row = $("<div />", {
+        class: 'row',
+        'data-y': y
+      });
+      $('#container').append($row);
+      for( var x = gridSize.width; x > 0; x--){
+        var $cell = $("<div />", {
+          class: 'cell',
+          'data-x': x,
+          'data-y': y
+        });
+        $row.append($cell);
+      }
     }
   }
 };
