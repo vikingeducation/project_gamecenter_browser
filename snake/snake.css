@@ -18,3 +18,7 @@
 .snake {
   background-color: #00FF66
 }
+
+#snake-head {
+  background-color: #33CC66
+}
