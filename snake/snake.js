@@ -61,7 +61,6 @@ var controller = {
   init: function(){
     view.init(model.gridSize);
   }
-
 };
 
 $( document ).ready(function() {
