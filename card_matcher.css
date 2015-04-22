@@ -26,4 +26,13 @@
   text-align: center;
 }
 
+.matched {
+  background-color: white;
+  border: 2px solid green;
+}
+
+.matched .number {
+  visibility: visible;
+}
+
 

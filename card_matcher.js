@@ -11,8 +11,7 @@ var view = {
       view.addRow($container, model.gridSize);
     }
 
-    $cards = $( '.card' );
-    $cards.click(function(){
+    $( '.turnable' ).click(function(){
       controller.handleClick(this);
     });
   },
@@ -21,7 +20,7 @@ var view = {
     grid.append('<div class="row"></div>');
     for (var i = 1; i <= columns; i++) {
       var $row = $('#container .row').last();
-      $row.append('<div class="card"></div>');
+      $row.append('<div class="card turnable"></div>');
     }
   },
 
@@ -48,13 +47,23 @@ var controller = {
     // if zero or one card turned over, turn over
     if(howManyFaceUp === 0 || howManyFaceUp === 1){
       $(card).addClass('face-up');
-    }
+    };
+    howManyFaceUp = $( '.face-up' ).length;
     if(howManyFaceUp === 2){
       $cards = $( '.face-up span' );
       if($cards.first().data('value') === $cards.last().data('value')){
+        $cards.parent()
+          .addClass('matched')
+          .removeClass('face-up')
+          .removeClass('turnable');
+
         // if matched, assign matched class
+        console.log("they match! huzzah!");
       } else {
-        // else turn them both face down
+        setTimeout(function() {
+          $cards.parent().removeClass('face-up')
+        }, 1500);
+        console.log("they didn't match. sad face!");
       }
     }
   }
