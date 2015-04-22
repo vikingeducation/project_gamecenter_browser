@@ -10,6 +10,11 @@ var view = {
     for (var i = 1; i <= model.gridSize; i++) {
       view.addRow($container, model.gridSize);
     }
+
+    $cards = $( '.card' );
+    $cards.click(function(){
+      $(this).toggleClass('face-up');
+    });
   },
 
   addRow: function(grid, columns){
@@ -23,7 +28,7 @@ var view = {
   attachCardValues: function(cardList){
     $cards = $( '.card' );
     $cards.each(function(){
-      $( this ).text( cardList.pop() );
+      $( this ).html( '<span class="number">' + cardList.pop() + '</span>');
     });
   }
 };
@@ -31,7 +36,7 @@ var view = {
 var controller = {
   init: function(){
     view.init();
-    controller.cardList = model.generateCardList(model.gridSize);
+    controller.cardList = model.generateCardList();
     view.attachCardValues(controller.cardList)
   },
 
@@ -42,13 +47,18 @@ var model = {
 
   gridSize: 1,
 
-  generateCardList: function(numOfCards){
-    return model.shuffle(model.generateOrderedArray(numOfCards));
+  numOfCards: function(){
+    return model.gridSize * model.gridSize;
   },
 
-  generateOrderedArray: function(numOfCards){
+  generateCardList: function(){
+    return model.shuffle(model.generateOrderedArray());
+  },
+
+  generateOrderedArray: function(){
     var orderedArray = [];
-    for( var i = 1; i < numOfCards/2; i++ ) {
+    var numOfPairs = model.numOfCards() / 2;
+    for( var i = 1; i <= numOfPairs; i++ ) {
       orderedArray.push(i);
       orderedArray.push(i);
     }

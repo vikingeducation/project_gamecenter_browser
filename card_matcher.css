@@ -10,3 +10,20 @@
   margin: 10px;
   float: left;
 }
+
+.number {
+  visibility: hidden;
+}
+
+.face-up .number{
+  visibility: visible;
+  margin: auto;
+}
+
+.face-up {
+  background-color: white;
+  border: 1px solid black;
+  text-align: center;
+}
+
+
