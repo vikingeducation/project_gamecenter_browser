@@ -1,4 +1,5 @@
-"use strict";
+" use strict";
+
 var view = {
   init: function(){
     while(model.gridSize % 2 === 1){
@@ -11,22 +12,30 @@ var view = {
     }
   },
 
-
   addRow: function(grid, columns){
     grid.append('<div class="row"></div>');
     for (var i = 1; i <= columns; i++) {
       var $row = $('#container .row').last();
       $row.append('<div class="card"></div>');
     }
+  },
+
+  attachCardValues: function(cardList){
+    $cards = $( '.card' );
+    $cards.each(function(){
+      $( this ).text( cardList.pop() );
+    });
   }
 };
 
 var controller = {
   init: function(){
     view.init();
+    controller.cardList = model.generateCardList(model.gridSize);
+    view.attachCardValues(controller.cardList)
+  },
 
-    var cardList = model.generateCardList(model.gridSize)
-  }
+  cardList: []
 };
 
 var model = {
