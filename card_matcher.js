@@ -11,7 +11,7 @@ var view = {
       view.addRow($container, model.gridSize);
     }
 
-    $( '.turnable' ).click(function(){
+    $( '.card' ).click(function(){
       controller.handleClick(this);
     });
   },
@@ -20,7 +20,7 @@ var view = {
     grid.append('<div class="row"></div>');
     for (var i = 1; i <= columns; i++) {
       var $row = $('#container .row').last();
-      $row.append('<div class="card turnable"></div>');
+      $row.append('<div class="card"></div>');
     }
   },
 
@@ -52,19 +52,20 @@ var controller = {
     if(howManyFaceUp === 2){
       $cards = $( '.face-up span' );
       if($cards.first().data('value') === $cards.last().data('value')){
+        model.pointCounter++;
+        $( '#points' ).text( model.pointCounter );
         $cards.parent()
           .addClass('matched')
           .removeClass('face-up')
-          .removeClass('turnable');
-
-        // if matched, assign matched class
-        console.log("they match! huzzah!");
+          .off('click');
       } else {
         setTimeout(function() {
-          $cards.parent().removeClass('face-up')
+          $cards.parent().removeClass('face-up');
         }, 1500);
-        console.log("they didn't match. sad face!");
       }
+    }
+    if(model.gameOver()){
+      alert("YOU WON!");
     }
   }
 };
@@ -72,6 +73,12 @@ var controller = {
 var model = {
 
   gridSize: 1,
+
+  pointCounter: 0,
+
+  gameOver: function(){
+    return $( '.matched' ).length == model.numOfCards();
+  },
 
   numOfCards: function(){
     return model.gridSize * model.gridSize;
