@@ -6,17 +6,15 @@ var model = {
     width: 10
   },
 
-  snakeHeadCoordinates: {
-    x: 1,
-    y: 1
-  },
-
   moveRight: function(){
-    model.snakeHeadCoordinates.x++;
+    model.board.snakeHead.x++;
   },
 
   board: {
-    snakeHead: model.snakeHeadCoordinates
+    snakeHead: {
+      x: 1,
+      y: 1
+    }
   }
 };
 
@@ -38,7 +36,7 @@ var view = {
   },
 
   appendCellsToRow: function(row, width){
-    for( var x = width; x > 0; x--){
+    for( var x = 1; x <= width; x++){
       var $cell = $("<div />", {
         class: 'cell',
         'data-x': x,
@@ -48,9 +46,9 @@ var view = {
     }
   },
 
-  render(board){
-    snakeHead = board.snakeHead
-    $("div[data-y='" + snakeHead.y + "'] div[data-x='" + snakehead.x + "']").addClass( 'snake-head' );
+  render: function(board){
+    var snakeHead = board.snakeHead;
+    $("div[data-y='" + snakeHead.y + "'] div[data-x='" + snakeHead.x + "']").addClass( 'snake-head' );
   }
 
 
@@ -63,12 +61,16 @@ var view = {
 var controller = {
   init: function(){
     view.init(model.gridSize);
+    controller.gameLoop();
+
+  },
+  gameLoop: function(){
     setInterval(function(){
       console.log("moving right");
       model.moveRight();
       console.log("rendering view");
       view.render(model.board)
-    }, 500);
+    }, 1000);
   }
 };
 
