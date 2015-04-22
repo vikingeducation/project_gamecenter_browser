@@ -1,11 +1,6 @@
 
 
 var model = {
-  //this is where we gen board! :D
-  board: function(){
-
-  },
-
   gridSize: {
     height: 6,
     width: 10
@@ -15,6 +10,14 @@ var model = {
     x: 1,
     y: 1
   },
+
+  moveRight: function(){
+    model.snakeHeadCoordinates.x++;
+  },
+
+  board: {
+    snakeHead: model.snakeHeadCoordinates
+  }
 };
 
 var view = {
@@ -45,21 +48,27 @@ var view = {
     }
   },
 
-  attachSnakeHead: function(coordinates){
-
-  },
-
-  detachSnakeHead: function(coordinates){
-
-  },
-
-  moveSnake: function(keypress){
+  render(board){
+    snakeHead = board.snakeHead
+    $("div[data-y='" + snakeHead.y + "'] div[data-x='" + snakehead.x + "']").addClass( 'snake-head' );
   }
+
+
+// $("div[data-y='6'] div[data-x='3']")
+  // attachSnakeHead: function(coordinates){},
+  // detachSnakeHead: function(coordinates){},
+  // moveSnake: function(keypress){}
 };
 
 var controller = {
   init: function(){
     view.init(model.gridSize);
+    setInterval(function(){
+      console.log("moving right");
+      model.moveRight();
+      console.log("rendering view");
+      view.render(model.board)
+    }, 500);
   }
 };
 

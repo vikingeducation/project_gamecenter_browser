@@ -15,10 +15,10 @@
   border-radius: 50%;
 }
 
-.snake {
+.snake-body {
   background-color: #00FF66
 }
 
-#snake-head {
+.snake-head {
   background-color: #33CC66
 }
