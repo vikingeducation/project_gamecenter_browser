@@ -13,7 +13,7 @@ var view = {
 
     $cards = $( '.card' );
     $cards.click(function(){
-      $(this).toggleClass('face-up');
+      controller.handleClick(this);
     });
   },
 
@@ -28,7 +28,8 @@ var view = {
   attachCardValues: function(cardList){
     $cards = $( '.card' );
     $cards.each(function(){
-      $( this ).html( '<span class="number">' + cardList.pop() + '</span>');
+      var value = cardList.pop()
+      $( this ).html( '<span class="number" data-value ="' + value +'">' + value + '</span>' );
     });
   }
 };
@@ -37,10 +38,26 @@ var controller = {
   init: function(){
     view.init();
     controller.cardList = model.generateCardList();
-    view.attachCardValues(controller.cardList)
+    view.attachCardValues(controller.cardList);
   },
 
-  cardList: []
+  cardList: [],
+
+  handleClick: function(card){
+    var howManyFaceUp = $( '.face-up' ).length;
+    // if zero or one card turned over, turn over
+    if(howManyFaceUp === 0 || howManyFaceUp === 1){
+      $(card).addClass('face-up');
+    }
+    if(howManyFaceUp === 2){
+      $cards = $( '.face-up span' );
+      if($cards.first().data('value') === $cards.last().data('value')){
+        // if matched, assign matched class
+      } else {
+        // else turn them both face down
+      }
+    }
+  }
 };
 
 var model = {
