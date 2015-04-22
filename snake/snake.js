@@ -1,16 +1,16 @@
 
 
 var model = {
-  gridSize: {
-    height: 6,
-    width: 10
-  },
 
   moveRight: function(){
     model.board.snakeHead.x++;
   },
 
   board: {
+    gridSize: {
+      height: 6,
+      width: 10
+    },
     snakeHead: {
       x: 1,
       y: 1
@@ -19,10 +19,6 @@ var model = {
 };
 
 var view = {
-  init: function(gridSize){
-    view.appendRowsToContainer(gridSize);
-  },
-
   appendRowsToContainer: function(gridSize){
     for( var y = gridSize.height; y > 0; y--){
       var $row = $("<div />", {
@@ -47,29 +43,28 @@ var view = {
   },
 
   render: function(board){
+    view.clearBoard()
+    view.appendRowsToContainer(board.gridSize);
     var snakeHead = board.snakeHead;
     $("div[data-y='" + snakeHead.y + "'] div[data-x='" + snakeHead.x + "']").addClass( 'snake-head' );
+  },
+
+  clearBoard: function(){
+    $( '#container').html("");
   }
-
-
-// $("div[data-y='6'] div[data-x='3']")
-  // attachSnakeHead: function(coordinates){},
-  // detachSnakeHead: function(coordinates){},
-  // moveSnake: function(keypress){}
 };
 
 var controller = {
   init: function(){
-    view.init(model.gridSize);
     controller.gameLoop();
 
   },
   gameLoop: function(){
     setInterval(function(){
+      console.log("rendering view");
+      view.render(model.board);
       console.log("moving right");
       model.moveRight();
-      console.log("rendering view");
-      view.render(model.board)
     }, 1000);
   }
 };
