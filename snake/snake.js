@@ -2,10 +2,6 @@
 
 var model = {
 
-  moveRight: function(){
-    model.board.snakeHead.x++;
-  },
-
   board: {
     gridSize: {
       height: 6,
@@ -15,7 +11,24 @@ var model = {
       x: 1,
       y: 1
     }
+  },
+
+  moveRight: function(){
+    model.board.snakeHead.x++;
+  },
+
+  moveLeft: function(){
+    model.board.snakeHead.x--;
+  },
+
+  moveUp: function(){
+    model.board.snakeHead.y++;
+  },
+
+  moveDown: function(){
+    model.board.snakeHead.y--;
   }
+
 };
 
 var view = {
@@ -59,6 +72,7 @@ var controller = {
     controller.gameLoop();
 
   },
+
   gameLoop: function(){
     setInterval(function(){
       console.log("rendering view");
@@ -66,7 +80,27 @@ var controller = {
       console.log("moving right");
       model.moveRight();
     }, 1000);
-  }
+  }//,
+
+  // direction: right,
+
+  // arrowKeysListener: function(){
+  //   $(window).keypress(function(38)
+  // }
+
+  // $( window ).keydown(function(e){
+  //       if(e.which === 39){
+  //          console.log("right!");
+  //       }
+  //   });
+
+
+  // .keypress();
+  // 38 = up arrow
+  // 40 = down arrow
+  // 37 = left arrow
+  // 39 = right arrow
+
 };
 
 $( document ).ready(function() {
