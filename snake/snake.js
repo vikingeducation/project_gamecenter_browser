@@ -1,16 +1,26 @@
+// wall-death
+// randomly-gen-food
+// regenerate food and add point if hit
+// snake body w/ food
+// death if hit body
 
 
 var model = {
 
   board: {
     gridSize: {
-      height: 15,
+      height: 10,
       width: 15
     },
     snakeHead: {
       x: 1,
       y: 1
     }
+  },
+
+  gameOver: function(){
+    // if snake head x is greater than width or less than 1, true
+    // if snake head y is greater than height or less than 1, true
   },
 
   direction: "right",
