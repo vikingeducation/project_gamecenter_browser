@@ -4,12 +4,26 @@ var model = {
 
   board: {
     gridSize: {
-      height: 6,
-      width: 10
+      height: 15,
+      width: 15
     },
     snakeHead: {
       x: 1,
       y: 1
+    }
+  },
+
+  direction: "right",
+
+  move: function(){
+    if(model.direction === "left"){
+      model.moveLeft();
+    } else if(model.direction === "up"){
+      model.moveUp();
+    } else if(model.direction === "right"){
+      model.moveRight();
+    } else if(model.direction === "down"){
+      model.moveDown();
     }
   },
 
@@ -32,6 +46,24 @@ var model = {
 };
 
 var view = {
+
+  init: function(){
+    view.attachArrowListener();
+  },
+
+  attachArrowListener: function(){
+    $( window ).keydown(function(e){
+      if(e.which === 37){
+         controller.setDirection("left");
+      } else if(e.which === 38){
+         controller.setDirection("up");
+      } else if(e.which === 39){
+         controller.setDirection("right");
+      } else if(e.which === 40){
+         controller.setDirection("down");
+      }
+    });
+  },
   appendRowsToContainer: function(gridSize){
     for( var y = gridSize.height; y > 0; y--){
       var $row = $("<div />", {
@@ -69,37 +101,21 @@ var view = {
 
 var controller = {
   init: function(){
+    view.init();
     controller.gameLoop();
+  },
 
+  setDirection: function(direction){
+    model.direction = direction
   },
 
   gameLoop: function(){
     setInterval(function(){
-      console.log("rendering view");
       view.render(model.board);
-      console.log("moving right");
-      model.moveRight();
-    }, 1000);
+      model.move();
+    }, 250);
   }//,
 
-  // direction: right,
-
-  // arrowKeysListener: function(){
-  //   $(window).keypress(function(38)
-  // }
-
-  // $( window ).keydown(function(e){
-  //       if(e.which === 39){
-  //          console.log("right!");
-  //       }
-  //   });
-
-
-  // .keypress();
-  // 38 = up arrow
-  // 40 = down arrow
-  // 37 = left arrow
-  // 39 = right arrow
 
 };
 
