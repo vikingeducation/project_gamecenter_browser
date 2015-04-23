@@ -3,14 +3,15 @@
 // regenerate food and add point if hit
 // snake body w/ food
 // death if hit body
+// speed up
 
 
 var model = {
 
   board: {
     gridSize: {
-      height: 10,
-      width: 15
+      height: 60,
+      width: 70
     },
     snakeHead: {
       x: 1,
@@ -123,7 +124,7 @@ var controller = {
     setInterval(function(){
       view.render(model.board);
       model.move();
-    }, 250);
+    }, 100);
   }//,
 
 
