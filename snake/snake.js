@@ -1,4 +1,3 @@
-// wall-death
 // randomly-gen-food
 // regenerate food and add point if hit
 // snake body w/ food
@@ -115,10 +114,7 @@ var view = {
 var controller = {
   init: function(){
     view.init();
-    setInterval(controller.gameLoop(), 500);
-    if(model.gameOver()){
-      clearInterval(controller.gameLoop());
-    }
+    controller.gameLoop();
   },
 
   setDirection: function(direction){
@@ -126,8 +122,13 @@ var controller = {
   },
 
   gameLoop: function(){
-    view.render(model.board);
-    model.move();
+    setInterval(function(){
+      if(model.gameOver()){
+        alert("GAME OVER");
+      }
+      view.render(model.board);
+      model.move();
+    }, 500);
   }
 };
 
