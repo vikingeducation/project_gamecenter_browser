@@ -11,6 +11,8 @@
 }
 
 .apple {
+  height: 25px;
+  width: 25px;
   background-color: #FF0000;
   border-radius: 50%;
 }

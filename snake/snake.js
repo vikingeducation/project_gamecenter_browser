@@ -1,7 +1,5 @@
 // randomly-gen-food
-  //model needs to randomly generate food coordinates
-    //cannot be on snake
-  //attach food to board object
+  //cannot be on snake ????
   //in view read apple from board object and place it correctly
   //if apple and snakehead coords are equal it regenerates
 // regenerate food and add point if hit
@@ -20,6 +18,10 @@ var model = {
     snakeHead: {
       x: 1,
       y: 1
+    },
+    apple: {
+      x: 5,
+      y: 6
     }
   },
 
@@ -61,13 +63,31 @@ var model = {
   },
 
   placeApple: function(){
-    var y = Math.floor((Math.random() * model.board.gridSize.height) + 1);
-    var x = Math.floor((Math.random() * model.board.gridSize.width) + 1);
-    model.board.apple = {
-      x: x,
-      y: y
+    var applePlaced = false;
+    while(!applePlaced){
+      var y = Math.floor((Math.random() * model.board.gridSize.height) + 1);
+      var x = Math.floor((Math.random() * model.board.gridSize.width) + 1);
+      if(!model.appleOnTopOfSnake(x,y)){
+        model.board.apple = {
+          x: x,
+          y: y
+        };
+        applePlaced = true;
+      }
     }
   },
+
+  appleOnTopOfSnake: function(x,y){
+    return model.appleOnSnakesX(x) && model.appleOnSnakesY(y);
+  },
+
+  appleOnSnakesX: function(x){
+    return model.board.snakeHead.x === x;
+  },
+
+  appleOnSnakesY: function(y){
+    return model.board.snakeHead.y === y;
+  }
 };
 
 var view = {
@@ -117,7 +137,7 @@ var view = {
     view.clearBoard();
     view.appendRowsToContainer(board.gridSize);
     view.attachSnakeHead(board.snakeHead);
-
+    view.attachApple(board.apple);
   },
 
   clearBoard: function(){
@@ -127,11 +147,12 @@ var view = {
   attachSnakeHead: function(snakeHead){
     $("div[data-y='" + snakeHead.y + "'] div[data-x='" + snakeHead.x + "']").addClass( 'snake-head' );
   },
+
   attachApple: function(apple){
     var $apple = $("<div />", {
       class: 'apple'
     });
-    //attach apple to proper new div
+    $("div[data-y='" + apple.y + "'] div[data-x='" + apple.x + "']").append( $apple );
   }
 };
 
