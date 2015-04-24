@@ -10,8 +10,8 @@ var model = {
 
   board: {
     gridSize: {
-      height: 60,
-      width: 70
+      height: 10,
+      width: 15
     },
     snakeHead: {
       x: 1,
@@ -53,7 +53,6 @@ var model = {
   moveDown: function(){
     model.board.snakeHead.y--;
   }
-
 };
 
 var view = {
@@ -75,6 +74,7 @@ var view = {
       }
     });
   },
+
   appendRowsToContainer: function(gridSize){
     for( var y = gridSize.height; y > 0; y--){
       var $row = $("<div />", {
@@ -99,7 +99,7 @@ var view = {
   },
 
   render: function(board){
-    view.clearBoard()
+    view.clearBoard();
     view.appendRowsToContainer(board.gridSize);
     var snakeHead = board.snakeHead;
     $("div[data-y='" + snakeHead.y + "'] div[data-x='" + snakeHead.x + "']").addClass( 'snake-head' );
@@ -117,17 +117,15 @@ var controller = {
   },
 
   setDirection: function(direction){
-    model.direction = direction
+    model.direction = direction;
   },
 
   gameLoop: function(){
     setInterval(function(){
       view.render(model.board);
       model.move();
-    }, 100);
-  }//,
-
-
+    }, 500);
+  }
 };
 
 $( document ).ready(function() {
