@@ -1,4 +1,9 @@
 // randomly-gen-food
+  //model needs to randomly generate food coordinates
+    //cannot be on snake
+  //attach food to board object
+  //in view read apple from board object and place it correctly
+  //if apple and snakehead coords are equal it regenerates
 // regenerate food and add point if hit
 // snake body w/ food
 // death if hit body
@@ -53,7 +58,16 @@ var model = {
 
   moveDown: function(){
     model.board.snakeHead.y--;
-  }
+  },
+
+  placeApple: function(){
+    var y = Math.floor((Math.random() * model.board.gridSize.height) + 1);
+    var x = Math.floor((Math.random() * model.board.gridSize.width) + 1);
+    model.board.apple = {
+      x: x,
+      y: y
+    }
+  },
 };
 
 var view = {
@@ -102,12 +116,22 @@ var view = {
   render: function(board){
     view.clearBoard();
     view.appendRowsToContainer(board.gridSize);
-    var snakeHead = board.snakeHead;
-    $("div[data-y='" + snakeHead.y + "'] div[data-x='" + snakeHead.x + "']").addClass( 'snake-head' );
+    view.attachSnakeHead(board.snakeHead);
+
   },
 
   clearBoard: function(){
     $( '#container').html("");
+  },
+
+  attachSnakeHead: function(snakeHead){
+    $("div[data-y='" + snakeHead.y + "'] div[data-x='" + snakeHead.x + "']").addClass( 'snake-head' );
+  },
+  attachApple: function(apple){
+    var $apple = $("<div />", {
+      class: 'apple'
+    });
+    //attach apple to proper new div
   }
 };
 
