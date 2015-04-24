@@ -20,8 +20,10 @@ var model = {
   },
 
   gameOver: function(){
-    // if snake head x is greater than width or less than 1, true
-    // if snake head y is greater than height or less than 1, true
+    return (model.board.snakeHead.x > model.board.gridSize.width ||
+            model.board.snakeHead.x < 1 ||
+            model.board.snakeHead.y > model.board.gridSize.height ||
+            model.board.snakeHead.y < 1 );
   },
 
   direction: "right",
@@ -113,7 +115,10 @@ var view = {
 var controller = {
   init: function(){
     view.init();
-    controller.gameLoop();
+    setInterval(controller.gameLoop(), 500);
+    if(model.gameOver()){
+      clearInterval(controller.gameLoop());
+    }
   },
 
   setDirection: function(direction){
@@ -121,10 +126,8 @@ var controller = {
   },
 
   gameLoop: function(){
-    setInterval(function(){
-      view.render(model.board);
-      model.move();
-    }, 500);
+    view.render(model.board);
+    model.move();
   }
 };
 
