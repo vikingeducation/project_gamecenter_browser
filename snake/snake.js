@@ -1,8 +1,4 @@
-// randomly-gen-food
-  //cannot be on snake ????
-  //in view read apple from board object and place it correctly
-  //if apple and snakehead coords are equal it regenerates
-// regenerate food and add point if hit
+// add point if hit
 // snake body w/ food
 // death if hit body
 // speed up
@@ -35,6 +31,13 @@ var model = {
   direction: "right",
 
   move: function(){
+    model.moveSnakeHead();
+    if(model.snakeEatsApple()){
+      model.placeApple();
+    }
+  },
+
+  moveSnakeHead: function(){
     if(model.direction === "left"){
       model.moveLeft();
     } else if(model.direction === "up"){
@@ -79,6 +82,10 @@ var model = {
 
   appleOnTopOfSnake: function(x,y){
     return model.appleOnSnakesX(x) && model.appleOnSnakesY(y);
+  },
+
+  snakeEatsApple: function(){
+    return model.appleOnTopOfSnake(model.board.apple.x, model.board.apple.y);
   },
 
   appleOnSnakesX: function(x){
