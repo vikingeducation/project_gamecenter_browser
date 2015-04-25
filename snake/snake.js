@@ -1,6 +1,5 @@
 // snake body w/ food
 // death if hit body
-// speed up
 
 
 var model = {
@@ -40,6 +39,10 @@ var model = {
       model.speed = model.speed * 0.98;
     }
   },
+
+  // SNAKE BODY: PUSH SHIFT PUSH SHIFT; if bites apple JUST push
+
+
 
   moveSnakeHead: function(){
     if(model.direction === "left"){
