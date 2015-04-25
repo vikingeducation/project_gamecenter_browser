@@ -18,7 +18,8 @@ var model = {
     apple: {
       x: 5,
       y: 6
-    }
+    },
+    score: 0
   },
 
   gameOver: function(){
@@ -34,6 +35,7 @@ var model = {
     model.moveSnakeHead();
     if(model.snakeEatsApple()){
       model.placeApple();
+      model.board.score ++;
     }
   },
 
@@ -145,6 +147,7 @@ var view = {
     view.appendRowsToContainer(board.gridSize);
     view.attachSnakeHead(board.snakeHead);
     view.attachApple(board.apple);
+    view.showScore(board.score);
   },
 
   clearBoard: function(){
@@ -160,6 +163,10 @@ var view = {
       class: 'apple'
     });
     $("div[data-y='" + apple.y + "'] div[data-x='" + apple.x + "']").append( $apple );
+  },
+
+  showScore: function(score){
+   $( '#score' ).text(score);
   }
 };
 
@@ -178,8 +185,8 @@ var controller = {
       if(model.gameOver()){
         alert("GAME OVER");
       }
-      view.render(model.board);
       model.move();
+      view.render(model.board);
     }, 500);
   }
 };
