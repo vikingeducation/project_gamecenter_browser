@@ -1,4 +1,3 @@
-// add point if hit
 // snake body w/ food
 // death if hit body
 // speed up
@@ -22,6 +21,8 @@ var model = {
     score: 0
   },
 
+  speed: 500,
+
   gameOver: function(){
     return (model.board.snakeHead.x > model.board.gridSize.width ||
             model.board.snakeHead.x < 1 ||
@@ -36,6 +37,7 @@ var model = {
     if(model.snakeEatsApple()){
       model.placeApple();
       model.board.score ++;
+      model.speed = model.speed * 0.98;
     }
   },
 
@@ -187,7 +189,7 @@ var controller = {
       }
       model.move();
       view.render(model.board);
-    }, 500);
+    }, model.speed);
   }
 };
 
