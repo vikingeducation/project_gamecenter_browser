@@ -1,5 +1,5 @@
-// snake body w/ food
 // death if hit body
+//apple regen not on snake
 
 
 var model = {
@@ -17,17 +17,29 @@ var model = {
     apple: {
       x: 5,
       y: 6
-    },
-    score: 0
+    }
   },
 
   speed: 500,
 
   gameOver: function(){
+    return model.wallDeath();
+  },
+
+  wallDeath: function(){
     return (model.board.snakeHead.x > model.board.gridSize.width ||
             model.board.snakeHead.x < 1 ||
             model.board.snakeHead.y > model.board.gridSize.height ||
             model.board.snakeHead.y < 1 );
+  },
+
+  bodyDeath: function(){
+    // model.board.snakeBody.forEach(function(){
+    //   if(this === apple){
+    //     return true;
+    //   }
+    // });
+    // return false;
   },
 
   direction: "right",
@@ -91,11 +103,25 @@ var model = {
   },
 
   appleOnTopOfSnake: function(x,y){
+    return model.appleOnTopOfSnakeHead(x,y) || model.appleOnTopOfSnakeBody(x,y);
+  },
+
+  appleOnTopOfSnakeBody: function(x,y){
+    // var apple = {x: x, y: y};
+    // model.board.snakeBody.forEach(function(){
+    //   if(this === apple){
+    //     return true;
+    //   }
+    // });
+    // return false;
+  },
+
+  appleOnTopOfSnakeHead: function(x,y){
     return model.appleOnSnakesX(x) && model.appleOnSnakesY(y);
   },
 
   snakeEatsApple: function(){
-    return model.appleOnTopOfSnake(model.board.apple.x, model.board.apple.y);
+    return model.appleOnTopOfSnakeHead(model.board.apple.x, model.board.apple.y);
   },
 
   appleOnSnakesX: function(x){
@@ -156,7 +182,7 @@ var view = {
     view.attachSnakeHead(board.snakeHead);
     view.attachSnakeBody(board.snakeBody);
     view.attachApple(board.apple);
-    view.showScore(board.score);
+    view.showScore(board.snakeBody.length);
   },
 
   clearBoard: function(){
