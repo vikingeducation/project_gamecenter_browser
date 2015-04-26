@@ -23,7 +23,7 @@ var model = {
   speed: 500,
 
   gameOver: function(){
-    return model.wallDeath();
+    return model.wallDeath() || model.bodyDeath();
   },
 
   wallDeath: function(){
@@ -34,12 +34,17 @@ var model = {
   },
 
   bodyDeath: function(){
-    // model.board.snakeBody.forEach(function(){
-    //   if(this === apple){
-    //     return true;
-    //   }
-    // });
-    // return false;
+    var ateSelf = false;
+    model.board.snakeBody.forEach(function(bodyPart){
+      if(model.overlappingCoordinates(bodyPart, model.board.snakeHead)){
+        ateSelf = true;
+      }
+    });
+    return ateSelf;
+  },
+
+  overlappingCoordinates: function(coordsA,coordsB){
+    return coordsA.x === coordsB.x && coordsA.y === coordsB.y;
   },
 
   direction: "right",
@@ -224,6 +229,7 @@ var controller = {
   gameLoop: function(){
     setInterval(function(){
       if(model.gameOver()){
+        console.log("GAME OVER")
         alert("GAME OVER");
       }
       model.move();
