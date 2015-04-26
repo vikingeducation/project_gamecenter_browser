@@ -13,6 +13,7 @@ var model = {
       x: 1,
       y: 1
     },
+    snakeBody: [],
     apple: {
       x: 5,
       y: 6
@@ -32,17 +33,19 @@ var model = {
   direction: "right",
 
   move: function(){
+    var snakeHeadCoords = jQuery.extend({}, model.board.snakeHead);
+    model.board.snakeBody.push(snakeHeadCoords);
     model.moveSnakeHead();
     if(model.snakeEatsApple()){
       model.placeApple();
       model.board.score ++;
       model.speed = model.speed * 0.98;
+    } else {
+      model.board.snakeBody.shift();
     }
   },
 
   // SNAKE BODY: PUSH SHIFT PUSH SHIFT; if bites apple JUST push
-
-
 
   moveSnakeHead: function(){
     if(model.direction === "left"){
@@ -151,6 +154,7 @@ var view = {
     view.clearBoard();
     view.appendRowsToContainer(board.gridSize);
     view.attachSnakeHead(board.snakeHead);
+    view.attachSnakeBody(board.snakeBody);
     view.attachApple(board.apple);
     view.showScore(board.score);
   },
@@ -161,6 +165,12 @@ var view = {
 
   attachSnakeHead: function(snakeHead){
     $("div[data-y='" + snakeHead.y + "'] div[data-x='" + snakeHead.x + "']").addClass( 'snake-head' );
+  },
+
+  attachSnakeBody: function(snakeBody){
+    snakeBody.forEach(function(bodyPart){
+      $("div[data-y='" + bodyPart.y + "'] div[data-x='" + bodyPart.x + "']").addClass( 'snake-body' );
+    });
   },
 
   attachApple: function(apple){
