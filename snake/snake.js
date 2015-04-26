@@ -20,7 +20,7 @@ var model = {
     }
   },
 
-  speed: 500,
+  speed: 200, //SCHWAD CHANGE THIS BACK
 
   gameOver: function(){
     return model.wallDeath() || model.bodyDeath();
@@ -46,6 +46,8 @@ var model = {
   overlappingCoordinates: function(coordsA,coordsB){
     return coordsA.x === coordsB.x && coordsA.y === coordsB.y;
   },
+
+
 
   direction: "right",
 
@@ -97,44 +99,34 @@ var model = {
     while(!applePlaced){
       var y = Math.floor((Math.random() * model.board.gridSize.height) + 1);
       var x = Math.floor((Math.random() * model.board.gridSize.width) + 1);
-      if(!model.appleOnTopOfSnake(x,y)){
-        model.board.apple = {
-          x: x,
-          y: y
-        };
+      var tempApple = {x: x, y: y};
+      if(!model.appleOnTopOfSnake(tempApple)){
+        model.board.apple = tempApple;
         applePlaced = true;
       }
     }
   },
 
-  appleOnTopOfSnake: function(x,y){
-    return model.appleOnTopOfSnakeHead(x,y) || model.appleOnTopOfSnakeBody(x,y);
+  appleOnTopOfSnake: function(apple){
+    return model.appleOnTopOfSnakeHead(apple) || model.appleOnTopOfSnakeBody(apple);
   },
 
-  appleOnTopOfSnakeBody: function(x,y){
-    // var apple = {x: x, y: y};
-    // model.board.snakeBody.forEach(function(){
-    //   if(this === apple){
-    //     return true;
-    //   }
-    // });
-    // return false;
+  appleOnTopOfSnakeBody: function(apple){
+    var appleOnBody = false;
+    model.board.snakeBody.forEach(function(bodyPart){
+      if(model.overlappingCoordinates(bodyPart, apple)){
+        appleOnBody = true;
+      }
+    });
+    return appleOnBody;
   },
 
-  appleOnTopOfSnakeHead: function(x,y){
-    return model.appleOnSnakesX(x) && model.appleOnSnakesY(y);
+  appleOnTopOfSnakeHead: function(apple){
+    return model.overlappingCoordinates(model.board.snakeHead, apple);
   },
 
   snakeEatsApple: function(){
-    return model.appleOnTopOfSnakeHead(model.board.apple.x, model.board.apple.y);
-  },
-
-  appleOnSnakesX: function(x){
-    return model.board.snakeHead.x === x;
-  },
-
-  appleOnSnakesY: function(y){
-    return model.board.snakeHead.y === y;
+    return model.appleOnTopOfSnakeHead(model.board.apple);
   }
 };
 
