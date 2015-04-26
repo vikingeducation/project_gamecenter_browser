@@ -1,7 +1,3 @@
-// death if hit body
-//apple regen not on snake
-
-
 var model = {
 
   board: {
@@ -20,7 +16,7 @@ var model = {
     }
   },
 
-  speed: 200, //SCHWAD CHANGE THIS BACK
+  speed: 500,
 
   gameOver: function(){
     return model.wallDeath() || model.bodyDeath();
@@ -47,8 +43,6 @@ var model = {
     return coordsA.x === coordsB.x && coordsA.y === coordsB.y;
   },
 
-
-
   direction: "right",
 
   move: function(){
@@ -63,8 +57,6 @@ var model = {
       model.board.snakeBody.shift();
     }
   },
-
-  // SNAKE BODY: PUSH SHIFT PUSH SHIFT; if bites apple JUST push
 
   moveSnakeHead: function(){
     if(model.direction === "left"){
@@ -97,14 +89,18 @@ var model = {
   placeApple: function(){
     var applePlaced = false;
     while(!applePlaced){
-      var y = Math.floor((Math.random() * model.board.gridSize.height) + 1);
-      var x = Math.floor((Math.random() * model.board.gridSize.width) + 1);
-      var tempApple = {x: x, y: y};
+      var tempApple = model.generateTempApple;
       if(!model.appleOnTopOfSnake(tempApple)){
         model.board.apple = tempApple;
         applePlaced = true;
       }
     }
+  },
+
+  generateTempApple: function(){
+    var y = Math.floor((Math.random() * model.board.gridSize.height) + 1);
+    var x = Math.floor((Math.random() * model.board.gridSize.width) + 1);
+    return {x: x, y: y};
   },
 
   appleOnTopOfSnake: function(apple){
