@@ -51,7 +51,6 @@ var model = {
     model.moveSnakeHead();
     if(model.snakeEatsApple()){
       model.placeApple();
-      model.board.score ++;
       model.speed = model.speed * 0.98;
     } else {
       model.board.snakeBody.shift();
@@ -89,7 +88,7 @@ var model = {
   placeApple: function(){
     var applePlaced = false;
     while(!applePlaced){
-      var tempApple = model.generateTempApple;
+      var tempApple = model.generateTempApple();
       if(!model.appleOnTopOfSnake(tempApple)){
         model.board.apple = tempApple;
         applePlaced = true;
