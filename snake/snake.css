@@ -1,0 +1,26 @@
+
+.row {
+  clear: left;
+}
+
+.cell {
+  height: 40px;
+  width: 40px;
+  float: left;
+  background-color: #eee;
+}
+
+.apple {
+  height: 25px;
+  width: 25px;
+  background-color: #FF0000;
+  border-radius: 50%;
+}
+
+.snake-body {
+  background-color: #00FF66
+}
+
+.snake-head {
+  background-color: #33CC66
+}

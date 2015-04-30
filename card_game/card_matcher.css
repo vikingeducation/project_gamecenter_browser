@@ -1,0 +1,38 @@
+.row{
+  clear: left;
+}
+
+.card{
+  height: 50px;
+  width: 50px;
+  background-color: #3d9970;
+  border: 1px solid #F012BE;
+  margin: 10px;
+  float: left;
+}
+
+.number {
+  visibility: hidden;
+}
+
+.face-up .number{
+  visibility: visible;
+  margin: auto;
+}
+
+.face-up {
+  background-color: white;
+  border: 1px solid black;
+  text-align: center;
+}
+
+.matched {
+  background-color: white;
+  border: 2px solid green;
+}
+
+.matched .number {
+  visibility: visible;
+}
+
+
