@@ -1,0 +1,14 @@
+.board {
+  width: 480px;
+  border: 1px solid #666;
+}
+
+.unit {
+  height: 48px;
+  width: 48px;
+  background-color: #ccc;
+  display: inline-block;
+  vertical-align: top;
+  border: 1px solid #666;
+  box-sizing: border-box;
+}
