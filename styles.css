@@ -12,3 +12,15 @@
   border: 1px solid #666;
   box-sizing: border-box;
 }
+
+.food {
+  background-color: orange;
+}
+
+.snake {
+  background-color: lightgreen;
+}
+
+.head {
+  background-color: green;
+}

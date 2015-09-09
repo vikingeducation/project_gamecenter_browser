@@ -6,32 +6,38 @@ var model = {
     // build array of units (each a pair of coords)
     model.units = model.buildGrid(gridSize);
     // create snake with starting coords
-    model.findUnitByCoordinates(3,4).snake = true;
+    model.snake.spawn();
     // randomly spawn food
-    model.food.coordinates = model.food.spawn();
+    model.food.spawn();
   },
 
-  // All units in grid [x,y,snake?,food?]
+  // All units in grid [id,x,y,snake?,food?]
   units: [],
   // array of coords, first in array is head
   // move snake by looking at head and direction, figure out new coords, shift new coords onto snake array, pop tail coords off(unless food is eaten)
 
   snake: {
-    coordinates: [[3,4]],
-    direction: 'right'
+    units: [],
+    direction: 'right',
+
+    spawn:function() {
+      var startingUnit = model.findUnitByCoordinates(3,4);
+      model.snake.units = [startingUnit];
+      startingUnit.snake = true;
+    }
   },
 
   food: {
-    coordinates: [],
+    unit: [],
 
     spawn: function() {
       // find all coords without snake
-      var available = $.grep(model.units, function(unit, index) {
+      var available = $.grep(model.units, function(unit) {
         return (unit.snake === false);
       });
       // pick one
       var sample = available[Math.floor(available.length * Math.random())];
-      model.food.coordinates = [sample.x, sample.y];
+      model.food.unit = [sample];
       sample.food = true;
     }
   },
@@ -46,6 +52,7 @@ var model = {
   },
 
   unitConstructor: function(i) {
+    this.id = i;
     this.x = i % 10;
     this.y = Math.floor(i / 10);
     this.snake = false;
@@ -55,6 +62,16 @@ var model = {
   findUnitByCoordinates: function(x, y) {
     var i = y*10 + x;
     return model.units[i];
+  },
+
+  getSnakeIDs: function() {
+    return $.map(model.snake.units, function(unit) {
+      return unit.id
+    });
+  },
+
+  getFoodIDs: function() {
+    return model.food.unit[0].id;
   }
 
 
@@ -65,6 +82,7 @@ var model = {
 var view = {
   init: function(gridSize) {
     view.buildGrid(gridSize);
+    controller.show();
   },
 
   buildGrid: function(size) {
@@ -75,8 +93,13 @@ var view = {
 
   },
 
-  render: function() {
-
+  renderFrame: function(snakeIDs, snakeHeadID, foodID) {
+    // get all snake parts
+    $.each( snakeIDs, function(i,id) { view.drawSnake(id) } );
+    // get snake head
+    view.drawSnakeHead(snakeHeadID);
+    // get food loc
+    view.drawFood(foodID);
   },
 
   drawFood: function(i) {
@@ -101,6 +124,13 @@ var controller = {
     //start and render the view
     view.init(10);
     //start the loop
+  },
+
+  show: function() {
+    var snakeIDs = model.getSnakeIDs();
+    var snakeHeadID = snakeIDs[0];
+    var foodID = model.getFoodIDs();
+    view.renderFrame(snakeIDs, snakeHeadID, foodID);
   }
 }
 
