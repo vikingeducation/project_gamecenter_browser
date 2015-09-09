@@ -16,6 +16,7 @@ var model = {
   snake: {
     units: [],
     direction: 'right',
+    directionNext: 'right',
 
     spawn:function() {
       var startingUnit = model.findUnitByCoordinates(3,4);
@@ -24,6 +25,7 @@ var model = {
     },
 
     move: function() {
+      model.snake.direction = model.snake.directionNext;
       var newX = model.snake.units[0].x + model.snake.movementX();
       var newY = model.snake.units[0].y + model.snake.movementY();
       var newUnit = model.findUnitByCoordinates(newX, newY);
@@ -54,7 +56,41 @@ var model = {
       else {
         return 0
       };
+    },
+
+    newDirection: function() {
+      model.snake.directionNext = model.snake.filterInput(event.which);
+    },
+
+    filterInput: function(input) {
+      // if current is left/right, should only accept up/down
+      if (model.snake.direction === 'left' || model.snake.direction === 'right') {
+        switch (input) {
+          case 38:
+            return 'up';
+            break;
+          case 40:
+            return 'down';
+            break;
+          default:
+            return model.snake.directionNext;
+        };
+      }
+      // if current is up/down, should only accept left/right
+      else {
+        switch (input) {
+          case 37:
+            return 'left';
+            break;
+          case 39:
+            return 'right';
+            break;
+          default:
+            return model.snake.directionNext;
+        };
+      };
     }
+
   },
 
 
@@ -126,7 +162,7 @@ var view = {
   init: function(gridSize) {
     view.buildGrid(gridSize);
     controller.show();
-  },
+    $(window).on('keydown', model.snake.newDirection) },
 
   buildGrid: function(size) {
     // set .board max width
@@ -157,7 +193,10 @@ var view = {
 
   drawSnakeHead: function(i, direction) {
     $('.board').children().eq(i).addClass('head ' + direction);
-  }
+  },
+
+
+
 }
 
 
