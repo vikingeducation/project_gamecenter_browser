@@ -24,3 +24,19 @@
 .head {
   background-color: green;
 }
+
+.right {
+  border-radius: 0 100% 100% 0;
+}
+
+.left {
+  border-radius: 100% 0 0 100%;
+}
+
+.up {
+  border-radius: 100% 100% 0 0;
+}
+
+.down {
+  border-radius: 0 0 100% 100%;
+}

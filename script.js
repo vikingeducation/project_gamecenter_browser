@@ -3,11 +3,8 @@
 
 var model = {
   init: function(gridSize) {
-    // build array of units (each a pair of coords)
     model.units = model.buildGrid(gridSize);
-    // create snake with starting coords
     model.snake.spawn();
-    // randomly spawn food
     model.food.spawn();
   },
 
@@ -27,18 +24,21 @@ var model = {
     }
   },
 
+
   food: {
     unit: [],
 
     spawn: function() {
-      // find all coords without snake
+      var sample = model.food.randomSpawn();
+      model.food.unit = [sample];
+      sample.food = true;
+    },
+
+    randomSpawn: function() {
       var available = $.grep(model.units, function(unit) {
         return (unit.snake === false);
       });
-      // pick one
-      var sample = available[Math.floor(available.length * Math.random())];
-      model.food.unit = [sample];
-      sample.food = true;
+      return available[Math.floor(available.length * Math.random())];
     }
   },
 
@@ -70,6 +70,10 @@ var model = {
     });
   },
 
+  getSnakeDirection: function() {
+    return model.snake.direction;
+  },
+
   getFoodIDs: function() {
     return model.food.unit[0].id;
   }
@@ -93,13 +97,15 @@ var view = {
 
   },
 
-  renderFrame: function(snakeIDs, snakeHeadID, foodID) {
-    // get all snake parts
+  renderFrame: function(snakeIDs, snakeHeadID, direction, foodID) {
+    view.resetFrame();
     $.each( snakeIDs, function(i,id) { view.drawSnake(id) } );
-    // get snake head
-    view.drawSnakeHead(snakeHeadID);
-    // get food loc
+    view.drawSnakeHead(snakeHeadID, direction);
     view.drawFood(foodID);
+  },
+
+  resetFrame: function() {
+    $('.board').children().removeClass('food snake head left right up down');
   },
 
   drawFood: function(i) {
@@ -110,8 +116,8 @@ var view = {
     $('.board').children().eq(i).addClass('snake');
   },
 
-  drawSnakeHead: function(i) {
-    $('.board').children().eq(i).addClass('head');
+  drawSnakeHead: function(i, direction) {
+    $('.board').children().eq(i).addClass('head ' + direction);
   }
 }
 
@@ -119,9 +125,7 @@ var view = {
 
 var controller = {
   init: function() {
-    //fire up the model
     model.init(10);
-    //start and render the view
     view.init(10);
     //start the loop
   },
@@ -129,8 +133,9 @@ var controller = {
   show: function() {
     var snakeIDs = model.getSnakeIDs();
     var snakeHeadID = snakeIDs[0];
+    var direction = model.getSnakeDirection();
     var foodID = model.getFoodIDs();
-    view.renderFrame(snakeIDs, snakeHeadID, foodID);
+    view.renderFrame(snakeIDs, snakeHeadID, direction, foodID);
   }
 }
 
