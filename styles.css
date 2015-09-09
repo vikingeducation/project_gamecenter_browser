@@ -1,3 +1,7 @@
+.scoreboard {
+  text-align: center;
+}
+
 .board {
   margin: auto;
   width: 320px;
@@ -45,4 +49,9 @@
 
 .down {
   border-radius: 0 0 100% 100%;
+}
+
+.gameover {
+  text-align: center;
+  color: red;
 }

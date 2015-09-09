@@ -2,6 +2,7 @@
 
 
 var model = {
+
   init: function(gridSize) {
     model.gridSize = gridSize;
     model.units = model.buildGrid(gridSize);
@@ -9,19 +10,19 @@ var model = {
     model.food.spawn();
   },
 
+
   gridSize: 0,
   score: 0,
   gameover: false,
 
-  // All units in grid [id,x,y,snake?,food?]
   units: [],
-  // array of coords, first in array is head
-  // move snake by looking at head and direction, figure out new coords, shift new coords onto snake array, pop tail coords off(unless food is eaten)
+
 
   snake: {
     units: [],
     direction: 'right',
     directionNext: 'right',
+
 
     spawn:function() {
       var startingUnit = model.findUnitByCoordinates(3,4);
@@ -67,6 +68,7 @@ var model = {
       };
     },
 
+
     movementY: function() {
       if (model.snake.direction === 'down') {
         return 1
@@ -79,9 +81,11 @@ var model = {
       };
     },
 
+
     newDirection: function() {
       model.snake.directionNext = model.snake.filterInput(event.which);
     },
+
 
     filterInput: function(input) {
       // if current is left/right, should only accept up/down
@@ -119,8 +123,13 @@ var model = {
 
 
     flagSnakeCollision: function(newUnit) {
-      // currently won't detect if it's the tail piece and a valid move
-      return !!newUnit.snake;
+      tailUnit = model.snake.units[model.snake.units.length - 1];
+      if (newUnit === tailUnit) {
+        return false;
+      }
+      else {
+        return !!newUnit.snake;
+      };
     }
 
   },
@@ -129,11 +138,13 @@ var model = {
   food: {
     unit: [],
 
+
     spawn: function() {
       var sample = model.food.randomSpawn();
       model.food.unit = [sample];
       sample.food = true;
     },
+
 
     randomSpawn: function() {
       var available = $.grep(model.units, function(unit) {
@@ -142,12 +153,14 @@ var model = {
       return available[Math.floor(available.length * Math.random())];
     },
 
+
     eaten: function() {
       model.score += 1;
       model.food.unit[0].food = false;
       model.food.spawn();
     }
   },
+
 
   buildGrid: function() {
     var output = [];
@@ -158,6 +171,7 @@ var model = {
     return output;
   },
 
+
   unitConstructor: function(i) {
     this.id = i;
     this.x = i % model.gridSize;
@@ -166,10 +180,12 @@ var model = {
     this.food = false;
   },
 
+
   findUnitByCoordinates: function(x, y) {
     var i = y*(model.gridSize) + x;
     return model.units[i];
   },
+
 
   outOfBounds: function(coordinate) {
     if (coordinate < 0 || coordinate >= model.gridSize) {
@@ -177,45 +193,49 @@ var model = {
     };
   },
 
+
   getSnakeIDs: function() {
     return $.map(model.snake.units, function(unit) {
       return unit.id
     });
   },
 
+
   getSnakeDirection: function() {
     return model.snake.direction;
   },
+
 
   getFoodIDs: function() {
     return model.food.unit[0].id;
   },
 
+
   nextFrame: function() {
     var newUnit = model.snake.move();
   },
-
-
 
 }
 
 
 
 var view = {
+
   init: function(gridSize) {
     view.buildGrid(gridSize);
     controller.show();
     $(window).on('keydown', model.snake.newDirection) },
+
 
   buildGrid: function(size) {
     // set .board max width dynamically?
     for(var i = 0; i < Math.pow(size, 2); i++) {
       $('.board').append("<div class='unit'></div>")
     }
-
   },
 
-  renderFrame: function(snakeIDs, snakeHeadID, direction, foodID, score, gameover) {
+
+ renderFrame: function(snakeIDs, snakeHeadID, direction, foodID, score, gameover) {
     view.resetFrame();
     view.renderScore(score)
     $.each( snakeIDs, function(i,id) { view.drawSnake(id) } );
@@ -223,12 +243,14 @@ var view = {
     view.drawFood(foodID);
   },
 
+
   renderScore: function(score) {
     $('.scoreboard em')[0].innerHTML = score;
   },
 
+
   renderEndgame: function() {
-    $('.board').after("<h3>Game Over!</h3>");
+    $('.board').after("<h3 class='gameover'>Game Over!</h3>");
   },
 
 
@@ -236,13 +258,16 @@ var view = {
     $('.board').children().removeClass('food snake head left right up down');
   },
 
+
   drawFood: function(i) {
     $('.board').children().eq(i).addClass('food');
   },
 
+
   drawSnake: function(i) {
     $('.board').children().eq(i).addClass('snake');
   },
+
 
   drawSnakeHead: function(i, direction, gameover) {
     if (gameover) {
