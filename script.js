@@ -228,10 +228,18 @@ var view = {
 
 
   buildGrid: function(size) {
-    // set .board max width dynamically?
     for(var i = 0; i < Math.pow(size, 2); i++) {
       $('.board').append("<div class='unit'></div>")
     }
+    view.setDimensions(size);
+  },
+
+
+  setDimensions: function(size) {
+    var unitSizePx = Math.floor(320/size) + 'px';
+    $('.board').css('line-height', unitSizePx );
+    $('.unit').css('height', unitSizePx );
+    $('.unit').css('width', unitSizePx );
   },
 
 
