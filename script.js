@@ -8,6 +8,8 @@ var model = {
     model.food.spawn();
   },
 
+  gameover: false,
+
   // All units in grid [id,x,y,snake?,food?]
   units: [],
   // array of coords, first in array is head
@@ -24,15 +26,25 @@ var model = {
       startingUnit.snake = true;
     },
 
+
     move: function() {
       model.snake.direction = model.snake.directionNext;
       var newX = model.snake.units[0].x + model.snake.movementX();
       var newY = model.snake.units[0].y + model.snake.movementY();
       var newUnit = model.findUnitByCoordinates(newX, newY);
-      model.snake.units.unshift(newUnit);
-      model.snake.units.pop();
-      return newUnit;
+
+      model.gameover = (model.snake.flagWallCollision(newX, newY) || model.snake.flagSnakeCollision(newUnit))
+
+      if (!model.gameover) {
+        model.snake.units.unshift(newUnit);
+        model.snake.units[0].snake = true;
+
+        model.snake.units.pop().snake = false;
+
+        return newUnit;
+      };
     },
+
 
     movementX: function() {
       if (model.snake.direction === 'right') {
@@ -89,6 +101,17 @@ var model = {
             return model.snake.directionNext;
         };
       };
+    },
+
+
+    flagWallCollision: function(newX, newY) {
+      return (model.outOfBounds(newX) || model.outOfBounds(newY));
+    },
+
+
+    flagSnakeCollision: function(newUnit) {
+      // currently won't detect if it's the tail piece and a valid move
+      return !!newUnit.snake;
     }
 
   },
@@ -133,6 +156,12 @@ var model = {
     return model.units[i];
   },
 
+  outOfBounds: function(coordinate) {
+    if (coordinate < 0 || coordinate >= Math.pow(model.units.length, 0.5)) {
+      return true
+    };
+  },
+
   getSnakeIDs: function() {
     return $.map(model.snake.units, function(unit) {
       return unit.id
@@ -149,9 +178,11 @@ var model = {
 
   nextFrame: function() {
     var newUnit = model.snake.move();
+
     // check snake collision
     // check food collision
-  }
+  },
+
 
 
 }
@@ -179,6 +210,15 @@ var view = {
     view.drawFood(foodID);
   },
 
+  renderEndgame: function(snakeIDs, snakeHeadID, foodID) {
+    view.resetFrame();
+    $.each( snakeIDs, function(i,id) { view.drawSnake(id) } );
+    view.drawDeadSnake(snakeHeadID);
+    view.drawFood(foodID);
+    $('.board').after("<h3>Game Over!</h3>");
+  },
+
+
   resetFrame: function() {
     $('.board').children().removeClass('food snake head left right up down');
   },
@@ -195,6 +235,10 @@ var view = {
     $('.board').children().eq(i).addClass('head ' + direction);
   },
 
+  drawDeadSnake: function(i) {
+    $('.board').children().eq(i).addClass('dead');
+  }
+
 
 
 }
@@ -209,6 +253,8 @@ var controller = {
     controller.play();
   },
 
+  gameInterval: null,
+
   show: function() {
     var snakeIDs = model.getSnakeIDs();
     var snakeHeadID = snakeIDs[0];
@@ -219,7 +265,7 @@ var controller = {
 
   play: function() {
     // every 2 seconds
-    setInterval(controller.gameloop, 2000);
+    controller.gameInterval = setInterval(controller.gameloop, 1000);
   },
 
   gameloop: function() {
@@ -227,7 +273,21 @@ var controller = {
     model.nextFrame();
     // check for loss
     // check for food gain
-    controller.show();
+
+    if (model.gameover) {
+      controller.endGame();
+    }
+    else {
+      controller.show();
+    };
+  },
+
+  endGame: function() {
+    clearInterval(controller.gameInterval);
+    var snakeIDs = model.getSnakeIDs();
+    var snakeHeadID = snakeIDs[0];
+    var foodID = model.getFoodIDs();
+    view.renderEndgame(snakeIDs, snakeHeadID, foodID);
   }
 }
 
