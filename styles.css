@@ -1,15 +1,17 @@
 .board {
-  width: 480px;
+  margin: auto;
+  width: 320px;
   border: 1px solid #666;
+  line-height: 16px;
 }
 
 .unit {
-  height: 48px;
-  width: 48px;
+  height: 16px;
+  width: 16px;
   background-color: #ccc;
   display: inline-block;
   vertical-align: top;
-  border: 1px solid #666;
+  border: 1px solid #aaa;
   box-sizing: border-box;
 }
 

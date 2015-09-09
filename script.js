@@ -3,11 +3,13 @@
 
 var model = {
   init: function(gridSize) {
+    model.gridSize = gridSize;
     model.units = model.buildGrid(gridSize);
     model.snake.spawn();
     model.food.spawn();
   },
 
+  gridSize: 0,
   score: 0,
   gameover: false,
 
@@ -147,9 +149,9 @@ var model = {
     }
   },
 
-  buildGrid: function(size) {
+  buildGrid: function() {
     var output = [];
-    for(var i = 0; i < Math.pow(size, 2); i++) {
+    for(var i = 0; i < Math.pow(model.gridSize, 2); i++) {
       var newUnit = new model.unitConstructor(i);
       output.push(newUnit);
     }
@@ -158,19 +160,19 @@ var model = {
 
   unitConstructor: function(i) {
     this.id = i;
-    this.x = i % 10;
-    this.y = Math.floor(i / 10);
+    this.x = i % model.gridSize;
+    this.y = Math.floor(i / model.gridSize);
     this.snake = false;
     this.food = false;
   },
 
   findUnitByCoordinates: function(x, y) {
-    var i = y*10 + x;
+    var i = y*(model.gridSize) + x;
     return model.units[i];
   },
 
   outOfBounds: function(coordinate) {
-    if (coordinate < 0 || coordinate >= Math.pow(model.units.length, 0.5)) {
+    if (coordinate < 0 || coordinate >= model.gridSize) {
       return true
     };
   },
@@ -191,9 +193,6 @@ var model = {
 
   nextFrame: function() {
     var newUnit = model.snake.move();
-
-    // check snake collision
-    // check food collision
   },
 
 
@@ -209,7 +208,7 @@ var view = {
     $(window).on('keydown', model.snake.newDirection) },
 
   buildGrid: function(size) {
-    // set .board max width
+    // set .board max width dynamically?
     for(var i = 0; i < Math.pow(size, 2); i++) {
       $('.board').append("<div class='unit'></div>")
     }
@@ -260,13 +259,16 @@ var view = {
 
 var controller = {
 
-  init: function() {
-    model.init(10);
-    view.init(10);
+  init: function(size, speed) {
+    controller.size = size;
+    controller.speed = speed;
+    model.init(size);
+    view.init(size);
     controller.play();
   },
 
-
+  size: 0,
+  speed: 0,
   gameInterval: null,
 
 
@@ -282,7 +284,7 @@ var controller = {
 
 
   play: function() {
-    controller.gameInterval = setInterval(controller.gameloop, 500);
+    controller.gameInterval = setInterval(controller.gameloop, controller.speed);
   },
 
 
@@ -306,5 +308,5 @@ var controller = {
 
 
 $(document).ready( function() {
-  controller.init();
+  controller.init(20, 100);
 })
