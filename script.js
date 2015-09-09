@@ -8,6 +8,7 @@ var model = {
     model.food.spawn();
   },
 
+  score: 0,
   gameover: false,
 
   // All units in grid [id,x,y,snake?,food?]
@@ -39,7 +40,13 @@ var model = {
         model.snake.units.unshift(newUnit);
         model.snake.units[0].snake = true;
 
-        model.snake.units.pop().snake = false;
+        // don't pop if it ate!
+        if (newUnit.food) {
+          model.food.eaten()
+        }
+        else {
+          model.snake.units.pop().snake = false;
+        };
 
         return newUnit;
       };
@@ -131,6 +138,12 @@ var model = {
         return (unit.snake === false);
       });
       return available[Math.floor(available.length * Math.random())];
+    },
+
+    eaten: function() {
+      model.score += 1;
+      model.food.unit[0].food = false;
+      model.food.spawn();
     }
   },
 
@@ -203,18 +216,19 @@ var view = {
 
   },
 
-  renderFrame: function(snakeIDs, snakeHeadID, direction, foodID) {
+  renderFrame: function(snakeIDs, snakeHeadID, direction, foodID, score, gameover) {
     view.resetFrame();
+    view.renderScore(score)
     $.each( snakeIDs, function(i,id) { view.drawSnake(id) } );
-    view.drawSnakeHead(snakeHeadID, direction);
+    view.drawSnakeHead(snakeHeadID, direction, gameover);
     view.drawFood(foodID);
   },
 
-  renderEndgame: function(snakeIDs, snakeHeadID, foodID) {
-    view.resetFrame();
-    $.each( snakeIDs, function(i,id) { view.drawSnake(id) } );
-    view.drawDeadSnake(snakeHeadID);
-    view.drawFood(foodID);
+  renderScore: function(score) {
+    $('.scoreboard em')[0].innerHTML = score;
+  },
+
+  renderEndgame: function() {
     $('.board').after("<h3>Game Over!</h3>");
   },
 
@@ -231,65 +245,63 @@ var view = {
     $('.board').children().eq(i).addClass('snake');
   },
 
-  drawSnakeHead: function(i, direction) {
-    $('.board').children().eq(i).addClass('head ' + direction);
+  drawSnakeHead: function(i, direction, gameover) {
+    if (gameover) {
+      $('.board').children().eq(i).addClass('dead ' + direction);
+    }
+    else {
+      $('.board').children().eq(i).addClass('head ' + direction);
+    }
   },
-
-  drawDeadSnake: function(i) {
-    $('.board').children().eq(i).addClass('dead');
-  }
-
-
 
 }
 
 
 
 var controller = {
+
   init: function() {
     model.init(10);
     view.init(10);
-    //start the loop
     controller.play();
   },
 
+
   gameInterval: null,
+
 
   show: function() {
     var snakeIDs = model.getSnakeIDs();
     var snakeHeadID = snakeIDs[0];
     var direction = model.getSnakeDirection();
     var foodID = model.getFoodIDs();
-    view.renderFrame(snakeIDs, snakeHeadID, direction, foodID);
+    var score = model.score;
+    var gameover = model.gameover;
+    view.renderFrame(snakeIDs, snakeHeadID, direction, foodID, score, gameover);
   },
+
 
   play: function() {
-    // every 2 seconds
-    controller.gameInterval = setInterval(controller.gameloop, 1000);
+    controller.gameInterval = setInterval(controller.gameloop, 500);
   },
 
+
   gameloop: function() {
-    // update model
     model.nextFrame();
-    // check for loss
-    // check for food gain
+    controller.show();
 
     if (model.gameover) {
       controller.endGame();
-    }
-    else {
-      controller.show();
     };
   },
 
+
   endGame: function() {
     clearInterval(controller.gameInterval);
-    var snakeIDs = model.getSnakeIDs();
-    var snakeHeadID = snakeIDs[0];
-    var foodID = model.getFoodIDs();
-    view.renderEndgame(snakeIDs, snakeHeadID, foodID);
+    view.renderEndgame();
   }
 }
+
 
 
 

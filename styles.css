@@ -25,6 +25,10 @@
   background-color: green;
 }
 
+.dead {
+  background-color: red;
+}
+
 .right {
   border-radius: 0 100% 100% 0;
 }
@@ -39,8 +43,4 @@
 
 .down {
   border-radius: 0 0 100% 100%;
-}
-
-.dead {
-  background-color: red;
 }
