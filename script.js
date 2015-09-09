@@ -165,14 +165,14 @@ var model = {
   buildGrid: function() {
     var output = [];
     for(var i = 0; i < Math.pow(model.gridSize, 2); i++) {
-      var newUnit = new model.unitConstructor(i);
+      var newUnit = new model.UnitConstructor(i);
       output.push(newUnit);
     }
     return output;
   },
 
 
-  unitConstructor: function(i) {
+  UnitConstructor: function(i) {
     this.id = i;
     this.x = i % model.gridSize;
     this.y = Math.floor(i / model.gridSize);
