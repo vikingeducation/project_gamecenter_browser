@@ -6,4 +6,4 @@ Best game ever again.  Use the arrow keys to change direction.  Eat as much deli
 [Play!][1]
 
 
-[1]: https://github.com/kinsona/project_game_center_browser/blob/master/snake.html
+[1]: https://htmlpreview.github.io/?https://github.com/kinsona/project_game_center_browser/blob/master/snake.html
