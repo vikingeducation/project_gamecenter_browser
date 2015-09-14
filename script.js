@@ -55,7 +55,7 @@ var model = {
       };
     },
 
-
+    // make this into an object and index into it (right: 1, left: -1....)
     movementX: function() {
       if (model.snake.direction === 'right') {
         return 1
@@ -86,7 +86,7 @@ var model = {
       model.snake.directionNext = model.snake.filterInput(event.which);
     },
 
-
+    // an object?
     filterInput: function(input) {
       // if current is left/right, should only accept up/down
       if (model.snake.direction === 'left' || model.snake.direction === 'right') {
@@ -238,14 +238,15 @@ var view = {
   setDimensions: function(size) {
     var unitSizePx = Math.floor(320/size) + 'px';
     $('.board').css('line-height', unitSizePx );
-    $('.unit').css('height', unitSizePx );
-    $('.unit').css('width', unitSizePx );
+    $('.unit').css('height', unitSizePx ).
+               css('width', unitSizePx );
   },
 
 
  renderFrame: function(snakeIDs, snakeHeadID, direction, foodID, score, gameover) {
     view.resetFrame();
     view.renderScore(score)
+    // if not using jQuery objects, could just use forEach
     $.each( snakeIDs, function(i,id) { view.drawSnake(id) } );
     view.drawSnakeHead(snakeHeadID, direction, gameover);
     view.drawFood(foodID);
