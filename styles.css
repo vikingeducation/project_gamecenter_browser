@@ -1,0 +1,57 @@
+.scoreboard {
+  text-align: center;
+}
+
+.board {
+  margin: auto;
+  width: 320px;
+  border: 1px solid #666;
+  line-height: 16px;
+}
+
+.unit {
+  height: 16px;
+  width: 16px;
+  background-color: #ccc;
+  display: inline-block;
+  vertical-align: top;
+  border: 1px solid #aaa;
+  box-sizing: border-box;
+}
+
+.food {
+  background-color: orange;
+}
+
+.snake {
+  background-color: lightgreen;
+}
+
+.head {
+  background-color: green;
+}
+
+.dead {
+  background-color: red;
+}
+
+.right {
+  border-radius: 0 100% 100% 0;
+}
+
+.left {
+  border-radius: 100% 0 0 100%;
+}
+
+.up {
+  border-radius: 100% 100% 0 0;
+}
+
+.down {
+  border-radius: 0 0 100% 100%;
+}
+
+.gameover {
+  text-align: center;
+  color: red;
+}
