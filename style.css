@@ -1,0 +1,27 @@
+/* Wrapper */
+#snake-wrapper{
+	width: 240px;
+	display: block;
+	margin: 0px auto;
+}
+
+/* Table Formatting */
+td {
+	height: 40px;
+	width: 40px;
+}
+
+/* Snake Styling 
+		HTML colors found here: http://www.computerhope.com/htmcolor.htm
+*/
+td.snake-head{
+	background-color: #82CAFA;
+}
+
+td.snake-body{
+	background-color: #3BB9FF;
+}
+
+td.food{
+	background-color: #FFA62F;
+}
