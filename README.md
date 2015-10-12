@@ -1,4 +1,4 @@
-project_gamecenter_browser
+Snake Project
 ==========================
 
-hiss hiss gulp grow hiss...
+Solution by [Trevor Elwell](http://trevorelwell.me)
