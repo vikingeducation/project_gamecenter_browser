@@ -1,8 +1,8 @@
 // Don't want to pullute the global namespace w. constants
 // so I'll add them to an object
 var constants = {
-	grid_size: 6, 
-	snake_move_delay: 200
+	grid_size: 12, 
+	snake_move_delay: 400
 }
 
 var model = {
@@ -32,15 +32,7 @@ var model = {
 	gen_random_food_coords: function(){
 		var x = model.gen_random_number();
 		var y = model.gen_random_number();
-		var temp_food_coord = {x: x, y: y};
-		// Need to ensure that the food coord is not
-		// already part of the snake_coords
-		model.snake_coords.forEach(function(snake_coord){
-			if(JSON.stringify(temp_food_coord) === JSON.stringify(snake_coord)){
-				return model.gen_random_food_coords();
-			}
-		});
-		return temp_food_coord;
+		return {x: x, y: y};
 	}, 
 
 	// Help us generate random coordinates
@@ -50,6 +42,16 @@ var model = {
 
 	incScore: function(amount){
 		model.user_score += amount;
+	}, 
+
+	incSpeed: function(){
+		if(constants.snake_move_delay >= 150){
+			constants.snake_move_delay -= 25;
+			clearInterval(constants.game_interval);
+			constants.game_interval = window.setInterval(function(){
+		  	controller.moveSnake();
+			}, constants.snake_move_delay);
+		}
 	}
 }
 
@@ -113,6 +115,11 @@ var view = {
 		$('.snake-head').removeClass('snake-head');
 		// Set the snake head
 		$('td[x="'+model.snake_coords[0].x+'"][y="'+model.snake_coords[0].y+'"]').addClass('snake-head');
+		// set the snake body
+		$('.snake-body').removeClass('snake-body');
+		model.snake_coords.slice(1).forEach(function(el){
+			$('td[x="'+el.x+'"][y="'+el.y+'"]').addClass('snake-body');
+		});
 	}, 
 
 	renderFood: function(){
@@ -175,11 +182,12 @@ var controller = {
 		// Reset the stack
 		controller.stack = new Array;
 		model.snake_coords.unshift(coords);
-		model.snake_coords.pop();
-		view.renderSnake();
 		// Ensure the snake is within bounds
 		controller.withinBounds();
-		// Check if snake got food
+		// Ensure the snake hasn't hit itself
+		controller.hitItself();
+		// Check if snake got food. Then render the 
+		// resulting snake
 		controller.eatFood();
 	},
 
@@ -189,15 +197,44 @@ var controller = {
 			clearInterval(constants.game_interval);
 			alert("YOU LOSE!");
 		}
-	}, 
+	},
+
+	hitItself: function(){
+		model.snake_coords.slice(1).forEach(function(el){
+			if(JSON.stringify(el) === JSON.stringify(model.snake_coords[0])){
+				controller.loss = true;
+				clearInterval(constants.game_interval);
+				alert("DOH! You Hit Yourself :(");
+			}
+		});
+	},
 
 	eatFood: function(){
 		if(JSON.stringify(model.food_coords) === JSON.stringify(model.snake_coords[0])){
 			model.incScore(30);
 			view.renderScore();
 			model.food_coords = model.gen_random_food_coords();
+			// TODO: This is a pretty inefficient way of checking where
+			// the food is. I think it's still possible for food to land
+			// on the snake, it would just have to have bad luck twice.
+			controller.foodOnSnake();
 			view.renderFood();
+			view.renderSnake();
+			model.incSpeed();
+		} else {
+			model.snake_coords.pop();
+			view.renderSnake();
 		}
+	}, 
+
+	foodOnSnake: function(){
+		// Return true if the food coord is
+		// already part of the snake_coords.
+		model.snake_coords.forEach(function(snake_coord){
+			if(model.food_coords.x == snake_coord.x && model.food_coords.y == snake_coord.y){
+				model.food_coords = model.gen_random_food_coords();
+			}
+		});
 	}
 
 	// Snake head gets food

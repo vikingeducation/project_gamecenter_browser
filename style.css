@@ -1,14 +1,14 @@
 /* Wrapper */
 #snake-wrapper{
-	width: 240px;
+	width: 120px;
 	display: block;
 	margin: 0px auto;
 }
 
 /* Table Formatting */
 td {
-	height: 40px;
-	width: 40px;
+	height: 10px;
+	width: 10px;
 }
 
 /* Snake Styling 
@@ -24,4 +24,15 @@ td.snake-body{
 
 td.food{
 	background-color: #FFA62F;
+}
+
+/* Bottom Text */
+#disclaimer-wrapper{
+	width: 200px;
+	text-align: justify;
+}
+
+#disclaimer{
+	color: #B6B6B6;
+	font-style: italic;
 }
