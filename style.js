@@ -46,6 +46,10 @@ var model = {
 	// Help us generate random coordinates
 	gen_random_number: function(){
 		return Math.floor((Math.random() * constants.grid_size));
+	}, 
+
+	incScore: function(amount){
+		model.user_score += amount;
 	}
 }
 
@@ -79,8 +83,8 @@ var view = {
 		view.config();
 	},
 
-	// config
-		// Set arrow listeners
+	// Set arrow listeners and push movement
+	// to the controller stack
 	config: function(){
 		$(document).keydown(function(event){
 			switch(event.which){
@@ -101,6 +105,10 @@ var view = {
 		});
 	},
 
+	renderScore: function(){
+		$('#user-score').html("Score: " + model.user_score);
+	},
+
 	renderSnake: function(){
 		$('.snake-head').removeClass('snake-head');
 		// Set the snake head
@@ -108,6 +116,8 @@ var view = {
 	}, 
 
 	renderFood: function(){
+		// Clear any old food
+		$('.food').removeClass('food');
 		// Set the food
 		$('td[x="'+model.food_coords.x+'"][y="'+model.food_coords.y+'"]').addClass('food');
 	}
@@ -167,12 +177,28 @@ var controller = {
 		model.snake_coords.unshift(coords);
 		model.snake_coords.pop();
 		view.renderSnake();
-		console.log(model.snake_coords);
+		// Ensure the snake is within bounds
+		controller.withinBounds();
+		// Check if snake got food
+		controller.eatFood();
+	},
+
+	withinBounds: function(){
+		if(model.snake_coords[0].x >= constants.grid_size || model.snake_coords[0].x < 0 || model.snake_coords[0].y >= constants.grid_size || model.snake_coords[0].y < 0){
+			controller.loss = true;
+			clearInterval(constants.game_interval);
+			alert("YOU LOSE!");
+		}
+	}, 
+
+	eatFood: function(){
+		if(JSON.stringify(model.food_coords) === JSON.stringify(model.snake_coords[0])){
+			model.incScore(30);
+			view.renderScore();
+			model.food_coords = model.gen_random_food_coords();
+			view.renderFood();
+		}
 	}
-
-	// Move stack
-
-	// Snake move function
 
 	// Snake head gets food
 
