@@ -2,22 +2,27 @@ var GamesController = {
   templateDirectory: 'games',
 
   make: function() {
-    Game.create();
     this.render('make');
     PlayEventListener.start();
   },
 
-  show: function() {
-    var snake = Snake.first();
+  show: function(id) {
+    var game = Game.find(id);
 
     this.render('show', {
-      snake: renderSnake(snake),
-      snakeId: snake.id
+      snake: renderSnake(game.snake),
+      snakeId: game.snake.id
     });
 
     TickEventEmitter.start();
     TickEventListener.start();
     KeyEventListener.start();
+    CollisionEventListener.start();
+  },
+
+  create: function() {
+    var game = Game.create();
+    this.show(game.id);
   }
 };
 

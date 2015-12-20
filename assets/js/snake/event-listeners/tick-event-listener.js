@@ -3,10 +3,15 @@ var TickEventListener = {
   event: 'tick',
 
   callback: function(e, data) {
+    TickEventListener._updateSnakeDirection();
+    TickEventListener._updatePositions();
+    CollisionEventEmitter.start();
+  },
+
+  _updateSnakeDirection: function() {
     var snakeId = $('div[data-snake-id]').attr('data-snake-id');
     var snake = Snake.find(snakeId);
     SegmentsController.update(snake.head.id, {direction: snake.direction});
-    TickEventListener._updatePositions();
   },
 
   _updatePositions: function() {

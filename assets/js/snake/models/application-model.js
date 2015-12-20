@@ -36,7 +36,7 @@ var ApplicationModel = {
 
   create: function(attributes) {
     this._fireCallbacks('before', 'create', attributes);
-    object = this.make(attributes);
+    var object = this.make(attributes);
     object.save();
     this._fireCallbacks('after', 'create', object);
     return object;
@@ -48,7 +48,7 @@ var ApplicationModel = {
 
   updateAll: function(attributes) {
     this._table.forEach(function(object) {
-      object = $.extend(object, attributes);
+      object.update(attributes);
     });
   },
 
@@ -82,10 +82,17 @@ var ApplicationModel = {
 
   _fireCallbacks: function(action, filter, object) {
     if (this._callbacks[action] && this._callbacks[action][filter]) {
+      var callbackName = action + '.' + filter + '.';
+
       for (var key in this._callbacks[action][filter]) {
+        console.log('Firing callback: ' + callbackName + key, object);
+
         this._callbacks[action][filter][key](object);
+        
+        console.log('Finished: ' + callbackName + key, object);
       }
     }
+    return object;
   },
 
   _publicInstanceVariables: {

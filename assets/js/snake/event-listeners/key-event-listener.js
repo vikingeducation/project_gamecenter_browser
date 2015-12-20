@@ -12,14 +12,13 @@ var KeyEventListener = {
     var direction = KeyEventListener._directionFor(e.keyCode);
     if (direction) {
       var snake = Snake.find(snakeId);
-      if (-1 * snake.direction.x === direction.x ||
-          -1 * snake.direction.y === direction.y) {
+      if (snake.canMoveTo(direction)) {
+        SnakesController.update(snake.id, {direction: direction});
+      } else {
         $('body').addClass('error');
         setTimeout(function() {
           $('body').removeClass('error');
         }, 100);
-      } else {
-        SnakesController.update(snakeId, {direction: direction});
       }
     }
   },

@@ -1,10 +1,35 @@
 var Game = {
   SQUARE_SIZE: 32,
-  GRID_SIZE: 24,
+  GRID_WIDTH: 24,
+  GRID_HEIGHT: 16,
 
   defaults: {
     snake: null,
-    player: null
+    player: null,
+    foods: []
+  },
+
+  minX: function() {
+    return 0;
+  },
+
+  minY: function() {
+    return 0;
+  },
+
+  maxX: function() {
+    return this.SQUARE_SIZE * (this.GRID_WIDTH - 1);
+  },
+
+  maxY: function() {
+    return this.SQUARE_SIZE * (this.GRID_HEIGHT - 1);
+  },
+
+  randomPosition: function() {
+    return {
+      x: (this.SQUARE_SIZE * ~~((Math.random() * 100) % this.GRID_WIDTH)),
+      y: (this.SQUARE_SIZE * ~~((Math.random() * 100) % this.GRID_HEIGHT))
+    }
   }
 };
 
@@ -18,5 +43,10 @@ Game.addCallback('after', 'create', 'createSnake', function(game) {
 Game.addCallback('after', 'create', 'createPlayer', function(game) {
   var player = Player.create();
   game.player = player;
+});
+
+Game.addCallback('after', 'create', 'createFood', function() {
+  var food = Food.create();
+  game.foods.push(food);
 });
 

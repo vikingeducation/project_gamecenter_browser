@@ -4,7 +4,7 @@ var PlayEventListener = {
 
   callback: function(e) {
     e.preventDefault();
-    GamesController.show();
+    GamesController.create();
     return false;
   }
 };

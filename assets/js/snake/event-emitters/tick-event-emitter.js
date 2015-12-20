@@ -1,12 +1,13 @@
 var TickEventEmitter = {
   selector: document,
   event: 'tick',
-  speed: 1000,
+  speed: 500,
   method: 'interval',
   
   emit: function() {
     var delta = (window.performance) ? window.performance.now() : Date.now();
-    $(document).trigger(TickEventEmitter.event, {delta: delta});
+    $(TickEventEmitter.selector)
+      .trigger(TickEventEmitter.event, {delta: delta});
   }
 };
 

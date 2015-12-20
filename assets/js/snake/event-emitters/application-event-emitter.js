@@ -2,6 +2,7 @@ var ApplicationEventEmitter = {
   _id: null,
 
   register: function(eventEmitter) {
+    eventEmitter.speed = (eventEmitter.speed) ? eventEmitter.speed : 0;
     $.extend(eventEmitter, this);
   },
 
