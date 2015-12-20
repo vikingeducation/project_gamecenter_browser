@@ -1,4 +1,6 @@
 var Snake = {
+  NUM_START_SEGMENTS: 4,
+
   defaults: {
     segments: [],
     head: null,
@@ -6,6 +8,18 @@ var Snake = {
     direction: {
       x: 1,
       y: 0
+    },
+
+    grow: function() {
+      var segment = Segment.create();
+      this.tail.prev = segment;
+      segment.next = this.tail;
+      segment.direction = this.tail.direction;
+      segment.x = this.tail.x;
+      segment.y = this.tail.y;
+      segment._decrementPosition();
+      this.tail = segment;
+      return segment;
     },
 
     canMoveTo: function(direction) {
@@ -46,10 +60,9 @@ var Snake = {
 ApplicationModel.register(Snake);
 
 Snake.addCallback('after', 'create', 'createHeadSegment', function(snake) {
-  var numSegments = 10;
-  for (var i = 0; i < numSegments; i++) {
+  for (var i = 0; i < Snake.NUM_START_SEGMENTS; i++) {
     var segment = Segment.create({
-      x: Game.SQUARE_SIZE * (numSegments - (i + 2)),
+      x: Game.SQUARE_SIZE * (Snake.NUM_START_SEGMENTS - (i + 2)),
       y: 0
     });
     snake.segments.push(segment);

@@ -82,14 +82,8 @@ var ApplicationModel = {
 
   _fireCallbacks: function(action, filter, object) {
     if (this._callbacks[action] && this._callbacks[action][filter]) {
-      var callbackName = action + '.' + filter + '.';
-
       for (var key in this._callbacks[action][filter]) {
-        console.log('Firing callback: ' + callbackName + key, object);
-
         this._callbacks[action][filter][key](object);
-        
-        console.log('Finished: ' + callbackName + key, object);
       }
     }
     return object;

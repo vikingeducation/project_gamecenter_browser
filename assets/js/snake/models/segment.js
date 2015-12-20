@@ -25,6 +25,11 @@ var Segment = {
       this.y += (Game.SQUARE_SIZE * this.direction.y);
     },
 
+    _decrementPosition: function() {
+      this.x -= (Game.SQUARE_SIZE * this.direction.x);
+      this.y -= (Game.SQUARE_SIZE * this.direction.y);
+    },
+
     _enforceBoundaries: function() {
       if (this.x > Game.maxX()) {
         this.x = Game.minX();

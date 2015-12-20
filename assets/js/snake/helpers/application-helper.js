@@ -1,5 +1,5 @@
 var ApplicationHelper = {
-  registerHelper: function(helper) {
+  register: function(helper) {
     $.extend(window, helper);
   },
 
@@ -8,5 +8,5 @@ var ApplicationHelper = {
   }
 };
 
-ApplicationHelper.registerHelper(ApplicationHelper);
+window.partial = ApplicationHelper.partial;
 

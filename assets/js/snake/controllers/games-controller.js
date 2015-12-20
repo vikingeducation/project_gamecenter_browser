@@ -11,6 +11,10 @@ var GamesController = {
 
     this.render('show', {
       snake: renderSnake(game.snake),
+      food: renderFoods(game.foods),
+      score: renderScore(game.player),
+      gameId: game.id,
+      playerId: game.player.id,
       snakeId: game.snake.id
     });
 
@@ -18,6 +22,7 @@ var GamesController = {
     TickEventListener.start();
     KeyEventListener.start();
     CollisionEventListener.start();
+    ScoreEventListener.start();
   },
 
   create: function() {

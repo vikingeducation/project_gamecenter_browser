@@ -8,6 +8,9 @@ var CollisionEventListener = {
     if (a._model === Snake && b._model === Snake) {
       GameOverEventEmitter.start();
     }
+    if (a._model === Snake && b._model === Food) {
+      ScoreEventEmitter.start();
+    }
   }
 };
 

@@ -1,7 +1,7 @@
 var TickEventEmitter = {
   selector: document,
   event: 'tick',
-  speed: 500,
+  speed: 200,
   method: 'interval',
   
   emit: function() {

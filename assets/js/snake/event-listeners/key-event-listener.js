@@ -11,6 +11,7 @@ var KeyEventListener = {
     var snakeId = $('div[data-snake-id]').attr('data-snake-id');
     var direction = KeyEventListener._directionFor(e.keyCode);
     if (direction) {
+      e.preventDefault();
       var snake = Snake.find(snakeId);
       if (snake.canMoveTo(direction)) {
         SnakesController.update(snake.id, {direction: direction});
@@ -20,6 +21,7 @@ var KeyEventListener = {
           $('body').removeClass('error');
         }, 100);
       }
+      return false;
     }
   },
 

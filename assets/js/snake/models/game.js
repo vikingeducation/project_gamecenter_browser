@@ -45,8 +45,10 @@ Game.addCallback('after', 'create', 'createPlayer', function(game) {
   game.player = player;
 });
 
-Game.addCallback('after', 'create', 'createFood', function() {
-  var food = Food.create();
+Game.addCallback('after', 'create', 'createFood', function(game) {
+  var food = Food.create({
+    game: game
+  });
   game.foods.push(food);
 });
 
