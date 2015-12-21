@@ -17,7 +17,6 @@ var TickEventEmitter = {
 
   decrementSpeed: function() {
     this.speed -= 5;
-    console.log(this.speed);
   }
 };
 
