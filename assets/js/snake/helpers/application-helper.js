@@ -5,8 +5,20 @@ var ApplicationHelper = {
 
   partial: function(template, data) {
     return ApplicationView.renderPartial(template, data);
+  },
+
+  pause: function() {
+    TickEventEmitter.stop();
+  },
+
+  start: function() {
+    TickEventEmitter.start();
+  },
+
+  gameover: function() {
+    GameOverEventEmitter.start();
   }
 };
 
-window.partial = ApplicationHelper.partial;
+ApplicationHelper.register(ApplicationHelper);
 

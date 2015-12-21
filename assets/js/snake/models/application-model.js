@@ -24,7 +24,7 @@ var ApplicationModel = {
 
   make: function(attributes) {
     this._fireCallbacks('before', 'make', attributes);
-    var defaultsClone = $.extend({}, this.defaults);
+    var defaultsClone = $.extend(true, {}, this.defaults);
     var object = $.extend(defaultsClone, attributes);
     object = $.extend(object, this._publicInstanceVariables);
     object = $.extend(object, this._privateInstanceVariables);

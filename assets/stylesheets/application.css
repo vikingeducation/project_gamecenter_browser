@@ -2,7 +2,8 @@
   Application
 */
 
-#games-make {
+#games-make,
+#games-remove {
   margin-top: 256px;
 }
 

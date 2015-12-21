@@ -9,6 +9,7 @@ var ApplicationView = {
     if (suppress) {
       return rendered;
     }
+    // this.$container.empty();
     this.$container.html(rendered);
   },
 

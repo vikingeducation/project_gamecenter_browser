@@ -34,6 +34,7 @@ var ApplicationEventEmitter = {
   _stopMethod: function(id) {
     var method =  (this.method === 'interval') ? clearInterval : clearTimeout;
     method(this._id);
+    this._id = null;
   }
 };
 

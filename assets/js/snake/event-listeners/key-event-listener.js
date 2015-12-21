@@ -19,7 +19,7 @@ var KeyEventListener = {
         $('body').addClass('error');
         setTimeout(function() {
           $('body').removeClass('error');
-        }, 100);
+        }, 50);
       }
       return false;
     }

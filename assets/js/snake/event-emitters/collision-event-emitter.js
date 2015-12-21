@@ -25,8 +25,10 @@ var CollisionEventEmitter = {
 
   _emitSnakeFoodCollision: function(snake) {
     var data;
-    var foodId = $('#games-show div[data-food-id]').attr('data-food-id');
+    var $food = $('#games-show div[data-food-id]');
+    var foodId = $food.attr('data-food-id');
     var food = Food.find(foodId);
+
     if (!food.isCollected && snake.isCollidingWith(food)) {
       FoodsController.update(food.id, {
         isCollected: true

@@ -29,6 +29,11 @@ var FoodsHelper = {
         left: food.x + 'px'
       });
     }
+  },
+
+  removeAllFoods: function() {
+    $('#games-show div[data-food-id]').remove();
+    $('#collected-foods div[data-food-id]').remove();
   }
 };
 

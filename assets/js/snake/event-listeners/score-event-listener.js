@@ -6,7 +6,6 @@ var ScoreEventListener = {
     var playerId = $('div[data-player-id]').attr('data-player-id');
     var player = Player.find(playerId);
     var score = player.score + data.points;
-    console.log(player, data);
     PlayersController.update(playerId, {
       score: score
     });

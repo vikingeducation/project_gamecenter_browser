@@ -19,6 +19,7 @@ var Snake = {
       segment.y = this.tail.y;
       segment._decrementPosition();
       this.tail = segment;
+      this.segments.push(segment);
       return segment;
     },
 
@@ -31,10 +32,7 @@ var Snake = {
     },
 
     isSelfColliding: function() {
-      var segment = this.head
-        .prev
-        .prev
-        .prev;
+      var segment = this.head.prev;
       while (segment) {
         if (this.head.isCollidingWith(segment)) {
           return true;
@@ -71,7 +69,11 @@ Snake.addCallback('after', 'create', 'createHeadSegment', function(snake) {
       snake.segments[i - 1].prev = snake.segments[i];
     }
   }
-  snake.head = Segment.first();
-  snake.tail = Segment.last();
+  snake.head = snake.segments[0];
+  snake.tail = snake.segments[snake.segments.length - 1];
+});
+
+Snake.addCallback('before', 'destroy', 'destroyDependents', function(snake) {
+  Segment.destroyAll();
 });
 

@@ -9,6 +9,9 @@ var Food = {
 
     setPosition: function() {
       var randomPosition = Game.randomPosition();
+      while (this.game.snake.isCollidingWith(randomPosition)) {
+        randomPosition = Game.randomPosition();
+      }
       this.x = randomPosition.x;
       this.y = randomPosition.y;
     },
@@ -46,7 +49,6 @@ Food.addCallback('after', 'update', 'collectFood', function(food) {
     });
     game.foods.push(food);
     game.snake.grow();
-    console.log(game);
   }
 });
 

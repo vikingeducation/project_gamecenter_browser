@@ -5,9 +5,8 @@ var TickEventEmitter = {
   method: 'interval',
   
   emit: function() {
-    var delta = (window.performance) ? window.performance.now() : Date.now();
     $(TickEventEmitter.selector)
-      .trigger(TickEventEmitter.event, {delta: delta});
+      .trigger(TickEventEmitter.event);
   }
 };
 

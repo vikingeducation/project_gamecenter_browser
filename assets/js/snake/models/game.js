@@ -52,3 +52,9 @@ Game.addCallback('after', 'create', 'createFood', function(game) {
   game.foods.push(food);
 });
 
+Game.addCallback('before', 'destroy', 'destroyDependents', function(game) {
+  game.snake.destroy();
+  game.player.destroy();
+  Food.destroyAll();
+});
+

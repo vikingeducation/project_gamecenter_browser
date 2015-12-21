@@ -17,17 +17,23 @@ var TickEventListener = {
   },
 
   _updatePositions: function() {
-    Segment.all().forEach(function(segment) {
+    var gameId = $('div[data-game-id]').attr('data-game-id');
+    var game = Game.find(gameId);
+
+    game.snake.segments.forEach(function(segment) {
       positionSegment(segment);
     });
 
-    Food.all().forEach(function(food) {
+    game.foods.forEach(function(food) {
       positionFood(food);
     });
   },
 
   _appendUnappendedSegments: function() {
-    Segment.all().forEach(function(segment) {
+    var gameId = $('div[data-game-id]').attr('data-game-id');
+    var game = Game.find(gameId);
+
+    game.snake.segments.forEach(function(segment) {
       var $segment = $('#games-show div[data-segment-id="' + segment.id + '"]');
       if (!$segment.length) {
         $segment = $(renderSegment(segment));
@@ -38,12 +44,17 @@ var TickEventListener = {
   },
 
   _appendUnappendedFoods: function() {
-    Food.uncollected().forEach(function(food) {
-      var $food = $('#games-show div[data-food-id="' + food.id + '"]');
-      if (!$food.length) {
-        $food = $(renderFood(food));
-        $food.appendTo('#games-show');
-        positionFood(food);
+    var gameId = $('div[data-game-id]').attr('data-game-id');
+    var game = Game.find(gameId);
+
+    game.foods.forEach(function(food) {
+      if (!food.isCollected) {
+        var $food = $('#games-show div[data-food-id="' + food.id + '"]');
+        if (!$food.length) {
+          $food = $(renderFood(food));
+          $food.appendTo('#games-show');
+          positionFood(food);
+        }
       }
     });
   }

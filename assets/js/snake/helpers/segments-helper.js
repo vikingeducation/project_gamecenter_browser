@@ -12,6 +12,10 @@ var SegmentsHelper = {
       top: segment.y + 'px',
       left: segment.x + 'px'
     });
+  },
+
+  removeAllSegments: function() {
+    $('#game-show div[data-segment-id]').remove();
   }
 };
 

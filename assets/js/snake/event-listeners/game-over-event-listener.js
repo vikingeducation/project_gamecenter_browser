@@ -2,11 +2,15 @@ var GameOverEventListener = {
   selector: document,
   event: 'gameover',
 
-  callback: function(e, data) {
-    TickEventEmitter.stop();
-    TickEventListener.stop();
-    KeyEventListener.stop();
-    CollisionEventListener.stop();
+  callback: function(e) {
+    GameOverEventListener._removeAllGameObjects();
+    var gameId = $('div[data-game-id]').attr('data-game-id');
+    GamesController.remove(gameId);
+  },
+
+  _removeAllGameObjects: function() {
+    removeAllFoods();
+    removeAllSegments();
   }
 };
 
