@@ -51,6 +51,7 @@ var GamesController = {
     this.render('remove');
 
     PlayEventListener.start();
+    TickEventEmitter.resetSpeed();
   }
 };
 

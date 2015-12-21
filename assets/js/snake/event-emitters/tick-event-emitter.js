@@ -1,12 +1,23 @@
 var TickEventEmitter = {
+  SPEED: 250,
+
   selector: document,
   event: 'tick',
-  speed: 200,
-  method: 'interval',
+  speed: 250,
   
   emit: function() {
     $(TickEventEmitter.selector)
       .trigger(TickEventEmitter.event);
+    TickEventEmitter.start();
+  },
+
+  resetSpeed: function() {
+    this.speed = this.SPEED;
+  },
+
+  decrementSpeed: function() {
+    this.speed -= 5;
+    console.log(this.speed);
   }
 };
 
