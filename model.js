@@ -1,17 +1,17 @@
 var model = {
 
-  max: 40,
+  max: 30,
   board: [],
 
-  init: function() {
-
+  generateNewBoard: function() {
+    this.board = new Array(this.max);
+    for (var i = 0; i < this.max; i++) {
+      this.board[i] = new Array(this.max);
+    }
   },
 
-  generateNewBoard: function() {
-    board = new Array(max);
-    for (var i = 0; i < max; i++) {
-      board[i] = new Array(max);
-    }
+  getBoard: function() {
+    return this.board;
   }
 
 };

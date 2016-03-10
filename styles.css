@@ -5,9 +5,16 @@
 }
 
 .board {
+  border: 1px solid black;
   width: 600px;
   height: 600px;
-  border: 1px solid black;
+}
+
+.unit {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  width: 18px;
+  height: 18px;
+  float: left;
 }
 
 .snake {
