@@ -1,0 +1,18 @@
+.center {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.board {
+  width: 600px;
+  height: 600px;
+  border: 1px solid black;
+}
+
+.snake {
+  width: 10px;
+  height: 10px;
+  border: 1px solid black;
+  background: yellow;
+}
