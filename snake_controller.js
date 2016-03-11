@@ -1,21 +1,31 @@
 var controller = {
 
   init: function(){
-    view.init();
+
     model.init();
 
-    model.addFood();//adds food obj
-    //adds snake obj
+    view.init();
+    view.buildGrid( model.boardSize );
 
-    setInterval(function(){game_loop();}, 1000);
+    setInterval(function() {
+      controller.gameLoop();
+    }, 1000);
   },
-  
-  game_loop: function(){
-  }
+
+  gameLoop: function() {
+    model.update();
+    view.render(  model.snake.add,
+                  model.snake.remove,
+                  model.food.add,
+                  model.food.remove );
+  },
+
+  changeDirection: function(newDirection) {
+    model.changeDirection( newDirection );
+  },
 
 }
 
 $(document).ready(function() {
     controller.init();
 });
-
