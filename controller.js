@@ -5,7 +5,8 @@ var controller = {
 
   direction: "right",
 
-  moveTheSnake: function(){
-    view.moveSnake(controller.direction)
+  moveTheSnake: function() {
+      setInterval(view.moveSnake, 500)
     }
+
 }

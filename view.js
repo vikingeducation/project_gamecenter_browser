@@ -7,14 +7,16 @@ var view = {
 
   },
 
-  moveSnake: function(direction){
-    $('#1').css('top', this.calcNewCSS()['top ']+ model.directions[String(direction)]['top'] + "px")
-    $('#1').css('left', this.calcNewCSS()['left'] + model.directions[String(direction)]['left'] + "px")
+  moveSnake: function(){
+    $('.node').css('top', view.calcNewCSS()['top']+ model.directions[String(controller.direction)]['top'] + "px")
+
+
+    $('.node').css('left', view.calcNewCSS()['left'] + model.directions[String(controller.direction)]['left'] + "px")
   },
 
   calcNewCSS: function(){
-    var top = $('#1').css('top');
-    var left = $('#1').css('left');
+    var top = $('.node').css('top');
+    var left = $('.node').css('left');
     return {top: parseInt(top.split('px')[0]),
             left: parseInt(left.split('px')[0])
             }
@@ -25,24 +27,23 @@ var view = {
       $( document ).keydown(function(e) {
         switch(e.which) {
           case 37: // left
-          controller.direction = "left"
+          controller.direction = "left";
           break;
 
           case 38: // up
-          controller.direction = "up"
+          controller.direction = "up";
           break;
 
           case 39: // right
-          controller.direction = "right"
+          controller.direction = "right";
+          // controller.moveTheSnake();
           break;
 
           case 40: // down
-          controller.direction = "down"
+          controller.direction = "down";
           break;
         }
-        e.preventDefault();
       })
     }
   }
 }
-// e.which
