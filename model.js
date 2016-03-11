@@ -12,8 +12,11 @@ var model = {
   },
 
   //gets random place to put food
-  randFoodLocation: function(){
-
+  randCoord: function(){
+    return {
+      top: (Math.round(Math.random() * $(window).height() / 10) * 10),
+      left: (Math.round(Math.random() * $(window).width() / 10) * 10)
+    }
   },
 ////////////////////////////////////////////////////////////////
 
@@ -41,12 +44,29 @@ var model = {
 
   // actually change the data values of each node
   updateCoordinates: function() {
-    $.each(this.$snake, function(index, node) {
-      // add vector to top
-      $(node).attr('data-top', $(node).data('top') + model.directions[controller.direction]['top'])
-      // add vector to left
-      $(node).attr('data-left', $(node).data('left') + model.directions[controller.direction]['left'])
+      if (model.nodeFromID(1).attr('data-top') < $(window).height() && model.nodeFromID(1).attr('data-top') > 0){
+        // add vector to top
+        model.nodeFromID(1).attr('data-top', (parseInt(model.nodeFromID(1).attr('data-top')) + parseInt(model.directions[controller.direction]['top'])))
+      }
+      if (model.nodeFromID(1).attr('data-left') < $(window).width() && model.nodeFromID(1).attr('data-left') > 0){
+        // add vector to left
+        model.nodeFromID(1).attr('data-left', (parseInt(model.nodeFromID(1).attr('data-left')) + parseInt(model.directions[controller.direction]['left'])))
+      }
+
+  },
+
+  updateBody: function() {
+    $.each($('.node'), function(index, node){
+      if ($(node).data('id') > 1){
+        console.log(node);
+        $(node).attr('data-top', model.nodeFromID($(node).attr('data-parent')).attr('data-top'));
+        $(node).attr('data-left', model.nodeFromID($(node).attr('data-parent')).attr('data-left'));
+      }
     })
+  },
+
+  nodeFromID: function(id){
+    return $('[data-id="' + id + '"]')
   }
 
 
@@ -56,4 +76,3 @@ var model = {
 ////////////////////////////////////////////////////////////////
 
 }
-

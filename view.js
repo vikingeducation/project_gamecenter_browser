@@ -3,16 +3,26 @@ var view = {
     view.eventListeners.keypressListener();
   },
 
-  renderNode: function(){
+  createFoodNode: function(){
+    var newNode = $('body').append($('<div class="food" data-top="0" data-left="0"></div>'));
+    return newNode;
+  },
 
+  createNode: function(){
+    var newNode = $('body').append($('<div class="node" data-id="' + model.snakeSize + '" data-parent="' + (model.snakeSize - 1) + '"></div>'));
+    return newNode;
   },
 
 
-  renderSnake: function() {
+  renderHead: function() {
     $.each($('.node'), function(index, node) {
-      $(node).css('top', $(node).data('top')+"px");
-      $(node).css('left', $(node).data('left')+"px");
+      $(node).css('top', $(node).attr('data-top')+"px");
+      $(node).css('left', $(node).attr('data-left')+"px");
     })
+  },
+
+  renderBody: function(){
+
   },
 
 

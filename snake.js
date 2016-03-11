@@ -4,6 +4,6 @@ $( document ).ready(function(){
   view.init();
 
   controller.moveTheSnake();
-
+  
 
 })

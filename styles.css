@@ -11,3 +11,10 @@
 body {
   background-color: blue;
 }
+
+.food {
+  position: absolute;
+  height: 10px;
+  width: 10px;
+  background-color: red;
+}
