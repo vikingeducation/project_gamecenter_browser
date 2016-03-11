@@ -5,8 +5,15 @@ var controller = {
 
   direction: "right",
 
+  updateSnakePosition: function() {
+    model.updateCoordinates();
+    view.renderSnake();
+  },
+
+
   moveTheSnake: function() {
-      setInterval(view.moveSnake, 500)
-    }
+      setInterval(controller.updateSnakePosition, 500)
+  },
+
 
 }

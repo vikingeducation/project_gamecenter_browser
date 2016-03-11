@@ -7,8 +7,8 @@ var model = {
 
 //////////////////////////FOOD INFO/////////////////////////////
   foodLocation:{
-    x: 0,
-    y: 0,
+    top: 0,
+    left: 0,
   },
 
   //gets random place to put food
@@ -19,20 +19,41 @@ var model = {
 
 //////////////////////////SNAKE INFO/////////////////////////////
   snakeHeadLocation:{
-    x: 0,
-    y: 0,
+    top: 0,
+    left: 0,
   },
+
 
   directions: {
     up: {top: -10,
-        left: 0},
+         left: 0},
     down: {top: 10,
-        left: 0},
+           left: 0},
     left: {top: 0,
            left: -10},
     right: {top: 0,
             left: 10}
   },
+
+
+  $snake: $('.node'),
+
+
+  // actually change the data values of each node
+  updateCoordinates: function() {
+    $.each(this.$snake, function(index, node) {
+      // add vector to top
+      $(node).attr('data-top', $(node).data('top') + model.directions[controller.direction]['top'])
+      // add vector to left
+      $(node).attr('data-left', $(node).data('left') + model.directions[controller.direction]['left'])
+    })
+  }
+
+
+
+
+
 ////////////////////////////////////////////////////////////////
 
 }
+
