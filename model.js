@@ -22,10 +22,10 @@ var model = {
 function Snake() {
 
   this.position = [[1,1]];
-  this.direction = 'r';
+  this.direction = 'right';
 
   this.getPosition = function() {
-    return this.position 
+    return this.position;
   };
 
   this.setPosition = function(position) {
@@ -41,7 +41,7 @@ function Snake() {
     this.direction = direction;
   };
 
-};
+}
 
 function Food() {
 
@@ -50,4 +50,4 @@ function Food() {
 
   this.position = [x, y];
 
-};
+}
