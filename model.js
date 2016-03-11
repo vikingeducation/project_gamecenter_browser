@@ -2,7 +2,14 @@ var model = {
   board: new Board(30),
   snake: new Snake(),
   food: new Food(),
-  gameEnd: false
+  gameEnd: false,
+
+  reset: function() {
+    this.board = new Board(30);
+    this.snake = new Snake();
+    this.food = new Food();
+    this.gameEnd = false;
+  }
 };
 
 function Board(max) {
@@ -74,25 +81,45 @@ function Snake() {
     var currPos = this.position[0];
     var newPos;
 
-    if(dir == 'up') {
+    if(dir == 'up' && this.direction !== "down") {
       newPos = [currPos[0] - 1, currPos[1]];
       this.position.unshift(newPos);
-
-    } else if(dir == 'down') {
+      this.direction = dir;
+    } else if(dir == 'down' && this.direction !== "up") {
       newPos = [currPos[0] + 1, currPos[1]];
       this.position.unshift(newPos);
-
-    } else if(dir == 'left') {
+      this.direction = dir;
+    } else if(dir == 'left' && this.direction !== "right") {
       newPos = [currPos[0], currPos[1] - 1];
       this.position.unshift(newPos);
-
-    } else if(dir == 'right') {
+      this.direction = dir;
+    } else if(dir == 'right' && this.direction !== "left") {
       newPos = [currPos[0], currPos[1] + 1];
+      this.position.unshift(newPos);
+      this.direction = dir;
+    } else {
+      var currDir = this.getDirectionArr();
+      console.log("currDir", currDir);
+      console.log([currPos[0] + currDir[0], currPos[1] + currDir[1]]);
+
+      newPos = [currPos[0] + currDir[0], currPos[1] + currDir[1]];
       this.position.unshift(newPos);
     }
 
     this.phantomTail = this.position.pop();
 
+  };
+
+  this.getDirectionArr = function() {
+    if (this.direction == 'up'){
+      return [-1, 0];
+    } else if (this.direction == 'down') {
+      return [1, 0];
+    } else if (this.direction == 'left') {
+      return [0, -1];
+    } else if (this.direction == 'right') {
+      return [0, 1];
+    }
   };
 
   this.getDirection = function() {
@@ -122,8 +149,8 @@ function Snake() {
 }
 
 function Food() {
-  var x = Math.floor(Math.random() * 10 + 10);
-  var y = Math.floor(Math.random() * 10 + 10);
+  var x = Math.floor(Math.random() * 30);
+  var y = Math.floor(Math.random() * 30);
 
   this.regenerateFood = function() {
 
@@ -133,8 +160,8 @@ function Food() {
     } );
 
     while (snake.includes(newPos)) {
-      x = Math.floor(Math.random() * 10 + 10);
-      y = Math.floor(Math.random() * 10 + 10);
+      x = Math.floor(Math.random() * 30);
+      y = Math.floor(Math.random() * 30);
       newPos = [x, y].toString;
     }
     this.position = [x, y];

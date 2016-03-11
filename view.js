@@ -32,8 +32,13 @@ var view = {
       this.interval = setInterval(function() {
         console.log("gets here");
         controller.move(dir);
-      }, 500);
+      }, 100);
 
+    } );
+
+    $('input').on('click', function(){
+      console.log("hi");
+      controller.resetGame();
     } );
   },
 

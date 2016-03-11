@@ -10,6 +10,7 @@ var controller = {
   },
 
   move: function(dir) {
+
     model.snake.setPosition(dir);
     if ( this.checkEndConditions() ) {
       view.renderEnd();
@@ -28,6 +29,13 @@ var controller = {
     } else {
       return false;
     }
+  },
+
+  resetGame: function() {
+    model.reset();
+    model.board.generateNewBoard();
+    view.init();
+    view.render();
   }
 };
 
