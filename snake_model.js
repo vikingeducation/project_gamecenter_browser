@@ -1,11 +1,12 @@
 var model = {
 
   init: function(){
-    this.boardSize = 20;
+    this.boardSize = 25;
     this.score = 0;
     this.snake = new Snake( this.randomLocation(),
                             this.randomDirection() );
     this.food = new Food( this.randomLocation() );
+    this.playing = true;
   },
 
   randomLocation: function(){
@@ -21,17 +22,19 @@ var model = {
   },
 
   update: function() {
-    var snakeAte = this.snake.eat( this.food.location );
+    if ( this.playing ) {
+      var snakeAte = this.snake.eat( this.food.location );
 
-    if ( snakeAte ) {
-      this.food.remove = this.food.location;
-      this.food = new Food( this.randomLocation() );
-      this.score++;
+      if ( snakeAte ) {
+        this.food.remove = this.food.location;
+        this.food = new Food( this.randomLocation() );
+        this.score++;
+      }
+
+      this.snake.move();
+
+      this.checkLoss();
     }
-
-    this.snake.move();
-
-    this.checkLoss();
   },
 
   changeDirection: function( newDirection ) {
@@ -41,14 +44,14 @@ var model = {
   checkLoss: function() {
     for ( var seg = 1; seg < this.snake.segments.length; seg++) {
       if ( this.bitingSelf(seg) ) {
-        //lose
-        console.log("snake is biting itself");
+        view.displayLossMessage( "You lost because you bit yourself!", this.score);
+        this.playing = false;
       }
     }
 
     if ( this.bitingWall() ) {
-      //lose
-      console.log("snake is biting the wall");
+      view.displayLossMessage( "You lost because you ran into the wall!", this.score);
+      this.playing = false;
     }
   },
 
