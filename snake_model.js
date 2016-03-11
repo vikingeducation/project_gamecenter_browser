@@ -1,7 +1,7 @@
 var model = {
 
   init: function(){
-    this.boardSize = 10;
+    this.boardSize = 20;
     this.score = 0;
     this.snake = new Snake( this.randomLocation(),
                             this.randomDirection() );
@@ -24,33 +24,62 @@ var model = {
     var snakeAte = this.snake.eat( this.food.location );
 
     if ( snakeAte ) {
-      this.food.remove = this.food;
+      this.food.remove = this.food.location;
       this.food = new Food( this.randomLocation() );
-      this.food.add = null;
       this.score++;
     }
 
     this.snake.move();
+
+    this.checkLoss();
   },
 
   changeDirection: function( newDirection ) {
     this.snake.direction = newDirection;
   },
 
+  checkLoss: function() {
+    for ( var seg = 1; seg < this.snake.segments.length; seg++) {
+      if ( this.bitingSelf(seg) ) {
+        //lose
+        console.log("snake is biting itself");
+      }
+    }
+
+    if ( this.bitingWall() ) {
+      //lose
+      console.log("snake is biting the wall");
+    }
+  },
+
+  bitingSelf: function(seg) {
+    return (
+      this.snake.segments[0].location.x ===
+      this.snake.segments[seg].location.x &&
+      this.snake.segments[0].location.y ===
+      this.snake.segments[seg].location.y
+    )
+  },
+
+  bitingWall: function() {
+    return (
+      ( this.snake.segments[0].location.x < 0 ||
+        this.snake.segments[0].location.x >= this.boardSize ) ||
+      ( this.snake.segments[0].location.y < 0 ||
+        this.snake.segments[0].location.y >= this.boardSize )
+    )
+  }
+
 }
 
 function Food(startingLocation){
   this.location = startingLocation;
-  this.remove = null;
-  this.add = this;
 }
 
 function Snake(startingLocation, startingDirection){
   this.segments = [ new Segment( startingLocation ) ];
   this.direction = startingDirection;
   this.growth = 0;
-  this.add = null;
-  this.remove = null;
 
   this.eat = function( foodLocation ) {
     var location = this.segments[0].location;
@@ -64,17 +93,18 @@ function Snake(startingLocation, startingDirection){
   }
 
   this.move = function() {
-    var location = this.segments[0].location;
+    var location = {};
+    location.x = this.segments[0].location.x;
+    location.y = this.segments[0].location.y;
     var direction = this.direction;
 
     if ( this.growth > 0 ) {
       this.growth--;
-      this.remove = null;
     } else {
-      this.remove = this.segments.pop();
+      this.segments.pop();
     }
-    this.add = new Segment( this.findNextLocation( location, direction ) );
-    this.segments.unshift( this.add );
+
+    this.segments.unshift( new Segment( this.findNextLocation( location, direction ) ) );
   }
 
   this.findNextLocation = function(currentLocation, direction) {
@@ -94,19 +124,7 @@ function Snake(startingLocation, startingDirection){
 }
 
 function Segment( location ) {
-  this.location = location;
+  this.location = {};
+  this.location.x = location.x;
+  this.location.y = location.y;
 }
-
-// function Board( boardSize ) {
-//   this.grid = []
-//   for ( var row = 0; row < boardSize; row++ ) {
-//     this.grid[row] = [];
-//     for ( var col = 0; col < boardSize; col++ ) {
-//       this.grid[row][col] = new Cell();
-//     }
-//   }
-// }
-//
-// function Cell() {
-//   this.type = "none";
-// }

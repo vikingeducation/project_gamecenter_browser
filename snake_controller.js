@@ -9,15 +9,12 @@ var controller = {
 
     setInterval(function() {
       controller.gameLoop();
-    }, 1000);
+    }, 250);
   },
 
   gameLoop: function() {
     model.update();
-    view.render(  model.snake.add,
-                  model.snake.remove,
-                  model.food.add,
-                  model.food.remove );
+    view.render( model.snake, model.food );
   },
 
   changeDirection: function(newDirection) {
