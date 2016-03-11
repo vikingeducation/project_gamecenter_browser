@@ -1,28 +1,42 @@
 var view = {
   init: function() {
+
+    var interval;
+
     $(document).on("keypress", function(e) {
+
+      if (interval) {
+        clearInterval(interval);
+      }
+
       var dir;
       var currPos = model.snake.getPosition()[0];
       console.log(e.keyCode);
       if (e.keyCode == 97) {
         console.log(e.keyCode);
         dir = "left";
-        model.snake.setPosition([currPos[0], currPos[1] - 1]);
+        controller.move(dir);
         view.render();
       } else if (e.keyCode == 119) {
         dir = "up";
-        model.snake.setPosition([currPos[0] - 1, currPos[1]]);
+        controller.move(dir);
         view.render();
       } else if (e.keyCode == 100) {
         dir = "right";
-        model.snake.setPosition([currPos[0], currPos[1] + 1]);
+        controller.move(dir);
         view.render();
       } else if (e.keyCode == 115) {
         dir = "down";
-        model.snake.setPosition([currPos[0] + 1, currPos[1]]);
+        controller.move(dir);
         view.render();
       }
-    });
+
+      interval = setInterval(function() {
+        controller.move(dir);
+        view.render();
+      }, 500);
+
+    } );
   },
 
   render: function() {

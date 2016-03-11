@@ -28,9 +28,30 @@ function Snake() {
     return this.position;
   };
 
-  this.setPosition = function(position) {
+  this.setPosition = function(dir) {
+    // this.position.unshift(position);
+
+    var currPos = this.position[0];
+    var newPos;
+
+    if(dir == 'up') {
+      newPos = [currPos[0] - 1, currPos[1]];
+      this.position.unshift(newPos);
+      
+    } else if(dir == 'down') {
+      newPos = [currPos[0] + 1, currPos[1]];
+      this.position.unshift(newPos);
+
+    } else if(dir == 'left') {
+      newPos = [currPos[0], currPos[1] - 1];
+      this.position.unshift(newPos);
+
+    } else if(dir == 'right') {
+      newPos = [currPos[0], currPos[1] + 1];
+      this.position.unshift(newPos);
+    }
+
     this.position.pop();
-    this.position.unshift(position);
   };
 
   this.getDirection = function() {
