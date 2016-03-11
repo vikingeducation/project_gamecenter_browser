@@ -1,3 +1,4 @@
+jQuery.fn.reverse = [].reverse;
 var model = {
 //////////////////////////BOARD INFO/////////////////////////////
   boardSize: 12,//from window size
@@ -56,9 +57,8 @@ var model = {
   },
 
   updateBody: function() {
-    $.each($('.node'), function(index, node){
+    $('.node').reverse().each(function(index, node){
       if ($(node).data('id') > 1){
-        console.log(node);
         $(node).attr('data-top', model.nodeFromID($(node).attr('data-parent')).attr('data-top'));
         $(node).attr('data-left', model.nodeFromID($(node).attr('data-parent')).attr('data-left'));
       }
