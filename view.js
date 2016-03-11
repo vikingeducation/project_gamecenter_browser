@@ -28,8 +28,9 @@ var view = {
         controller.move(dir);
         view.render();
       }
-      //console.log("event", this.interval);
+      
       this.interval = setInterval(function() {
+        console.log("gets here");
         controller.move(dir);
       }, 500);
 
@@ -52,9 +53,12 @@ var view = {
 
   renderEnd: function() {
     $(document).off();
-    console.log(this.interval);
-    clearInterval(this.interval);
+    this.clearAllIntervals();
     $(".game-status").text("You Lose!");
+  },
+
+  clearAllIntervals: function() {
+    for (var i = 1; i < 99999; i++) clearInterval(i);
   }
 
 };

@@ -1,7 +1,8 @@
 var model = {
   board: new Board(30),
   snake: new Snake(),
-  food: new Food()
+  food: new Food(),
+  gameEnd: false
 };
 
 function Board(max) {
@@ -111,6 +112,7 @@ function Snake() {
     var head = this.position[0];
     for (var b in body) {
       if (body[b][0] == head[0] && body[b][1] == head[1]) {
+        model.gameEnd = true;
         return true;
       }
     }
