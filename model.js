@@ -1,26 +1,26 @@
 var model = {
-
-  max: 30,
-  board: [],
+  board: new Board(30),
   snake: new Snake(),
-  food: new Food(),
-
-  generateNewBoard: function() {
-    this.board = new Array(this.max);
-    for (var i = 0; i < this.max; i++) {
-      this.board[i] = new Array(this.max);
-    }
-  },
-
-  getBoard: function() {
-    return this.board;
-  }
-
-
+  food: new Food()
 };
 
-function Snake() {
+function Board(max) {
+  this.max = max;
+  this.grid = [];
 
+  this.generateNewBoard = function() {
+    this.grid = new Array(this.max);
+    for (var i = 0; i < this.max; i++) {
+      this.grid[i] = new Array(this.max);
+    }
+  };
+
+  this.getBoard = function() {
+    return this.grid;
+  };
+}
+
+function Snake() {
   this.position = [[1,1]];
   this.direction = 'right';
 
@@ -30,7 +30,7 @@ function Snake() {
 
   this.setPosition = function(position) {
     this.position.pop();
-    this.position.shift(position);
+    this.position.unshift(position);
   };
 
   this.getDirection = function() {
@@ -44,7 +44,6 @@ function Snake() {
 }
 
 function Food() {
-
   var x = Math.floor(Math.random() * 10 + 10);
   var y = Math.floor(Math.random() * 10 + 10);
 

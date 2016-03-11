@@ -5,6 +5,7 @@ var view = {
       var currPos = model.snake.getPosition()[0];
       console.log(e.keyCode);
       if (e.keyCode == 97) {
+        console.log(e.keyCode);
         dir = "left";
         model.snake.setPosition([currPos[0], currPos[1] - 1]);
         view.render();
@@ -53,7 +54,8 @@ var view = {
 };
 
 $(document).ready(function() {
-  model.generateNewBoard();
+  //view.init();
+  model.board.generateNewBoard();
   view.init();
   view.render();
 });

@@ -1,6 +1,6 @@
 var controller = {
 
   getBoard: function() {
-    return model.getBoard();
+    return model.board.getBoard();
   }
 };
