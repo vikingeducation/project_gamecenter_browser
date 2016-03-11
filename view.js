@@ -11,9 +11,7 @@ var view = {
 
       var dir;
       var currPos = model.snake.getPosition()[0];
-      console.log(e.keyCode);
       if (e.keyCode == 97) {
-        console.log(e.keyCode);
         dir = "left";
         controller.move(dir);
         view.render();
@@ -30,7 +28,7 @@ var view = {
         controller.move(dir);
         view.render();
       }
-
+      //console.log("event", this.interval);
       this.interval = setInterval(function() {
         controller.move(dir);
       }, 500);
@@ -41,7 +39,7 @@ var view = {
   render: function() {
     $(".board div").remove();
     var board = controller.getBoard();
-    
+
     for (var i = 0; i < board.length; i++) {
       for (var j = 0; j < board.length; j++) {
         var newDiv = $("<div></div>");
@@ -53,8 +51,9 @@ var view = {
   },
 
   renderEnd: function() {
-    clearInterval(this.interval);
     $(document).off();
+    console.log(this.interval);
+    clearInterval(this.interval);
     $(".game-status").text("You Lose!");
   }
 

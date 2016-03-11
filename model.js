@@ -32,9 +32,6 @@ function Board(max) {
     var snake = model.snake.getPosition(); // 2D Array
     var food = model.food.getPosition(); // an [x, y] location
 
-    console.log(model);
-    console.log(model.food);
-
     for(var s in snake) {
       this.grid[snake[s][0]][snake[s][1]] = "s";
     }
@@ -64,7 +61,7 @@ function Board(max) {
 function Snake() {
   this.position = [[1,1]];
   this.direction = 'right';
-  this.phantomTail;
+  this.phantomTail = undefined;
 
   this.getPosition = function() {
     return this.position;
@@ -107,7 +104,18 @@ function Snake() {
 
   this.grow = function(){
     this.position.push(this.phantomTail);
-  }
+  };
+
+  this.checkEatSelf = function() {
+    var body = this.position.slice(1);
+    var head = this.position[0];
+    for (var b in body) {
+      if (body[b][0] == head[0] && body[b][1] == head[1]) {
+        return true;
+      }
+    }
+    return false;
+  };
 
 }
 

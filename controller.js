@@ -21,7 +21,7 @@ var controller = {
   },
 
   checkEndConditions: function() {
-    if (model.board.outOfBounds()) {
+    if (model.board.outOfBounds() || model.snake.checkEatSelf()) {
       return true;
     } else {
       return false;
