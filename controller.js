@@ -11,14 +11,20 @@ var controller = {
 
   move: function(dir) {
     model.snake.setPosition(dir);
-    model.board.update();
+    if ( this.checkEndConditions() ) {
+      view.renderEnd();
+    } else {
+      model.board.checkEat();
+      model.board.update();
+      view.render();
+    }
   },
 
   checkEndConditions: function() {
     if (model.board.outOfBounds()) {
-      view.renderEnd();
+      return true;
     } else {
-      view.render();
+      return false;
     }
   }
 };

@@ -31,6 +31,10 @@ function Board(max) {
     this.clear();
     var snake = model.snake.getPosition(); // 2D Array
     var food = model.food.getPosition(); // an [x, y] location
+
+    console.log(model);
+    console.log(model.food);
+
     for(var s in snake) {
       this.grid[snake[s][0]][snake[s][1]] = "s";
     }
@@ -44,11 +48,23 @@ function Board(max) {
       }
     }
   };
+
+  this.checkEat = function() {
+    var head = model.snake.getPosition()[0];
+    var food = model.food.getPosition();
+
+    if (head.toString() == food.toString()) {
+      model.snake.grow();
+      model.food.regenerateFood();
+    }
+  };
+
 }
 
 function Snake() {
   this.position = [[1,1]];
   this.direction = 'right';
+  this.phantomTail;
 
   this.getPosition = function() {
     return this.position;
@@ -77,7 +93,8 @@ function Snake() {
       this.position.unshift(newPos);
     }
 
-    this.position.pop();
+    this.phantomTail = this.position.pop();
+
   };
 
   this.getDirection = function() {
@@ -88,11 +105,30 @@ function Snake() {
     this.direction = direction;
   };
 
+  this.grow = function(){
+    this.position.push(this.phantomTail);
+  }
+
 }
 
 function Food() {
   var x = Math.floor(Math.random() * 10 + 10);
   var y = Math.floor(Math.random() * 10 + 10);
+
+  this.regenerateFood = function() {
+
+    var newPos = [x, y].toString();
+    var snake = model.snake.getPosition().map(function(obj){
+      return obj.toString();
+    } );
+
+    while (snake.includes(newPos)) {
+      x = Math.floor(Math.random() * 10 + 10);
+      y = Math.floor(Math.random() * 10 + 10);
+      newPos = [x, y].toString;
+    }
+    this.position = [x, y];
+  };
 
   this.position = [x, y];
 

@@ -33,7 +33,6 @@ var view = {
 
       this.interval = setInterval(function() {
         controller.move(dir);
-        controller.checkEndConditions();
       }, 500);
 
     } );
@@ -56,6 +55,7 @@ var view = {
   renderEnd: function() {
     clearInterval(this.interval);
     $(document).off();
+    $(".game-status").text("You Lose!");
   }
 
 };
