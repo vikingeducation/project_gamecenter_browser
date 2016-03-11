@@ -1,7 +1,6 @@
 jQuery.fn.reverse = [].reverse;
 var model = {
 //////////////////////////BOARD INFO/////////////////////////////
-  boardSize: 12,//from window size
 
   snakeSize: 1,
 ////////////////////////////////////////////////////////////////
@@ -43,31 +42,57 @@ var model = {
   $snake: $('.node'),
 
 
-  // actually change the data values of each node
+  // change the data values of the head
   updateCoordinates: function() {
-      if (model.nodeFromID(1).attr('data-top') < $(window).height() && model.nodeFromID(1).attr('data-top') > 0){
+      if (model.nodeFromID(1).attr('data-top') < view.windowHeight && model.nodeFromID(1).attr('data-top') > 0){
         // add vector to top
         model.nodeFromID(1).attr('data-top', (parseInt(model.nodeFromID(1).attr('data-top')) + parseInt(model.directions[controller.direction]['top'])))
       }
-      if (model.nodeFromID(1).attr('data-left') < $(window).width() && model.nodeFromID(1).attr('data-left') > 0){
+      if (model.nodeFromID(1).attr('data-left') < view.windowWidth && model.nodeFromID(1).attr('data-left') > 0){
         // add vector to left
         model.nodeFromID(1).attr('data-left', (parseInt(model.nodeFromID(1).attr('data-left')) + parseInt(model.directions[controller.direction]['left'])))
       }
 
   },
 
+  // move the body of the snake up by one
   updateBody: function() {
     $('.node').reverse().each(function(index, node){
       if ($(node).data('id') > 1){
-        $(node).attr('data-top', model.nodeFromID($(node).attr('data-parent')).attr('data-top'));
-        $(node).attr('data-left', model.nodeFromID($(node).attr('data-parent')).attr('data-left'));
+        $(node).attr('data-top', 
+                      model.nodeFromID(
+                        $(node).attr('data-parent')).attr('data-top')
+                      );
+        $(node).attr('data-left', 
+                      model.nodeFromID(
+                      $(node).attr('data-parent')).attr('data-left')
+                      );
       }
     })
   },
 
   nodeFromID: function(id){
     return $('[data-id="' + id + '"]')
-  }
+  },
+
+
+  stopFunction: function() {
+    clearInterval(controller.moveTheSnake);
+  },
+
+
+  checkOffScreen: function() {
+    var headTop = model.nodeFromID(1).attr("data-top");
+    var headLeft = model.nodeFromID(1).attr("data-left");
+    // if top or left is 0, you die
+    // if top or left is window height or width, you die
+    if (headTop == 0 || headLeft == 0 || headTop > view.docHeight || headLeft > view.windowWidth) {
+      // brute force :(
+      for (var i = 1; i < 99999; i++)
+        window.clearInterval(i);
+      console.log("Game over!");
+    } 
+  },
 
 
 

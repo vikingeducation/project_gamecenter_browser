@@ -13,6 +13,7 @@ var controller = {
     controller.checkFoodEat();
     controller.addNode();
     model.updateBody();
+    model.checkOffScreen();
   },
 
   makeFood: function() {
@@ -41,9 +42,9 @@ var controller = {
     }
   },
 
+  // actually move the snake every 100ms
   moveTheSnake: function() {
-      setInterval(controller.updateSnakePosition, 100)
+    setInterval(controller.updateSnakePosition, 100);
   },
-
 
 }

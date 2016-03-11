@@ -3,6 +3,10 @@ var view = {
     view.eventListeners.keypressListener();
   },
 
+  windowHeight: $(window).height(),
+  windowWidth: $(window).width(),
+  docHeight: $(document).height(),
+
   createFoodNode: function(){
     var newNode = $('body').append($('<div class="food" data-top="0" data-left="0"></div>'));
     return newNode;
@@ -21,9 +25,6 @@ var view = {
     })
   },
 
-  renderBody: function(){
-
-  },
 
 
   eventListeners: {
