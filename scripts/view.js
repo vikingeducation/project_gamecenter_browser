@@ -12,7 +12,16 @@ var view = {
     var score = controller.getScore();
     $('#score').text(score);
 
-    // Re-render board with snake and food
+    // Render snake
+    model.snake.forEach(function(segment){
+      $('div[data-x="' + segment.x + '"][data-y="' + segment.y + '"]')
+        .removeClass('empty')
+        .addClass('snake')
+    });
+  },
+
+  renderFood: function(){
+    // TODO: render only when re-generated
   },
 
   initializeBoard: function(){
