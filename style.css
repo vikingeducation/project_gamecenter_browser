@@ -5,3 +5,20 @@ body {
 #score-box {
   display: none;
 }
+
+#board {
+  line-height: 10px
+}
+
+.empty {
+  height: 50px;
+  width: 50px;
+  background-color: #ccc;
+  border: 1px solid #ddd;
+  display: inline-block;
+}
+
+img {
+  height: 50px;
+  width: 50px;
+}

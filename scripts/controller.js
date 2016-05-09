@@ -10,11 +10,16 @@ var controller = {
     model.init();
     $('#play').hide();
     $('#score-box').show();
+    view.initializeBoard();
     view.render();
   },
 
   getScore: function(){
     return model.getScore();
+  },
+
+  getBoardSize: function(){
+    return model.getBoardSize();
   }
 
 };
