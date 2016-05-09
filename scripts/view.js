@@ -5,6 +5,7 @@ var view = {
   init: function(){
     // set listeners
     $('#play-button').click(controller.beginGame);
+    $(document).keydown(model.setDirection);
 
   },
 

@@ -40,6 +40,21 @@ var model = {
     } else {
       this.snake[0].y += 1;
     }
+  },
+
+  setDirection: function(event){
+    event.preventDefault();
+
+    if (event.keyCode === 38 || event.keyCode === 73){
+      this.snakeDirection = 'up';
+    } else if (event.keyCode === 40 || event.keyCode === 77){
+      this.snakeDirection = 'down';
+    } else if (event.keyCode === 39 || event.keyCode === 75){
+      this.snakeDirection = 'right';
+    } else if (event.keyCode === 37 || event.keyCode === 74){
+      this.snakeDirection = 'left';
+    }
+
   }
 
 };
