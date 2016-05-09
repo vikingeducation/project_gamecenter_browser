@@ -11,7 +11,10 @@ var controller = {
     $('#play').hide();
     $('#score-box').show();
     view.render();
-    view.renderCards();
+  },
+
+  getScore: function(){
+    return model.getScore();
   }
 
 };

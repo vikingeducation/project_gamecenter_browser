@@ -6,6 +6,11 @@ var view = {
     // set listeners
     $('#play-button').click(controller.beginGame);
 
+  },
+
+  render: function(){
+    var score = controller.getScore();
+    $('#score').text(score);
   }
 
 };
