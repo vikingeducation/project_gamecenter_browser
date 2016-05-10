@@ -28,6 +28,7 @@ var controller = {
 
     // Check if ate food
     if (model.snake[0].x === model.food.x && model.snake[0].y === model.food.y) {
+      model.increaseScore();
       model.addSegment();
       view.removeFood();
       model.addFood();

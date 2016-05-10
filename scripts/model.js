@@ -117,6 +117,10 @@ var model = {
     model.snake.push(model.snake[-1]);
   },
 
+  increaseScore: function(){
+    model.score += 1;
+  },
+
   /**
   * Randomize array element order in-place.
   * Using Durstenfeld shuffle algorithm.
