@@ -1,0 +1,36 @@
+body {
+  font-family: "Lucida Console", Monaco, monospace;
+}
+
+#score-box {
+  display: none;
+}
+
+#board {
+  line-height: 10px
+}
+
+.empty {
+  height: 50px;
+  width: 50px;
+  background-color: #ccc;
+  border: 1px solid #ddd;
+  display: inline-block;
+}
+
+.snake {
+  height: 50px;
+  width: 50px;
+  background-color: green;
+  border: 1px solid #ddd;
+  display: inline-block;
+}
+
+img.food {
+  height: 51px;
+  width: 50px;
+}
+
+.game-over {
+  color: red;
+}
