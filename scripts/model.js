@@ -78,6 +78,10 @@ var model = {
       model.snakeDirection = 'left';
     }
 
+  },
+
+  checkGameOver: function(){
+    return true;
   }
 
 };
