@@ -3,8 +3,10 @@
 var view = {
 
   init: function(){
-    // set listeners
+    // Begin play listener
     $('#play-button').click(controller.beginGame);
+
+    // Change direction listener
     $(document).keydown(model.setDirection);
 
   },
@@ -17,8 +19,13 @@ var view = {
     model.snake.forEach(function(segment){
       $('div[data-x="' + segment.x + '"][data-y="' + segment.y + '"]')
         .removeClass('empty')
-        .addClass('snake')
+        .addClass('snake');
     });
+
+    // Change previous tail back to empty
+    $('div[data-x="' + model.previousTail.x + '"][data-y="' + model.previousTail.y + '"]')
+        .removeClass('snake')
+        .addClass('empty');
   },
 
   renderFood: function(){

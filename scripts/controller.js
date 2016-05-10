@@ -12,6 +12,15 @@ var controller = {
     $('#score-box').show();
     view.initializeBoard();
     view.render();
+    window.setInterval(controller.gameInterval, model.speed);
+  },
+
+  gameInterval: function(){
+      // move the snake
+      model.moveSnake();
+      // render the snake
+      view.render();
+      // check game over
   },
 
   getScore: function(){
