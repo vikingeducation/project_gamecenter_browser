@@ -24,6 +24,7 @@ var controller = {
     // Clear interval if game over
     if (model.checkGameOver() === true) {
       window.clearInterval(controller.gameLoop);
+      view.renderGameOver();
     }
 
     // Check if ate food

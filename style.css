@@ -30,3 +30,7 @@ img.food {
   height: 51px;
   width: 50px;
 }
+
+.game-over {
+  color: red;
+}

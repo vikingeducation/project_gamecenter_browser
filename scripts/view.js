@@ -53,6 +53,14 @@ var view = {
       }
       $('#board').append('<br>');
     }
+  },
+
+  renderGameOver: function(){
+    $h3 = $('<h3></h3>')
+      .text('Game Over! Refresh to play again.')
+      .attr('class', 'game-over');
+
+    $('header').append($h3);
   }
 
 };
