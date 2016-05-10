@@ -18,7 +18,8 @@ var controller = {
   gameInterval: function(){
       model.moveSnake();
       view.render();
-      // check game over
+
+      // Clear interval if game over
       if (model.checkGameOver() === true) {
         window.clearInterval(controller.gameLoop);
       }

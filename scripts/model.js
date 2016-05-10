@@ -81,7 +81,29 @@ var model = {
   },
 
   checkGameOver: function(){
-    return true;
+    var gameOver = false;
+
+    // Check if hit wall
+    if (
+      model.snake[0].x >= model.boardSize ||
+      model.snake[0].x < 0 ||
+      model.snake[0].y >= model.boardSize ||
+      model.snake[0].y < 0){
+
+      gameOver = true;
+    } else {
+      // Check if hit self
+      for (var segment = 1; segment < model.snake.length; segment++){
+        if (
+          model.snake[0].x === model.snake[segment].x &&
+          model.snake[0].y === model.snake[segment].y){
+
+          gameOver = true;
+        }
+      } // for
+    } // if
+
+    return gameOver;
   }
 
 };
