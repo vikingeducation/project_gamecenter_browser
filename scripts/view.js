@@ -29,7 +29,13 @@ var view = {
   },
 
   renderFood: function(){
-    // TODO: render only when re-generated
+    $('div[data-x="' + model.food.x + '"][data-y="' + model.food.y + '"]')
+        .html('<img class="food" src="images/mouse.png">');
+  },
+
+  removeFood: function(){
+    $('div[data-x="' + model.food.x + '"][data-y="' + model.food.y + '"]')
+        .html('');
   },
 
   initializeBoard: function(){
@@ -47,7 +53,6 @@ var view = {
       }
       $('#board').append('<br>');
     }
-
   }
 
 };

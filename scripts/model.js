@@ -24,8 +24,8 @@ var model = {
     }
 
     this.food = {
-      x: 9,
-      y: 9
+      x: null,
+      y: null
     };
   },
 
@@ -104,6 +104,32 @@ var model = {
     } // if
 
     return gameOver;
+  },
+
+  addFood: function(){
+    var $empties = $('.empty');
+    var foodDiv = model.shuffleArray($empties)[0];
+    model.food.x = $(foodDiv).data('x');
+    model.food.y = $(foodDiv).data('y');
+  },
+
+  addSegment: function(){
+    model.snake.push(model.snake[-1]);
+  },
+
+  /**
+  * Randomize array element order in-place.
+  * Using Durstenfeld shuffle algorithm.
+  */
+  shuffleArray: function(array){
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+
+    return array;
   }
 
 };

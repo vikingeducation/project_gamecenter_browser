@@ -26,7 +26,7 @@ body {
   display: inline-block;
 }
 
-img {
-  height: 50px;
+img.food {
+  height: 51px;
   width: 50px;
 }
