@@ -5,7 +5,7 @@ var model = {
   init: function(){
     this.score = 2;
     this.boardSize = 10;
-    this.speed = 1000;
+    this.speed = 800;
 
     this.snakeDirection = 'right';
     this.snake = [
