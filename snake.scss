@@ -1,0 +1,48 @@
+.game-container {
+  border: 2px solid black;
+  height: 186px;
+  padding: 1px;
+  width: 186px;
+
+  .game-row {
+    height: 30px;
+
+    .game-square {
+      display: inline-block;
+      height: 100%;
+      width: 30px;
+    }
+
+    #mouse {
+      background-color: #cccccc;
+      border: 2px solid black;
+      border-radius: 15px;
+    }
+
+    .snake-body {
+      background-color: #eeeeee;
+      border: 2px solid black;
+      border-radius: 9px;
+    }
+
+    #snake-head {
+      background-color: #c87533;
+      border: 2px solid black;
+      border-radius: 9px;
+    }
+  }
+}
+
+.scores {
+  .current-score {
+    margin-bottom: 15px;
+  }
+
+  .top-score-and-header {
+    .top-scores {
+      ol {
+        padding-left: 15px;
+      }
+    }
+  }
+}
