@@ -135,11 +135,13 @@ var model = {
   },
 
   placeMouseOnEmptySquare: function(){
-  	model.positionOfMouse = [model.randomNumber(), model.randomNumber()];
-  	while ( !model.squareIsEmpty(model.positionOfMouse[0], model.positionOfMouse[1]) ) {
-  		model.positionOfMouse = [model.randomNumber(), model.randomNumber()];
-  	};
-  	model.grid[model.positionOfMouse[0]][model.positionOfMouse[1]] = "m";
+    if (model.lengthOfSnake < 35){
+    	model.positionOfMouse = [model.randomNumber(), model.randomNumber()];
+    	while ( !model.squareIsEmpty(model.positionOfMouse[0], model.positionOfMouse[1]) ) {
+    		model.positionOfMouse = [model.randomNumber(), model.randomNumber()];
+    	};
+    	model.grid[model.positionOfMouse[0]][model.positionOfMouse[1]] = "m";
+    }
   },
 
   randomNumber: function(){
