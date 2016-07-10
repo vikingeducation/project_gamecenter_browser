@@ -47,10 +47,19 @@ var controller = {
 			model.previousMove = model.nextMove;
   		} else {
   			// Stop this interval but start up another interval for the game over sign...
-  			console.log("Game Over")
   			clearInterval(controller.myInterval);
+  			controller.updateHighScores();
   		};
-  	}, 600)
+  	}, 600),
+
+  	updateHighScores: function(){
+  		model.highScores.push(model.lengthOfSnake - 1);
+  		model.highScores.sort();
+  		model.highScores.shift();
+  		$("#list-one").text(model.highScores[2]);
+  		$("#list-two").text(model.highScores[1]);
+  		$("#list-two").text(model.highScores[0]);
+  	}
 
   	//gameOverInterval: setInterval(function(){
   	//	console.log("Game Over");
@@ -85,10 +94,13 @@ var model = {
   	model.previousMove = 39;
   },
 
+  highScores: [0, 0, 0],
+
   eatMouse: function(){
   	if (model.positionOfHead[0] === model.positionOfMouse[0] && model.positionOfHead[1] === model.positionOfMouse[1]) {
   		model.placeMouseOnEmptySquare();
   		model.lengthOfSnake++;
+  		$("#current-score").text(model.lengthOfSnake - 1)
   	};
   },
 
