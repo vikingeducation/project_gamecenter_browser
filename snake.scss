@@ -1,3 +1,20 @@
+.page-header{
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+
+.new-game-and-current-score {
+  width: 186px;
+  #new-game {
+    color: #337ab7;
+    display: inline-block;
+  }
+
+  .current-score {
+    float: right;
+  }
+}
+
 .game-container {
   border: 2px solid black;
   height: 186px;
@@ -13,35 +30,44 @@
       width: 30px;
     }
 
-    #mouse {
+    .mouse {
       background-color: #cccccc;
       border: 2px solid black;
       border-radius: 15px;
     }
 
-    .snake-body {
+    .body {
       background-color: #eeeeee;
       border: 2px solid black;
       border-radius: 9px;
     }
 
-    #snake-head {
+    .head {
       background-color: #c87533;
+      border: 2px solid black;
+      border-radius: 9px;
+    }
+
+    .tail {
+      background-color: pink;
       border: 2px solid black;
       border-radius: 9px;
     }
   }
 }
 
-.scores {
-  .current-score {
-    margin-bottom: 15px;
-  }
+.top-scores-and-header {
+  .top-scores {
+    ol {
+      font-weight: bold;
+      padding-left: 15px;
 
-  .top-score-and-header {
-    .top-scores {
-      ol {
-        padding-left: 15px;
+      #list-two {
+        opacity: 0.85;
+      }
+
+      #list-three {
+        opacity: 0.7;
       }
     }
   }
