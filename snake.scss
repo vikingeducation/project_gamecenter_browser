@@ -7,6 +7,7 @@
   width: 186px;
   #new-game {
     color: #337ab7;
+    cursor: pointer;
     display: inline-block;
   }
 
@@ -19,7 +20,15 @@
   border: 2px solid black;
   height: 186px;
   padding: 1px;
+  position: relative;
   width: 186px;
+
+  #game-over {
+    color: red;
+    position: absolute;
+    top: 50px;
+    left:10px;
+  }
 
   .game-row {
     height: 30px;
@@ -39,19 +48,72 @@
     .body {
       background-color: #eeeeee;
       border: 2px solid black;
-      border-radius: 9px;
+    }
+
+    .body-up {
+      border-top: 0px;
+    }
+
+    .body-left {
+      border-left: 0px;
+    }
+
+    .body-right {
+      border-right: 0px;
+    }
+
+    .body-down {
+      border-bottom: 0px;
+    }
+
+    .head-up {
+      border-top-right-radius: 20px;
+      border-top-left-radius: 20px;
+    }
+
+    .head-down {
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+    }
+
+    .head-left {
+      border-top-left-radius: 20px;
+      border-bottom-left-radius: 20px;
+    }
+
+    .head-right {
+      border-top-right-radius: 20px;
+      border-bottom-right-radius: 20px;
+    }
+
+    .tail-up {
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+    }
+
+    .tail-down {
+      border-top-right-radius: 20px;
+      border-top-left-radius: 20px;
+    }
+
+    .tail-right {
+      border-top-left-radius: 20px;
+      border-bottom-left-radius: 20px;
+    }
+
+    .tail-left {
+      border-top-right-radius: 20px;
+      border-bottom-right-radius: 20px;
     }
 
     .head {
       background-color: #c87533;
       border: 2px solid black;
-      border-radius: 9px;
     }
 
     .tail {
       background-color: pink;
       border: 2px solid black;
-      border-radius: 9px;
     }
   }
 }
