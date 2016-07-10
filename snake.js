@@ -5,57 +5,10 @@ var controller = {
 	init: function(){
   		model.init();
   		view.init();
-
   		gameOverInterval = 0;
 
-	  	myInterval = setInterval(function(){ 
-  		// I need to know where the head is...
-  		if (model.nextMoveIsPossible()) {
-  			// Gotta move head to the next square
-  			// Gotta update the variable that holds the position of the head
-  			// Gotta go through the grid and gotta increase the number of all numbers in the grid but get rid of the last number. 
-  			var rowOfHead = model.positionOfHead[0];
-  			var columnOfHead = model.positionOfHead[1];
-  			switch(model.nextMove) {
-  				// left
-	    		case 37:
-	    			model.grid[rowOfHead][columnOfHead - 1] = 0;
-	    			model.positionOfHead = [rowOfHead, columnOfHead - 1];
-	        		break;
-	        	// up
-	    		case 38:
-	    			model.grid[rowOfHead - 1][columnOfHead] = 0;
-	    			model.positionOfHead = [rowOfHead - 1, columnOfHead];
-	        		break;
-	        	// right
-	    		case 39:
-	    			model.grid[rowOfHead][columnOfHead + 1] = 0;
-					model.positionOfHead = [rowOfHead, columnOfHead + 1];
-	        		break;
-	        	// down
-	        	case 40:
-	        		model.grid[rowOfHead + 1][columnOfHead] = 0;
-	        		model.positionOfHead = [rowOfHead + 1, columnOfHead];
-	        		break;
-			};
-			model.eatMouse();
-			model.moveSnakeOnGrid();
-			view.updateGrid();
-			model.previousMove = model.nextMove;
-  		} else {
-  			// Stop this interval but start up another interval for the game over sign...
-  			clearInterval(myInterval);
-  			controller.updateHighScores();
-  			gameOverInterval = setInterval(function(){
-			if ($("#game-over").length > 0) {
-				$("#game-over").remove();
-			} else {
-				$(".game-container").first().append("<div id='game-over'><h2>Game Over</h2></div>")
-			};
-		}, 1000);
-  		};
-  		}, 600)
-  	},
+	  	controller.startInterval();
+    },
 
   	updateHighScores: function(){
   		model.highScores.push(model.lengthOfSnake - 1);
@@ -63,12 +16,62 @@ var controller = {
   		model.highScores.shift();
   		$("#list-one").text(model.highScores[2]);
   		$("#list-two").text(model.highScores[1]);
-  		$("#list-two").text(model.highScores[0]);
-  	}
+  		$("#list-three").text(model.highScores[0]);
+  	},
 
-  	//gameOverInterval: setInterval(function(){
-  	//	console.log("Game Over");
-  	//}, 1000)
+    startInterval: function(){
+      myInterval = setInterval(function(){ 
+      // I need to know where the head is...
+      if (model.nextMoveIsPossible()) {
+        // Gotta move head to the next square
+        // Gotta update the variable that holds the position of the head
+        // Gotta go through the grid and gotta increase the number of all numbers in the grid but get rid of the last number. 
+        var rowOfHead = model.positionOfHead[0];
+        var columnOfHead = model.positionOfHead[1];
+        switch(model.nextMove) {
+          // left
+          case 37:
+            model.grid[rowOfHead][columnOfHead - 1] = 0;
+            model.positionOfHead = [rowOfHead, columnOfHead - 1];
+              break;
+            // up
+          case 38:
+            model.grid[rowOfHead - 1][columnOfHead] = 0;
+            model.positionOfHead = [rowOfHead - 1, columnOfHead];
+              break;
+            // right
+          case 39:
+            model.grid[rowOfHead][columnOfHead + 1] = 0;
+          model.positionOfHead = [rowOfHead, columnOfHead + 1];
+              break;
+            // down
+            case 40:
+              model.grid[rowOfHead + 1][columnOfHead] = 0;
+              model.positionOfHead = [rowOfHead + 1, columnOfHead];
+              break;
+      };
+      model.eatMouse();
+      model.moveSnakeOnGrid();
+      view.updateGrid();
+      model.previousMove = model.nextMove;
+      } else {
+        // Stop this interval but start up another interval for the game over sign...
+        clearInterval(myInterval);
+        controller.updateHighScores();
+        controller.startGameOverInterval();
+      };
+      }, model.intervalTime)
+    },
+
+    startGameOverInterval: function(){
+      gameOverInterval = setInterval(function(){
+        if ($("#game-over").length > 0) {
+          $("#game-over").remove();
+        } else {
+          $(".game-container").first().append("<div id='game-over'><h2>Game Over</h2></div>")
+        };
+      }, 800);
+    }
 
 };
 
@@ -86,6 +89,7 @@ var model = {
   				  [undefined, undefined, undefined, undefined, undefined, undefined],
   				  [undefined, undefined, undefined, undefined, undefined, undefined],
   				  [undefined, undefined, undefined, undefined, undefined, undefined]];
+    model.intervalTime = 700;
   	model.lengthOfSnake = 1;
   	model.positionOfHead = [1, 0];
   	model.placeMouseOnEmptySquare();
@@ -105,7 +109,14 @@ var model = {
   	if (model.positionOfHead[0] === model.positionOfMouse[0] && model.positionOfHead[1] === model.positionOfMouse[1]) {
   		model.placeMouseOnEmptySquare();
   		model.lengthOfSnake++;
-  		$("#current-score").text(model.lengthOfSnake - 1)
+  		$("#current-score").text(model.lengthOfSnake - 1);
+
+      // Making the snake move faster everytime it eats.
+      if (model.intervalTime > 200) {
+        model.intervalTime -= 50;
+        clearInterval(myInterval);
+        controller.startInterval();
+      };
   	};
   },
 
@@ -297,15 +308,14 @@ var view = {
   	});
 
   	$("#new-game").click(function(event){
-  		if (myInterval) {
-  			clearInterval(myInterval);
-  		};
-
-  		if (gameOverInterval) {
-  			clearInterval(gameOverInterval);
-  		};
+  		clearInterval(myInterval);
+  		clearInterval(gameOverInterval);
   		controller.init();
   	});
+
+    $("#current-score").text(model.lengthOfSnake - 1);
+
+    $("#game-over").remove();
   },
 
   // Adding and removing classes depending on model.grid
