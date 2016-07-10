@@ -12,7 +12,7 @@ var controller = {
 
   	updateHighScores: function(){
   		model.highScores.push(model.lengthOfSnake - 1);
-  		model.highScores.sort();
+  		model.highScores.sort(function(a,b){return a - b});
   		model.highScores.shift();
   		$("#list-one").text(model.highScores[2]);
   		$("#list-two").text(model.highScores[1]);
