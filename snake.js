@@ -1,3 +1,7 @@
+// Would be way easier and more logical having each square as an object
+// Which contains information about type and direction...
+// View can just render from data in object instead of too much logic.
+
 'use_strict;'
 
 var controller = {
