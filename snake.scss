@@ -1,0 +1,136 @@
+.page-header{
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+
+.new-game-and-current-score {
+  width: 186px;
+  #new-game {
+    color: #337ab7;
+    cursor: pointer;
+    display: inline-block;
+  }
+
+  .score-board {
+    float: right;
+  }
+}
+
+.game-container {
+  border: 2px solid black;
+  height: 186px;
+  padding: 1px;
+  position: relative;
+  width: 186px;
+
+  #game-over {
+    color: red;
+    position: absolute;
+    top: 50px;
+    left:10px;
+  }
+
+  .game-row {
+    height: 30px;
+
+    .game-square {
+      display: inline-block;
+      height: 100%;
+      width: 30px;
+    }
+
+    .mouse {
+      background-color: #cccccc;
+      border: 2px solid black;
+      border-radius: 15px;
+    }
+
+    .body {
+      background-color: #eeeeee;
+      border: 2px solid black;
+    }
+
+    .body-up {
+      border-top: 0px;
+    }
+
+    .body-left {
+      border-left: 0px;
+    }
+
+    .body-right {
+      border-right: 0px;
+    }
+
+    .body-down {
+      border-bottom: 0px;
+    }
+
+    .head-up {
+      border-top-right-radius: 20px;
+      border-top-left-radius: 20px;
+    }
+
+    .head-down {
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+    }
+
+    .head-left {
+      border-top-left-radius: 20px;
+      border-bottom-left-radius: 20px;
+    }
+
+    .head-right {
+      border-top-right-radius: 20px;
+      border-bottom-right-radius: 20px;
+    }
+
+    .tail-up {
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+    }
+
+    .tail-down {
+      border-top-right-radius: 20px;
+      border-top-left-radius: 20px;
+    }
+
+    .tail-right {
+      border-top-left-radius: 20px;
+      border-bottom-left-radius: 20px;
+    }
+
+    .tail-left {
+      border-top-right-radius: 20px;
+      border-bottom-right-radius: 20px;
+    }
+
+    .head {
+      background-color: #c87533;
+      border: 2px solid black;
+    }
+
+    .tail {
+      background-color: pink;
+      border: 2px solid black;
+    }
+  }
+}
+
+.top-scores-and-header {
+  .top-scores {
+    ol {
+      font-weight: bold;
+      padding-left: 15px;
+
+      #list-two {
+        opacity: 0.85;
+      }
+
+      #list-three {
+        opacity: 0.7;
+      }
+    }
+  }
+}

@@ -1,0 +1,85 @@
+.page-header {
+  margin-bottom: 0px;
+  padding-bottom: 0px; }
+
+.new-game-and-current-score {
+  width: 186px; }
+  .new-game-and-current-score #new-game {
+    color: #337ab7;
+    cursor: pointer;
+    display: inline-block; }
+  .new-game-and-current-score .score-board {
+    float: right; }
+
+.game-container {
+  border: 2px solid black;
+  height: 186px;
+  padding: 1px;
+  position: relative;
+  width: 186px; }
+  .game-container #game-over {
+    color: red;
+    position: absolute;
+    top: 50px;
+    left: 10px; }
+  .game-container .game-row {
+    height: 30px; }
+    .game-container .game-row .game-square {
+      display: inline-block;
+      height: 100%;
+      width: 30px; }
+    .game-container .game-row .mouse {
+      background-color: #cccccc;
+      border: 2px solid black;
+      border-radius: 15px; }
+    .game-container .game-row .body {
+      background-color: #eeeeee;
+      border: 2px solid black; }
+    .game-container .game-row .body-up {
+      border-top: 0px; }
+    .game-container .game-row .body-left {
+      border-left: 0px; }
+    .game-container .game-row .body-right {
+      border-right: 0px; }
+    .game-container .game-row .body-down {
+      border-bottom: 0px; }
+    .game-container .game-row .head-up {
+      border-top-right-radius: 20px;
+      border-top-left-radius: 20px; }
+    .game-container .game-row .head-down {
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px; }
+    .game-container .game-row .head-left {
+      border-top-left-radius: 20px;
+      border-bottom-left-radius: 20px; }
+    .game-container .game-row .head-right {
+      border-top-right-radius: 20px;
+      border-bottom-right-radius: 20px; }
+    .game-container .game-row .tail-up {
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px; }
+    .game-container .game-row .tail-down {
+      border-top-right-radius: 20px;
+      border-top-left-radius: 20px; }
+    .game-container .game-row .tail-right {
+      border-top-left-radius: 20px;
+      border-bottom-left-radius: 20px; }
+    .game-container .game-row .tail-left {
+      border-top-right-radius: 20px;
+      border-bottom-right-radius: 20px; }
+    .game-container .game-row .head {
+      background-color: #c87533;
+      border: 2px solid black; }
+    .game-container .game-row .tail {
+      background-color: pink;
+      border: 2px solid black; }
+
+.top-scores-and-header .top-scores ol {
+  font-weight: bold;
+  padding-left: 15px; }
+  .top-scores-and-header .top-scores ol #list-two {
+    opacity: 0.85; }
+  .top-scores-and-header .top-scores ol #list-three {
+    opacity: 0.7; }
+
+/*# sourceMappingURL=snake.css.map */
