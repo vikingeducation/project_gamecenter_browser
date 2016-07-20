@@ -1,0 +1,77 @@
+body {
+	font-family: 'Roboto', sans-serif;
+}
+
+hr {
+	width: 50%;
+	margin: 0 auto;
+}
+
+h1 {
+	margin-top: 20px;
+	text-align: center;
+	font-size: 40px;
+}
+
+h3 {
+	text-align: center;
+}
+
+.game {
+	position: relative;
+	margin: 50px auto;
+	width: 650px;
+	height: 500px;
+	background-color: Cornsilk;
+	border: 3px solid PaleGoldenRod;
+}
+
+.tile {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	width: 50px;
+	height: 50px;
+	float: left;
+	border: 1px solid rgba(100,0,0,0.05);
+}
+
+.clearfix {
+	clear: both;
+}
+
+.tail {
+	background-color: LightGreen;
+}
+
+.apple {
+	background-color: Crimson;
+}
+
+.head {
+	background-color: ForestGreen;
+}
+
+.wrong-move {
+	background-color: DarkRed;
+}
+
+.loose-box {
+	background-color: white;
+	position: absolute;
+	text-align: center;
+	margin: 200px 175px;
+	width: 300px;
+	height: 100px;
+	top: 0;
+	z-index: 10;
+	border-radius: 5px;
+	box-shadow: 0 5px 5px 0 rgba(0,0,0,0.5);
+}
+
+.loose {
+	color: CornFlowerBlue;
+	font-size: 50px;
+	line-height: 100px;
+
+}
