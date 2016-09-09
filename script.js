@@ -99,12 +99,14 @@ gridModel = {
     };
     this.snake.headX = x;
     this.snake.headY = y;
-    placeSnake();
+    gridModel.placeSnake();
   }
 
 }
 
 controller = {
+
+  currentDirection: null,
 
   init: function() {
     gridModel.init(20);
@@ -141,19 +143,20 @@ controller = {
     $(document).keydown(function(e) {
       switch (e.which) {
         case 37: // left
-          this.currentDirection = "left";
+          controller.currentDirection = "left";
+          console.log(controller);
           break;
 
         case 38: // up
-          this.currentDirection = "up";
+          controller.currentDirection = "up";
           break;
 
         case 39: // right
-          this.currentDirection = "right";
+          controller.currentDirection = "right";
           break;
 
         case 40: // down
-          this.currentDirection = "down";
+          controller.currentDirection = "down";
           break;
 
         default:
