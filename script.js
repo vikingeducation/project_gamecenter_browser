@@ -18,8 +18,12 @@ var View = {
 
   buildGrid: function() {
     var grid = $('.grid');
-    for (var i = 0; i < 64; i++) {
-      grid.append('<div class="gridpiece"></div>');
+    for (var i = 1; i <= 100; i++) {
+      if (i < 11 || i > 90 || i % 10 === 0 || (i - 1) % 10 === 0) {
+        grid.append('<div class="hidden"></div>');
+      } else {
+        grid.append('<div class="gridpiece"></div>');
+      }
     }
   },
 
@@ -30,6 +34,11 @@ var View = {
       $( ".grid div:nth-child(" + array[i] + ")" ).addClass('highlight');
     }
     $( ".grid div:nth-child(" + food + ")" ).addClass('food');
+  },
+
+  gameOver: function() {
+    alert("You lose!");
+    $('body').html("");
   }
 
 };
@@ -43,6 +52,13 @@ var Controller = {
     '39': 'e'
   },
 
+  OPPOSITE: {
+    '38': 's',
+    '37': 'e',
+    '40': 'n',
+    '39': 'w'
+  },
+
   init: function() {
     View.init();
     setInterval(function() {
@@ -50,11 +66,16 @@ var Controller = {
       View.render(Model.snakeArray, Model.food);
       Model.checkFood();
       View.render(Model.snakeArray, Model.food);
+      if (Model.gameOver()) {
+        View.gameOver();
+      }
     }, 500);
   },
 
   changeDirection: function(code) {
-    Model.direction = this.KEYCODES[String(code)];
+    if (Model.direction !== this.OPPOSITE[String(code)]) {
+      Model.direction = this.KEYCODES[String(code)];
+    }
   },
 
 };
@@ -65,22 +86,22 @@ var Model = {
   DIRECTION_VALUES: {
     "e": 1,
     "w": -1,
-    "s": 8,
-    "n": -8
+    "s": 10,
+    "n": -10
   },
 
   init: function() {
     this.tick();
   },
 
-  snakeArray: [3,2,1],
+  snakeArray: [14,13,12],
 
-  food: 50,
+  food: 55,
 
   randomNum: function() {
     do
-      var num = Math.floor(Math.random() * 64) + 1;
-    while (this.snakeArray.includes(num))
+      var num = Math.floor(Math.random() * 100) + 1;
+    while (this.snakeArray.includes(num) || (num < 11 || num > 90 || num % 10 === 0 || (num - 1) % 10 === 0))
     return num;
   },
 
@@ -110,6 +131,16 @@ var Model = {
 
   updateSnake: function(head) {
     return head + this.DIRECTION_VALUES[this.direction];
+  },
+
+  gameOver: function() {
+    var dupl = this.hasDuplicates(this.snakeArray);
+    var side = (this.snakeArray[0] < 11 || this.snakeArray[0] > 90 || this.snakeArray[0] % 10 === 0 || (this.snakeArray[0] - 1) % 10 === 0)
+    return dupl || side;
+  },
+
+  hasDuplicates: function (array) {
+    return (new Set(array)).size !== array.length;
   }
 
 };
