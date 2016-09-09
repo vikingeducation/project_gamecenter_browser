@@ -1,14 +1,35 @@
 var view = {
   init: function(){
     this.gridSize = prompt("How large a grid do you want? (in px)");
+
+
     var $mainBox = $("<div></div>")
                     .addClass("box")
                     .css("width", this.gridSize + "px")
                     .css("height", this.gridSize + "px");
     $('body').append($mainBox);
+    
+
     //keyboard listeners
+
+    $(document).on("keydown", function(e) {
+      console.log("hahahaha");
+      //left: 37
+      //up: 38
+      //right: 39
+      //down: 40
+      this.keyPress = e.which;
+
+      
+    });
   },
+
+  clear: function(){
+    $(".box").empty();
+  },
+
   render: function(coords){
+    // render food
     var $food = $("<div></div>")
       .addClass("food")
       .css("left", coords.food.x)
@@ -16,5 +37,17 @@ var view = {
       .css("width", (this.gridSize/40) + "px")
       .css("height", (this.gridSize/40) + "px");
     $('.box').append($food);
+
+    // render snake by iterating through snake's body
+    var thatGridSize = this.gridSize;
+    coords.snake.forEach( function(el) {
+      var $snake = $("<div></div>")
+        .addClass("snake")
+        .css("left", el[0])
+        .css("top" , el[1])
+        .css("width", (thatGridSize/40) + "px")
+        .css("height", (thatGridSize/40) + "px");
+      $('.box').append($snake);
+    });
   }
 }

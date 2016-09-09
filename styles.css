@@ -4,7 +4,12 @@
 
 }
 
-.food{
+.food {
   background-color:red;
+  position: absolute;
+}
+
+.snake {
+  background-color: #ffa500;
   position: absolute;
 }
