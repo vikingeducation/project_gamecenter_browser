@@ -77,6 +77,7 @@ gridModel = {
   moveSnake: function() {
     var x = this.snake.headX;
     var y = this.snake.headY;
+    this.moveTail(x, y);
     switch (controller.currentDirection) {
       case "left":
         x -= 1;
@@ -100,6 +101,10 @@ gridModel = {
     this.snake.headX = x;
     this.snake.headY = y;
     gridModel.placeSnake();
+  },
+
+  moveTail: function(x, y) {
+    this.grid[x][y] = null;
   }
 
 }
