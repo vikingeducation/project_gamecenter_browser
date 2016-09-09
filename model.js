@@ -46,7 +46,7 @@ var model = {
           this.snake.direction = direction;
           break;
       //up
-      case 38:
+      case 40:
           newPart = [head[0], (head[1] + scale)];
           this.snake.direction = direction;
           break;
@@ -56,7 +56,7 @@ var model = {
           this.snake.direction = direction;
           break;
       //down
-      case 40:
+      case 38:
           newPart = [head[0], (head[1] - scale)];
           this.snake.direction = direction;
           break;

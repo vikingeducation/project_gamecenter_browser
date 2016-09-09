@@ -11,15 +11,15 @@ var view = {
     
 
     //keyboard listeners
-
+    var thatView = this;
     $(document).on("keydown", function(e) {
-      console.log("hahahaha");
+      //console.log("hahahaha");
       //left: 37
       //up: 38
       //right: 39
       //down: 40
-      this.keyPress = e.which;
-
+      thatView.keyPress = e.which;
+      console.log("This is from the listener: "+ thatView.keyPress);
       
     });
   },
