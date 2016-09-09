@@ -1,14 +1,9 @@
-* {
-  margin: 0;
-}
-
 .grid {
   width: 260px;
+  font-size: 0;
 }
 
 .gridpiece {
-  padding: 0;
-  margin: 0;
   width: 30px;
   height: 30px;
   border: 1px solid black;
@@ -17,4 +12,8 @@
 
 .highlight {
   background-color: black;
+}
+
+.food {
+  background-color: green;
 }
