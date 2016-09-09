@@ -1,0 +1,6 @@
+
+var controller = {
+  init: function(){
+    
+  }
+}
