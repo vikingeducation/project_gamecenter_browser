@@ -63,13 +63,13 @@ var Controller = {
     View.init();
     setInterval(function() {
       Model.init();
-      View.render(Model.snakeArray, Model.food);
+      //View.render(Model.snakeArray, Model.food);
       Model.checkFood();
       View.render(Model.snakeArray, Model.food);
       if (Model.gameOver()) {
         View.gameOver();
       }
-    }, 500);
+    }, 200);
   },
 
   changeDirection: function(code) {
