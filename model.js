@@ -82,6 +82,22 @@ var model = {
   checkSnake: function() {
   },
 
+  checkEatFood: function(){
+    //does snake head overlap food?
+    var head = this.snake.body[0];
+    return (withinX(head) && withinY(head));
+    //this.food.x === head[0] && this.food.y === head[1]);
+  },
+
+  withinX: function(head){
+    return (this.food.x <= head[0] + 2 && this.food.x >= head[0] - 2)
+  },
+
+  withinY: function(head){
+    //might need to switch this?
+    return (this.food.y <= head[1] + 2 && this.food.y >= head[1] -2)
+  },
+
   keepScore: function() {
 
   },
