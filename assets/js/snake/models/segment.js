@@ -52,7 +52,7 @@ var Segment = {
 
     _getNextDirection: function() {
       if (this.next) {
-        this.direction = this.next.direction
+        this.direction = this.next.direction;
       }
     }
   }
