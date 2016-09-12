@@ -16,7 +16,7 @@ body{
   border: 1px solid black;
   width: 305px;
   margin: 0 auto;
-  margin-top: 270px;
+  margin-top: 110px;
   background-color:#777B6A;
   position: relative;
 }
@@ -45,6 +45,6 @@ body{
 
 #play-again{
   text-align: center;
-  margin-top: 30px;
+  margin-top: 90px;
   font-size: 28px;
 }
