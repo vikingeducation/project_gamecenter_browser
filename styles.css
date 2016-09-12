@@ -1,7 +1,8 @@
 .box {
   border: 1px solid yellow;
   background-color: black;
-
+  margin: 0 auto;
+  position: relative;
 }
 
 .food {

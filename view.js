@@ -1,7 +1,6 @@
 var view = {
   init: function(){
-    this.gridSize = prompt("How large a grid do you want? (in px)");
-
+    this.gridSize = "400";
 
     var $mainBox = $("<div></div>")
                     .addClass("box")
@@ -13,14 +12,7 @@ var view = {
     //keyboard listeners
     var thatView = this;
     $(document).on("keydown", function(e) {
-      //console.log("hahahaha");
-      //left: 37
-      //up: 38
-      //right: 39
-      //down: 40
-      thatView.keyPress = e.which;
-      console.log("This is from the listener: "+ thatView.keyPress);
-      
+      thatView.keyPress = e.which;      
     });
   },
 
@@ -29,6 +21,8 @@ var view = {
   },
 
   render: function(coords){
+    //render score
+    $("#score").text("Your score: " + coords.score);
     // render food
     var $food = $("<div></div>")
       .addClass("food")
