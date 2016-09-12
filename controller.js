@@ -23,7 +23,6 @@ var controller = {
         food: thatController.model.food,
         score: thatController.model.score
       };
-
       thatController.view.clear();
       thatController.view.render(coords);
       thatController.checkEndGame();

@@ -1,5 +1,6 @@
 var view = {
   init: function(){
+    alert("Welcome to Snake! Use the arrow keys to move the snake to eat the food. If the snake hits the wall or itself, the game is over. Hit OK to start playing.")
     this.gridSize = "400";
 
     var $mainBox = $("<div></div>")
