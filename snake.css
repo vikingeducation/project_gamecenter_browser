@@ -5,11 +5,20 @@
   margin-bottom: -5px;
 }
 
+body{
+  background-image: url("Nokia_3310_blue.jpg");
+  background-position: 50% 25%;
+  background-repeat: no-repeat;
+}
 
 
 .board{
   border: 1px solid black;
   width: 305px;
+  position: absolute;
+  left: 330px;
+  top: 100px;
+  background-color:#777B6A;
 }
 
 .snake {
