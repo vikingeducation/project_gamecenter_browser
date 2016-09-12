@@ -24,11 +24,21 @@ var view = {
     });
   },
 
+  done: function() {
+    $(document).off();
+  },
+
   clear: function(){
     $(".box").empty();
   },
 
   render: function(coords){
+    //snake is dead?
+    $('#status').text("dead is: " + coords.game);
+
+    //update score
+    $('#score').text("Length of Snake: " + coords.snake.length);
+
     // render food
     var $food = $("<div></div>")
       .addClass("food")

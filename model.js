@@ -4,7 +4,7 @@ function Food(x,y){
 }
 
 function Snake(x,y) {
-  this.length = 1
+  this.length = 1;
   // holds the coordinates of each part of the snake.
   this.body = [];
   this.direction = 40;
@@ -30,13 +30,12 @@ var model = {
 
   // update Snake's position by x, y coordinates
   updateSnake: function(direction) {
-    //updates body and length of snake
-    if(this.checkEatFood()) {
-      this.snake.length++;
-      this.snake.body.unshift([this.food.x, this.food.y]);
-      this.destroyFood();
-      this.createFood();
-    }
+    // is snake dead?
+    console.log(this.checkSnake());
+    this.snake.dead = this.checkSnake();
+
+
+    
 
     var head = this.snake.body[0];
     var scale = Math.floor(this.gridSize / 40);
@@ -50,21 +49,49 @@ var model = {
       case 37:
           newPart = [(head[0] - scale), head[1]];
           this.snake.direction = direction;
+
+          //updates body and length of snake
+          if(this.checkEatFood()) {
+            this.snake.length++;
+            this.snake.body.unshift([this.food.x - 1, this.food.y]);
+            this.destroyFood();
+            this.createFood();
+          }
           break;
       //up
       case 40:
           newPart = [head[0], (head[1] + scale)];
           this.snake.direction = direction;
+
+          //updates body and length of snake
+          if(this.checkEatFood()) {
+            this.snake.length++;
+            this.snake.body.unshift([this.food.x, this.food.y + 1]);
+            this.destroyFood();
+            this.createFood();
+          }
           break;
       //right
       case 39:
           newPart = [(head[0] + scale), head[1]];
           this.snake.direction = direction;
+          if(this.checkEatFood()) {
+            this.snake.length++;
+            this.snake.body.unshift([this.food.x + 1, this.food.y]);
+            this.destroyFood();
+            this.createFood();
+          }
           break;
       //down
       case 38:
           newPart = [head[0], (head[1] - scale)];
           this.snake.direction = direction;
+          if(this.checkEatFood()) {
+            this.snake.length++;
+            this.snake.body.unshift([this.food.x, this.food.y - 1]);
+            this.destroyFood();
+            this.createFood();
+          }
           break;
 
       default:
@@ -86,6 +113,31 @@ var model = {
 
   // checks if snake hit wall, hits itself, dead or alive?
   checkSnake: function() {
+
+    // if the snake overlaps itself
+    var repeat_x = this.snake.body.map( function (el) {
+      return el[0];
+    });
+    var repeat_y = this.snake.body.map( function (el) {
+      return el[1];
+    });    
+
+    for (var j = 1; j < repeat_x.length; j++) {
+      if (repeat_x[0] === repeat_x[j] && repeat_y[0] === repeat_y[j]) {
+        return true;
+      }
+    
+    }
+
+    //left wall, right wall, upper wall, lower wall
+
+    if (this.snake.body[0][0] < (this.gridSize * 2/40) || this.snake.body[0][0] > ( this.gridSize *38/40)) {
+      return true;
+    }
+    if (this.snake.body[0][1] < (this.gridSize *2/40 ) || this.snake.body[0][1] > ( this.gridSize *38/40)) {
+      return true;
+    }
+    return false;
   },
 
   checkEatFood: function(){
