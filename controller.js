@@ -26,7 +26,7 @@ var controller = {
       thatController.view.clear();
       thatController.view.render(coords);
 
-    }, 1000);
+    }, 200);
 
   },
 
