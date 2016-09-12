@@ -1,11 +1,21 @@
-div {
-  border: 1px solid black;
-  width: 4.9vw;
-  height: 4.9vh;
+.cell {
+  width: 30px;
+  height: 30px;
   display: inline-block;
-  margin-bottom: -1vh;
+  margin-bottom: -5px;
 }
 
-.has-snake {
-    background-color: grey;
+
+
+.board{
+  border: 1px solid black;
+  width: 305px;
+}
+
+.snake {
+  background-color: black;
+}
+
+.fruit {
+  background-color: red;
 }
