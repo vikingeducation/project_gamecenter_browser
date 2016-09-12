@@ -27,7 +27,26 @@ var snakeView = {
     $('body').keydown(function(event){
       snakeView.controller.changeDirection(event.keyCode);
     });
+  },
+
+  endDisplay: function(score){
+    $('<div class="score"></div>').insertBefore($('.row-container').first());
+    $('.score').html("Score: " + score);
+    $('<div class="btn-container"></div>').insertAfter($('.board'));
+    var btn = $("<input type='button' value='Play Again'>")
+               .attr('id', 'play-again');
+    $('.btn-container').append(btn);
+    this.playAgainListener();
+  },
+
+  playAgainListener: function(){
+    $('#play-again').click(function(){
+      snakeView.controller.init();
+    });
   }
+
+
+
 };
 
 
@@ -36,10 +55,12 @@ var snakeModel = {
 
   init: function(controller){
     this.board = this.gameBoard();
+    this.snake = [[5,5],[5,6],[5,7]]
     this.addFruit();
     this.assignCells();
     this.snakeDirection = "west";
     this.controller = controller;
+    this.score = 0;
   },
 
 
@@ -63,15 +84,15 @@ var snakeModel = {
 
   fruit: [],
 
-  snake: [],
 
   addFruit: function(){
     var col;
     var row;
+    var fruitSpot;
     do {
       col = Math.floor((Math.random() * 9))
       row = Math.floor((Math.random() * 9))
-      var fruitSpot = snakeModel.board[row][col]
+      fruitSpot = snakeModel.board[row][col]
     } while (fruitSpot === "snake");
     snakeModel.fruit = [row, col];
   },
@@ -112,21 +133,33 @@ var snakeModel = {
     if (direction === "north") {
       var newRow = snakeArray[0][0] + 1
       var newCol = snakeArray[0][1]
-      snakeArray.push([newRow], [newCol]);
+      snakeArray.push([[newRow], [newCol]]);
     } else if(direction === "south") {
       var newRow = snakeArray[0][0] - 1
       var newCol = snakeArray[0][1]
-      snakeArray.push([newRow], [newCol]);
+      snakeArray.push([[newRow], [newCol]]);
     } else if(direction === "east") {
       var newRow = snakeArray[0][0] 
       var newCol = snakeArray[0][1] - 1
-      snakeArray.push([newRow], [newCol]);
+      snakeArray.push([[newRow], [newCol]]);
     } else {
       var newRow = snakeArray[0][0] 
       var newCol = snakeArray[0][1] + 1
-      snakeArray.push([newRow], [newCol]);
+      snakeArray.push([[newRow], [newCol]]);
     }
+    this.score += 1;
     snakeModel.addFruit();
+  },
+
+  fruitAndGrowSnake: function(newRow, newCol) {
+    var snakeArray = this.snake;
+    if (newRow > -1 && newRow < 10) {
+      if (snakeModel.board[newRow][newCol] === "fruit") {
+        snakeModel.eatFruit();
+      }
+    }
+    snakeArray.unshift([newRow, newCol])
+    snakeArray.pop();
   },
 
 
@@ -136,38 +169,24 @@ var snakeModel = {
     var snakeArray = this.snake;
     if (direction === "north") {
       var newRow = snakeArray[0][0] - 1
-      var newCol = snakeArray[0][1]
-      if (snakeModel.board[newRow][newCol] === "fruit") {
-        snakeModel.eatFruit();
-      }
-      snakeArray.unshift([newRow, newCol])
-      snakeArray.pop();
+      var newCol = snakeArray[0][1];
+      snakeModel.fruitAndGrowSnake(newRow, newCol);
     } else if(direction === "south") {
       var newRow = snakeArray[0][0] + 1
       var newCol = snakeArray[0][1]
-      if (snakeModel.board[newRow][newCol] === "fruit") {
-        snakeModel.eatFruit();
-      }
-      snakeArray.unshift([newRow, newCol])
-      snakeArray.pop();
+      snakeModel.fruitAndGrowSnake(newRow, newCol);
     } else if(direction === "east") {
       var newRow = snakeArray[0][0]
       var newCol = snakeArray[0][1] + 1
-      if (snakeModel.board[newRow][newCol] === "fruit") {
-        snakeModel.eatFruit();
-      }
-      snakeArray.unshift([newRow, newCol])
-      snakeArray.pop();
+      snakeModel.fruitAndGrowSnake(newRow, newCol);
     } else {
       var newRow = snakeArray[0][0]
       var newCol = snakeArray[0][1] - 1
-      if (snakeModel.board[newRow][newCol] === "fruit") {
-        snakeModel.eatFruit();
-      }
-      snakeArray.unshift([newRow, newCol])
-      snakeArray.pop();
+      snakeModel.fruitAndGrowSnake(newRow, newCol);
     }
-    this.assignCells();
+    if (!this.checkForLoss()){
+      this.assignCells();
+    }
   },
 
   changeDirection: function(keycode){
@@ -197,7 +216,6 @@ var snakeController = {
     this.model = snakeModel;
     this.view = snakeView;
     this.model.init(this);
-    this.model.snake = [[5,5],[5,6], [5,7], [5,8]];
     this.view.init(this);
     this.runLoop();
   },
@@ -207,10 +225,13 @@ var snakeController = {
       snakeController.model.moveSnake();
       if (snakeController.model.checkForLoss()) {
         snakeController.stopLoop();
-        console.log("You lose!");
+        alert("You lose!");
+        var score = snakeController.model.score;
+        snakeController.view.endDisplay(score);
+      } else {  
+        snakeController.renderGrid();
       }
-      snakeController.renderGrid();
-    }, 1000);
+    }, 400);
   },
 
   stopLoop: function() {
