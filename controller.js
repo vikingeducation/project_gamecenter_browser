@@ -26,7 +26,7 @@ var controller = {
       thatController.view.clear();
       thatController.view.render(coords);
       thatController.checkEndGame();
-    }, 200);
+    }, 100);
 
   },
 
