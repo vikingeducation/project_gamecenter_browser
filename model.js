@@ -4,11 +4,9 @@ function Food(x,y){
 }
 
 function Snake(x,y) {
-  this.length = 1
   // holds the coordinates of each part of the snake.
   this.body = [];
   this.direction = 40;
-  this.dead = false;
   this.body.push([x,y]);
 }
 
@@ -20,9 +18,6 @@ var model = {
     this.score = 0;
     this.createSnake();
     this.createFood();
-    //array of Food 
-
-
   },
 
   OPPOSITES: { 37: 39,
@@ -33,7 +28,7 @@ var model = {
   // update Snake's position by x, y coordinates
   updateSnake: function(direction) {
     //updates body and length of snake
-    // do not allow user to go in opposite direction of the snake (left when going right, up when going down)
+    // if the snake is longer than 1, do not allow user to go in opposite direction of the snake (left when going right, up when going down)
     var head = this.snake.body[0];
     var scale = Math.floor(this.gridSize / 40);
     var newPart = [];
