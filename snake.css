@@ -1,0 +1,50 @@
+.cell {
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  margin-bottom: -5px;
+}
+
+body{
+  background-image: url("Nokia_3310_blue.jpg");
+  background-position: 50% 25%;
+  background-repeat: no-repeat;
+}
+
+
+.board{
+  border: 1px solid black;
+  width: 302px;
+  margin: 0 auto;
+  margin-top: 110px;
+  background-color:#777B6A;
+  position: relative;
+}
+
+.snake {
+  background-color: black;
+}
+
+.fruit {
+  background-color: red;
+}
+
+.score{
+  font-size: 34px;
+
+  text-align: center;
+  position: absolute;
+  top: -40px;
+  left: 45px;
+}
+
+.btn-container{
+  width: 150px;
+  margin: auto;
+}
+
+#play-again{
+  text-align: center;
+  margin-top: 90px;
+  font-size: 28px;
+}
