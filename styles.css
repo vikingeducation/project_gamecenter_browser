@@ -1,7 +1,13 @@
 * {
-  margin: 0;
+  margin: 0 auto;
   padding: 0;
   line-height: 0;
+}
+
+#game-grid {
+  margin: 0 auto;
+  content: center;
+  padding: auto;
 }
 
 .cell {
@@ -24,6 +30,10 @@
 
 .border {
   background-color: red;
+}
+
+.food {
+  background-color: hotpink;
 }
 
 /* THIS IS MATT"S COMMIT */

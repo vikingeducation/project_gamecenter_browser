@@ -5,13 +5,7 @@
 // snake constructor
 function Snake() {
   this.length = 1;
-  this.head = new Section();
-  this.headX = 3;
-  this.headY = 3;
-}
-
-function Section(nextSection) {
-  next: nextSection;
+  this.body = [[3, 3]];
 }
 
 //
@@ -46,9 +40,18 @@ var view = {
 
 };
 
+
+
+
+
+
+
+
 var gridModel = {
 
   grid: [],
+  food: [],
+
   init: function(size) {
     for (var i = 0; i < size; i++) {
       this.grid.push([]);
@@ -59,31 +62,29 @@ var gridModel = {
     this.placeBorder();
     this.snake = new Snake();
     gridModel.placeSnake();
+    gridModel.placeFood();
   },
 
   placeFood: function() {
     do {
-      var x = Math.random(this.grid.length);
-      var y = Math.random(this.grid.length);
-    }
-    while (false) {
-      // x or y is occupied by snake.
-    }
-    grid[x][y] = "food";
+      var x = Math.floor(Math.random() * this.grid.length);
+      var y = Math.floor(Math.random() * this.grid.length);
+    } while (this.grid[x][y] === "snake" || this.grid[x][y] === "border")
+    this.grid[x][y] = "food";
   },
 
   placeSnake: function() {
-    var x = this.snake.headX;
-    var y = this.snake.headY;
-    var currentContents = this.grid[x][y];
-    var newContents;
-    // control for cell with border or food so placeSnake updates, not destroys
-    if (currentContents) {
-      newContents = currentContents + "snake";
-    } else {
-      newContents = "snake";
+    var snakeBody = this.snake.body;
+    for(var i = 0; i < snakeBody.length; i++) {
+      // var currentContents = this.grid[snakeBody[i][0]][snakeBody[i][1]];
+      // var newContents;
+      // if (currentContents) {
+      //   newContents = currentContents + "snake";
+      // } else {
+      //   newContents = "snake";
+      // }
+      this.grid[snakeBody[i][0]][snakeBody[i][1]] = "snake";  
     }
-    this.grid[x][y] = newContents;  
   },
 
   placeBorder: function() {
@@ -104,11 +105,11 @@ var gridModel = {
     }
   },
 
-
   moveSnake: function() {
-    var x = this.snake.headX;
-    var y = this.snake.headY;
-    this.moveTail(x, y);
+    var snakeBody = this.snake.body;
+    // move tail to place of head
+    var x = snakeBody[snakeBody.length-1][0];
+    var y = snakeBody[snakeBody.length-1][1];
     switch (controller.currentDirection) {
       case "left":
         x -= 1;
@@ -131,14 +132,51 @@ var gridModel = {
     };
     this.snake.headX = x;
     this.snake.headY = y;
+    if(!controller.testSnakeInBounds(x, y)) {
+      controller.gameOver();
+      var alertMessages = [
+        "Rome wasn't built in day", 
+        "You win some, you lose some",
+        "Maybe try drinking some more coffee?", 
+        "Show some spirit, kid!", 
+        "See the snake... Be the snake...",
+        "Hey, you can't win them all", 
+        "Did you try asking politely?", 
+        "This snake's on a diet",
+        "Here, snakey snakey snakey..."
+      ]
+      alert(alertMessages[Math.floor(Math.random() * alertMessages.length)]);
+      return;
+    }
+    this.snake.body.push([x,y]);
+    if(controller.snakeEatsFood(x, y)) {
+      gridModel.snake.length += 1;
+      gridModel.placeFood();
+    } else {
+      var oldSnake = gridModel.snake.body.shift();
+      gridModel.grid[oldSnake[0]][oldSnake[1]] = null;
+    }
+
     gridModel.placeSnake();
+
   },
+};
 
-  moveTail: function(x, y) {
-    this.grid[x][y] = null;
-  }
 
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 var controller = {
 
@@ -159,13 +197,8 @@ var controller = {
   },
 
   playGame: function() {
-    gridModel.moveSnake()
-    if (controller.testSnakeInBounds()) {
-      view.render();
-    } else {
-      controller.gameOver();
-      alert("You lose.");
-    }
+    gridModel.moveSnake();
+    view.render();
   },
 
   gameOver: function() {
@@ -237,15 +270,19 @@ var controller = {
     }
   },
 
-  testSnakeInBounds: function() {
-    // if snake head is not in array space with "border" as content, return true
-    // else false
-    var x = gridModel.snake.headX;
-    var y = gridModel.snake.headY;
-    if (gridModel.grid[x][y] === "bordersnake") {
-      return false 
+  testSnakeInBounds: function(x, y) {
+    if ( gridModel.grid[x][y] === "border" || gridModel.grid[x][y] === "snake") {
+      return false;
     } else {
-      return true
+      return true;
+    }
+  },
+
+  snakeEatsFood: function(x, y) {
+    if (gridModel.grid[x][y] === "food") {
+      return true 
+    } else {
+      return false
     }
   }
 }
@@ -254,5 +291,7 @@ var controller = {
 
 
 $(document).ready(function() {
+  var windowWidth = $(window).width();
+  $("#game-grid").css("padding", String(windowWidth / 10) + "px");
   controller.init();
 })
