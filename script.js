@@ -1,18 +1,10 @@
 // js scripts
 
 // snake constructor
-function Snake() {
+function Snake(x, y) {
   this.length = 1;
-  this.head = new Section();
-  this.headX = 3;
-  this.headY = 3;
+  this.body = [[x,y]];
 }
-
-function Section(nextSection) {
-  next: nextSection;
-}
-
-//
 
 
 view = {
@@ -38,6 +30,11 @@ view = {
         $cell.appendTo($row);
       }
     }
+  },
+
+  showGameOver: function() {
+    $gameOverMessage = $('<div class="game-over"><p>Game over man!</p></div>');
+    $gameOverMessage.insertBefore('#game-grid');
   }
 
 }
@@ -45,6 +42,8 @@ view = {
 gridModel = {
 
   grid: [],
+  food: [],
+
   init: function(size) {
     for (var i = 0; i < size; i++) {
       this.grid.push([]);
@@ -52,32 +51,42 @@ gridModel = {
         this.grid[i].push(null);
       }
     }
-    this.snake = new Snake();
+    this.snake = new Snake(3,3);
     gridModel.placeSnake();
+    gridModel.placeFood();
   },
 
   placeFood: function() {
     do {
-      var x = Math.random(this.grid.length)
-      var y = Math.random(this.grid.length)
+      var x = Math.floor(Math.random() * this.grid.length)
+      var y = Math.floor(Math.random() * this.grid.length)
     }
-    while (false) {
-      // x or y is occupied by snake.
+    while(this.grid[x][y] === "snake");
+    this.grid[x][y] = "food";
+    this.food = [x,y];
+  },
+
+  checkFood: function(x,y) {
+    if(this.food[0] === x && this.food[1] === y) {
+      console.log("chomp");
+      this.placeFood();
+      return true;
     }
-    grid[x][y] = "food";
+    return false;
   },
 
   placeSnake: function() {
-    var x = this.snake.headX;
-    var y = this.snake.headY;
-    this.grid[x][y] = this.snake.head;
+    var snakeBody = this.snake.body
+    for(var i = 0; i < snakeBody.length; i++) {
+      this.grid[snakeBody[i][0]][snakeBody[i][1]] = "snake";
+    }
   },
 
 
   moveSnake: function() {
-    var x = this.snake.headX;
-    var y = this.snake.headY;
-    this.moveTail(x, y);
+    var snakeBody = this.snake.body;
+    var x = snakeBody[snakeBody.length-1][0];
+    var y = snakeBody[snakeBody.length-1][1];
     switch (controller.currentDirection) {
       case "left":
         x -= 1;
@@ -100,12 +109,18 @@ gridModel = {
     };
     this.snake.headX = x;
     this.snake.headY = y;
+    if(!controller.checkBounds(x,y)){
+      return;
+    };
+    this.snake.body.push([x,y]);
+    if(gridModel.checkFood(x,y)){
+      gridModel.snake.length++;
+    } else {
+      var oldSnake = gridModel.snake.body.shift();
+      gridModel.grid[oldSnake[0]][oldSnake[1]] = null;
+    }
     gridModel.placeSnake();
   },
-
-  moveTail: function(x, y) {
-    this.grid[x][y] = null;
-  }
 
 }
 
@@ -127,6 +142,21 @@ controller = {
 
   gameOver: function() {
     clearInterval(interval);
+    view.showGameOver();
+  },
+
+  checkBounds: function(x,y) {
+    var bounds = controller.getGridSize();
+    if (x >= bounds || y >= bounds || x < 0 || y < 0) {
+      controller.gameOver();
+      return false;
+    }
+    return true;
+  },
+
+  getSnakeCoords: function() {
+    var snakeBody = gridModel.snake.body;
+    return snakeBody[snakeBody.length-1];
   },
 
   getGridSize: function() {
@@ -148,19 +178,22 @@ controller = {
     $(document).keydown(function(e) {
       switch (e.which) {
         case 37: // left
+          if (controller.currentDirection == "right") { break; }
           controller.currentDirection = "left";
-          console.log(controller);
           break;
 
         case 38: // up
+          if (controller.currentDirection == "up") { break; }
           controller.currentDirection = "up";
           break;
 
         case 39: // right
+          if (controller.currentDirection == "left") { break; }
           controller.currentDirection = "right";
           break;
 
         case 40: // down
+          if (controller.currentDirection == "up") { break; }
           controller.currentDirection = "down";
           break;
 
@@ -171,7 +204,6 @@ controller = {
     });
   }
 }
-
 
 
 
