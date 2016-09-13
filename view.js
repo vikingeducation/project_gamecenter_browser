@@ -7,7 +7,7 @@ var view = {
                     .addClass("box")
                     .css("width", this.gridSize + "px")
                     .css("height", this.gridSize + "px");
-    $('body').append($mainBox);
+    $('#snake-body').append($mainBox);
     
 
     //keyboard listeners
