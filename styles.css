@@ -1,0 +1,32 @@
+* {
+    margin: 0;
+    padding: 0;
+    line-height: 0;
+}
+
+.cell {
+    height: 10px;
+    width: 10px;
+    border: solid black 1px;
+    display: inline-block;
+}
+
+.snake {
+    background-color: darkgreen;
+}
+
+.food {
+    background-color: red;
+}
+
+.row {
+    display: block;
+}
+
+.game-over {
+  margin-top: 16px;
+}
+
+#game-grid {
+  margin: 32px;
+}
