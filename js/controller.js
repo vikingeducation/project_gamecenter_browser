@@ -42,6 +42,12 @@ var controller = {
 
   eatFood: function(){
     view.eatFood();
+  },
+
+  keyUpActions: function(){
+    keyPressed = true;
+    controller.moveSnake(event);
+    controller.displayBoard();
   }
 
   

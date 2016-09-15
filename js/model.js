@@ -14,7 +14,7 @@ var model = {
   snakeBody: [],
 
   nextSnakeCoords: function(){
-    var body = this.snakeBody.unshift();
+    var body = this.snakeBody.slice(1);
     var head = [[this.snakeHead['row'], this.snakeHead['col']]];
 
     var final = body.concat(head);
@@ -33,23 +33,31 @@ var model = {
   },
 
   moveSnake: function(event){
+    var nextMoves = model.nextSnakeCoords();
     this.moveSnakeHead(event);
-    this.moveSnakeBody();
+    this.moveSnakeBody(nextMoves);
   },
 
-  moveSnakeBody: function(){
+  moveSnakeBody: function(nextMoves){
     if(this.snakeBody.length > 0){
+      
       //turn all snake body coords to 0
-      var body = this.snakeBody();
+      var body = this.snakeBody;
+      
+      
       body.forEach(function(coords){
+        
         model.removeSegment(coords[0], coords[1]);
-
+        
+        model.snakeBody.shift();
+        
       })
-
-      var nextMoves = this.nextSnakeCoords();
-
+      
+      
+      
+      
       nextMoves.forEach(function(coords){
-        model.addSegment(coords[0], coords[1], 8);
+        model.addBodySegment(coords[0], coords[1], 8);
       })
 
 
@@ -141,17 +149,27 @@ var model = {
     this.snakeHead['col'] = col;
   },
 
+  addBodySegment: function(row, col, segValue){
+    if(this.gameOver(row, col)){
+      controller.gameOver();
+    }
+    
+    this.grid[row][col] = segValue;
+    this.snakeBody.unshift([row, col]);
+  },
+
   growSnake: function(){
     if(this.snakeBody.length > 0){
-      var row = this.snake[0][0];
-      var col = this.snake[0][1];
+      var row = this.snakeBody[0][0];
+      var col = this.snakeBody[0][1];
     } else {
       var row = this.snakeHead['row'];
       var col = this.snakeHead['col'];
     }
 
     if(this.validCoords(row + 1, col)){
-      this.addSnakeSegment(row - 1, col);
+      console.log("VALID COORDS");
+      this.addSnakeSegment(row + 1, col);
       
     } else if(this.validCoords(row, col + 1)){
       this.addSnakeSegment(row, col + 1);
@@ -164,13 +182,13 @@ var model = {
   },
 
   addSnakeSegment: function(row, col){
-    this.addSegment(row, col, 8);
+    //PRETTY SURE THIS BELOW CALL IS KILLING THE SNAKE
+    this.addBodySegment(row, col, 8);
     this.snakeBody.unshift([row, col]);
   },
 
   manageEatFood: function(row, col){
-    console.log(row);
-    console.log(col);
+    
     if(this.grid[row][col] === 2) {
       this.eatFood(row, col);
     }
@@ -178,6 +196,7 @@ var model = {
 
   eatFood: function(row, col){
     console.log("EATING FOOD");
+    ///NO SNAKE PIECES SHOWING AFTER EATING FOOD
     controller.eatFood(row, col);
     this.placeFood();
     this.growSnake();

@@ -9,11 +9,7 @@ var view = {
     
     $(document).keyup(function(event){
       
-      keyPressed = true;
-      controller.moveSnake(event);
-      controller.displayBoard();
-
-      
+      controller.keyUpActions();
     })
   },
 
@@ -31,6 +27,10 @@ var view = {
     for(var row = 0; row < 8; row++){
       for( var col = 0; col < 8; col++){
         if(grid[row][col] === 1){
+          $target = $(".row[data-row=" + row + "]")
+                    .find(".col[data-col=" + col +"]");
+          $target.addClass("snake");
+        } else if(grid[row][col] === 8) {
           $target = $(".row[data-row=" + row + "]")
                     .find(".col[data-col=" + col +"]");
           $target.addClass("snake");
