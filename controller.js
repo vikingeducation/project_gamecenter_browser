@@ -43,7 +43,12 @@ var controller = {
   checkEndGame: function(){
    if(this.model.gameOver()){
     clearInterval(tick);
-    setTimeout(function(){alert("Game over!");},100);
+    setTimeout(function(){
+      var playAgain = confirm("Game over! Would you like to play again?");
+      if(playAgain){
+        location.reload(false);
+      }
+    },100);
    }
   }
 
