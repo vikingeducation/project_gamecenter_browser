@@ -22,17 +22,26 @@ var controller = {
 
   moveSnake: function(event){
     model.moveSnake(event);
-    keyPressed = false;
-    //set keyPressed to false after move snake is called to allow listener to set to true
+    
+    
   },
 
   playInterval: function(){
-
+    keyPressed = false;
     if(keyPressed === false){
       controller.moveSnake();
     }
     
     controller.displayBoard();
+  },
+
+  gameOver: function(){
+    view.gameOver();
+    $(document).off();
+  },
+
+  eatFood: function(){
+    view.eatFood();
   }
 
   

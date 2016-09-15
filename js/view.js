@@ -6,11 +6,13 @@ var view = {
 
     this.buildBoard();
 
-    $("document").keyup(function(event){
+    
+    $(document).keyup(function(event){
+      
       keyPressed = true;
       controller.moveSnake(event);
-      console.log(event.which());
-      console.log("HEY IT REGISTERED THE KEY PRESS");
+      controller.displayBoard();
+
       
     })
   },
@@ -62,7 +64,15 @@ var view = {
 
       };//end cols
     };//end rows
-  }//END buildBoard()
+  },//END buildBoard()
+
+  gameOver: function(){
+    $("#status").text("GAME OVER");
+  },
+
+  eatFood: function(){
+    $(".food").removeClass("food");
+  }
 
 
 }//end view
