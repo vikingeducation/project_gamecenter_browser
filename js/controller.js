@@ -4,7 +4,7 @@ var controller = {
     keyPressed = false;
     view.init();
     this.setUpBoard();
-    this.displayBoard();
+    this.render();
     this.startPlay();
   },
 
@@ -12,8 +12,8 @@ var controller = {
     model.setUpBoard();
   },
 
-  displayBoard: function(){
-    view.displayBoard();
+  render: function(){
+    view.render();
   },
 
   startPlay: function(){
@@ -26,18 +26,22 @@ var controller = {
     
   },
 
+  score: function(){
+    return model.score;
+  },
+
   playInterval: function(){
     keyPressed = false;
     if(keyPressed === false){
       controller.moveSnake();
     }
     
-    controller.displayBoard();
+    controller.render();
   },
 
   gameOver: function(){
-    view.gameOver();
-    $(document).off();
+    return model.checkGameOver();
+    
   },
 
   eatFood: function(){
@@ -47,7 +51,12 @@ var controller = {
   keyUpActions: function(event){
     keyPressed = true;
     controller.moveSnake(event);
-    controller.displayBoard();
+    
+    if(controller.gameOver()){
+      view.gameOver();
+    } 
+
+    controller.render();
   }
 
   

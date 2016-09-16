@@ -15,8 +15,12 @@ var view = {
 
 
   render: function(){
-    //RUN ALL FUNCTION NECESSARY TO RENDER CURRENT STATE OF DATA
-    //I BELIEVE this is displayBoard, but I'll keep it for now
+    this.displayBoard();
+    this.displayScore();
+  },
+
+  displayScore: function(){
+    $("#score").text("Score: " + controller.score());
   },
 
 
@@ -27,16 +31,17 @@ var view = {
 
     var snake = model.snake;
     var food = model.food;
-
+    //console.log("start adding snakes");
     snake.forEach(function(coords){
       var row = coords[0];
       var col = coords[1];
 
-      $segment = $(".row[data-row=" + row + "]")
-                  .find(".col[data-col=" + col + "]");
-      
+      $segment = $('.row[data-row="' + row + '"]')
+                  .find('.col[data-col="' + col + '"]');
+      //console.log($segment.length + " snake added");
       $segment.addClass("snake");
     })
+    //console.log("stop adding snakes");
 
     //console.log($(".snake").length);  //no elements with class snake
 
@@ -72,6 +77,9 @@ var view = {
 
   gameOver: function(){
     $("#status").text("GAME OVER");
+
+    //$(document).off();
+    //turned off for debugging
   },
 
   eatFood: function(){

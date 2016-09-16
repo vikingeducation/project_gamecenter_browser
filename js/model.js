@@ -30,16 +30,18 @@ var model = {
   },
 
   moveSnake: function(event){
+    
     this.moveSnakeBody();
     this.moveSnakeHead(event);
+    
     this.manageFood();
-    this.checkGameOver();
+    
   },
 
-  moveSnakeBody: function(nextMoves){
+  moveSnakeBody: function(){
     if(this.snake.length > 1){
-      
-      for(var i = 1; i < this.snake.length; i++){
+      //CANT CHANGE THE AHEAD BECAUSE IT MESSES UP ADDITIONAL SEGMENTS AFTER 2 long
+      for(var i = this.snake.length - 1; i > 0; i--){
         var ahead = this.snake[i - 1];
         var current = this.snake[i];
         var rowDif = ahead[0] - current[0];
@@ -71,14 +73,11 @@ var model = {
       this.moveSegment(row, col, keyCode);
     } else {
       //up
-      // move the head up
       this.moveSegment(row, col, 38);
-    }//END IF EVENT
+    }
 
-      //will try to assign undefined property col idx of undefined row when off 
-      //the board
 
-  },//END MOVE SNAKE HEAD
+  },
 
   snakeInbounds: function(){
     var inbounds = true;
@@ -147,7 +146,7 @@ var model = {
   },
 
   
-
+  //if I store the previous tail I can just add a segment on that
   addSnakeSegment: function(){
     var index = this.snake.length - 1;
     var lastSeg = this.snake[index];
@@ -162,7 +161,9 @@ var model = {
       var row = lastSeg[0];
       var col = lastSeg[1] + 1;
     }
-
+    
+    console.log("last item: " + this.snake[index]);
+    console.log("newest item: " + [row,col])
     this.snake.push([row, col]);
 
   },
