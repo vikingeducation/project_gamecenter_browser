@@ -9,7 +9,7 @@ var view = {
     
     $(document).keyup(function(event){
       
-      controller.keyUpActions();
+      controller.keyUpActions(event);
     })
   },
 
@@ -22,27 +22,31 @@ var view = {
 
 
   displayBoard: function(){
-    var grid = model.grid;
+    $(".col").removeClass("snake");
+    $(".col").removeClass("food");
 
-    for(var row = 0; row < 8; row++){
-      for( var col = 0; col < 8; col++){
-        if(grid[row][col] === 1){
-          $target = $(".row[data-row=" + row + "]")
-                    .find(".col[data-col=" + col +"]");
-          $target.addClass("snake");
-        } else if(grid[row][col] === 8) {
-          $target = $(".row[data-row=" + row + "]")
-                    .find(".col[data-col=" + col +"]");
-          $target.addClass("snake");
-        } else if(grid[row][col] === 2){
-          $(".row[data-row=" + row + "]").find(".col[data-col=" + col +"]")
-                                          .addClass("food");
-        } else if(grid[row][col] === 0){
-          $(".row[data-row=" + row + "]").find(".col[data-col=" + col +"]")
-                                          .removeClass("snake");
-        }
-      };//end col
-    };//end row
+    var snake = model.snake;
+    var food = model.food;
+
+    snake.forEach(function(coords){
+      var row = coords[0];
+      var col = coords[1];
+
+      $segment = $(".row[data-row=" + row + "]")
+                  .find(".col[data-col=" + col + "]");
+      
+      $segment.addClass("snake");
+    })
+
+    //console.log($(".snake").length);  //no elements with class snake
+
+    var row = food[0];
+    var col = food[1];
+
+    $food = $(".row[data-row=" + row + "]")
+                  .find(".col[data-col=" + col + "]");
+
+    $food.addClass("food");
   },
 
   buildBoard: function(){

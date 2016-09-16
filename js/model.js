@@ -9,93 +9,120 @@ var model = {
          new Array(8),
          new Array(8) ],
 
-  snakeHead: {},
+  food: [],
 
-  snakeBody: [],
+  snake: [],
 
-  nextSnakeCoords: function(){
-    var body = this.snakeBody.slice(1);
-    var head = [[this.snakeHead['row'], this.snakeHead['col']]];
-
-    var final = body.concat(head);
-    return final;
-  },
+  score: 0,
 
 
   setUpBoard: function(){
     var snakeRow = 7;
     var snakeCol = 2;
 
-    this.snakeHead['row'] = snakeRow;
-    this.snakeHead['col'] = snakeCol;
-    this.grid[4][4] = 2;
-    this.grid[snakeRow][snakeCol] = 1;
+    //put the snakes head on
+    this.snake.push([snakeRow, snakeCol]);
+    
+    //assign food a spot
+    this.food[0] = 4;
+    this.food[1] = 4;
+    
   },
 
   moveSnake: function(event){
-    var nextMoves = model.nextSnakeCoords();
+    this.moveSnakeBody();
     this.moveSnakeHead(event);
-    this.moveSnakeBody(nextMoves);
+    this.manageFood();
+    this.checkGameOver();
   },
 
   moveSnakeBody: function(nextMoves){
-    if(this.snakeBody.length > 0){
+    if(this.snake.length > 1){
       
-      //turn all snake body coords to 0
-      var body = this.snakeBody;
-      
-      
-      body.forEach(function(coords){
-        
-        model.removeSegment(coords[0], coords[1]);
-        
-        model.snakeBody.shift();
-        
-      })
-      
-      
-      
-      
-      nextMoves.forEach(function(coords){
-        model.addBodySegment(coords[0], coords[1], 8);
-      })
+      for(var i = 1; i < this.snake.length; i++){
+        var ahead = this.snake[i - 1];
+        var current = this.snake[i];
+        var rowDif = ahead[0] - current[0];
+        var colDif = ahead[1] - current[1];
+
+        if(rowDif){
+          this.snake[i][0] += rowDif;
+        } 
+        if(colDif){
+          this.snake[i][1] += colDif;
+        }
+      }
 
 
     }
   },
 
   moveSnakeHead: function(event){
-    var coords = [this.snakeHead['row'], this.snakeHead['col']];
+    var coords = this.snake[0];
 
     var row = coords[0];
     var col = coords[1];
 
-    if(this.gameOver(row, col)) {
-      controller.gameOver();
+    
+      
+    if(event){
+      var keyCode = event.which;
+      // for if a keyCode is passed
+      this.moveSegment(row, col, keyCode);
     } else {
-    //get rid of previous snake tag
-      this.removeSegment(row, col);
-      if(event){
-        var keyCode = event.which;
-        // for if a keyCode is passed
-        this.placeSegment(row, col, keyCode);
-      } else {
-        //up
-        this.addSegment(row - 1, col, 1);
-      }//END IF EVENT
+      //up
+      // move the head up
+      this.moveSegment(row, col, 38);
+    }//END IF EVENT
 
       //will try to assign undefined property col idx of undefined row when off 
       //the board
 
-    } //END ELSE IF NOT GAME OVER
-  },//END MOVE SNAKE
+  },//END MOVE SNAKE HEAD
 
-  gameOver: function(row, col){
-   if(this.rowValid(row) && this.colValid(col)){
-    return false;
-   } else {
-    return true;
+  snakeInbounds: function(){
+    var inbounds = true;
+
+    this.snake.forEach(function(coords){
+      if(coords[0] < 0 || coords[0] > 7){
+        inbounds = false;
+      }
+
+      if(coords[1] < 0 || coords[1] > 7){
+        inbounds = false;
+      }
+    })
+
+    return inbounds;
+  },
+
+  snakeIntersects: function(){
+    var intersects = false;
+    this.snake.forEach(function(i, innerIndex){
+      model.snake.forEach(function(j, outerIndex){
+        if(innerIndex === outerIndex){
+          return true;
+        }
+
+        if(i[0] === j[0] && i[1] === j[1]){
+          intersects = true;
+        }
+      })
+    })
+    return intersects;
+
+  },
+
+  checkGameOver: function(){
+    var playing = true;
+   if(this.snakeInbounds() !== true){
+    playing = false;
    }
+   if(this.snakeIntersects()){
+    playing = false;
+   }
+
+   return !playing;
   },
 
   validCoords: function(row, col){
@@ -114,113 +141,81 @@ var model = {
     return ((col >= 0) && (col <= 7))
   },
 
-  placeSegment: function(row, col, keyCode){
+  moveSegment: function(row, col, keyCode){
     if(keyCode === 39){
       //right
-      this.addSegment(row, col + 1, 1);
+      this.snake[0][0] = row;
+      this.snake[0][1] = col + 1;
     } else if(keyCode === 40){
       //down
-      
-      //ROW IS SEVEN when down
-      this.addSegment(row + 1, col, 1);
+      this.snake[0][0] = row + 1;
+      this.snake[0][1] = col;
     } else if(keyCode === 37){
       //left
-      this.addSegment(row, col - 1, 1);
+      this.snake[0][0] = row;
+      this.snake[0][1] = col - 1;
     } else if(keyCode === 38){
-      this.addSegment(row - 1, col, 1)
+      //up
+      this.snake[0][0] = row - 1;
+      this.snake[0][1] = col;
     }
     
   },
 
-  removeSegment: function(row, col){
-    this.grid[row][col] = 0;
-    
-  },
+  
 
-  addSegment: function(row, col, segValue){
-    //THIS IS FOR THE SNAKE HEAD
-    if(this.gameOver(row, col)){
-      controller.gameOver();
-    }
-    
-    this.manageEatFood(row, col);
-    this.grid[row][col] = segValue;
-    this.snakeHead['row'] = row;
-    this.snakeHead['col'] = col;
-  },
+  addSnakeSegment: function(){
+    var index = this.snake.length - 1;
+    var lastSeg = this.snake[index];
 
-  addBodySegment: function(row, col, segValue){
-    if(this.gameOver(row, col)){
-      controller.gameOver();
-    }
-    
-    this.grid[row][col] = segValue;
-    this.snakeBody.unshift([row, col]);
-  },
-
-  growSnake: function(){
-    if(this.snakeBody.length > 0){
-      var row = this.snakeBody[0][0];
-      var col = this.snakeBody[0][1];
-    } else {
-      var row = this.snakeHead['row'];
-      var col = this.snakeHead['col'];
+    if(lastSeg[1] > 0){
+      var row = lastSeg[0];
+      var col = lastSeg[1] - 1;
+    } else if(lastSeg[0] < 7){
+      var row = lastSeg[0] + 1;
+      var col = lastSeg[1];
+    } else if(lastSeg[1] < 7){
+      var row = lastSeg[0];
+      var col = lastSeg[1] + 1;
     }
 
-    if(this.validCoords(row + 1, col)){
-      console.log("VALID COORDS");
-      this.addSnakeSegment(row + 1, col);
+    this.snake.push([row, col]);
+
+  },
+
+  
+
+  manageFood: function(row, col){
+    
+    if(this.snakeIntersectsFood()) {
+      this.score += (1 * this.snake.length);
       
-    } else if(this.validCoords(row, col + 1)){
-      this.addSnakeSegment(row, col + 1);
+      var row = Math.floor(Math.random() * 7);
+      var col = Math.floor(Math.random() * 7);
       
-    } else {
-      this.addSnakeSegment(row, col - 1);
-        
+      this.food[0] = row;
+      this.food[1] = col;
+      this.addSnakeSegment();
     }
-
   },
 
-  addSnakeSegment: function(row, col){
-    //PRETTY SURE THIS BELOW CALL IS KILLING THE SNAKE
-    this.addBodySegment(row, col, 8);
-    this.snakeBody.unshift([row, col]);
-  },
-
-  manageEatFood: function(row, col){
+  snakeIntersectsFood: function(){
+    var foodRow = this.food[0];
+    var foodCol = this.food[1];
+    var intersects = false;
     
-    if(this.grid[row][col] === 2) {
-      this.eatFood(row, col);
-    }
-  },
+    this.snake.forEach(function(coords){
+      var snakeRow = coords[0];
+      var snakeCol = coords[1];
 
-  eatFood: function(row, col){
-    console.log("EATING FOOD");
-    ///NO SNAKE PIECES SHOWING AFTER EATING FOOD
-    controller.eatFood(row, col);
-    this.placeFood();
-    this.growSnake();
-  },
-
-  placeFood: function(){
-    var row = Math.floor(Math.random() * 7);
-    var col = Math.floor(Math.random() * 7);
-    this.grid[row][col] = 2;
-  },
-
-  findHead: function(){
-    var headRow = undefined;
-    var headCol = undefined;
-
-    for(var row = 0; row < 8; row++){
-      if(this.grid[row].indexOf(1) !== -1){
-        headRow = row;
-        headCol = this.grid[row].indexOf(1);
+      if(foodRow === snakeRow && foodCol === snakeCol){
+        intersects = true;
       }
-    }
-
-    return [headRow, headCol];
+    })
+    return intersects;
   }
+
+  
 
   
 

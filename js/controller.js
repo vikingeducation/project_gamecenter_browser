@@ -44,7 +44,7 @@ var controller = {
     view.eatFood();
   },
 
-  keyUpActions: function(){
+  keyUpActions: function(event){
     keyPressed = true;
     controller.moveSnake(event);
     controller.displayBoard();
