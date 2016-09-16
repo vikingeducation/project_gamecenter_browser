@@ -125,22 +125,6 @@ var model = {
    return !playing;
   },
 
-  validCoords: function(row, col){
-    if(this.rowValid(row) && this.colValid(col)){
-    return true;
-   } else {
-    return false;
-   }
-  },
-
-  rowValid: function(row){
-    return ((row >= 0) && (row <= 7))
-  },
-
-  colValid: function(col){
-    return ((col >= 0) && (col <= 7))
-  },
-
   moveSegment: function(row, col, keyCode){
     if(keyCode === 39){
       //right
