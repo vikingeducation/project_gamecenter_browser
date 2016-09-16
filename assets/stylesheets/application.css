@@ -1,0 +1,56 @@
+/*
+  Application
+*/
+
+#games-make,
+#games-remove {
+  margin-top: 256px;
+}
+
+#games-show {
+  position: relative;
+  border: 1px solid #222;
+}
+
+#collected-foods,
+#games-show {
+  width: 768px;
+  height: 512px;
+  margin: 0 auto;
+}
+
+#collected-foods,
+#score {
+  text-align: center;
+  padding: 16px;
+  font-size: 24px;
+}
+
+.segment {
+  background: #4BF63F;
+}
+
+.food {
+  background: #D1F64A;
+}
+
+.food,
+.segment {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 32px;
+  height: 32px;
+}
+
+#collected-foods .food {
+  top: auto;
+  left: auto;
+  position: static;
+  float: left;
+}
+
+.error {
+  background: #F68081;
+}
+
