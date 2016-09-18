@@ -1,0 +1,15 @@
+.box {
+  border: 1px solid yellow;
+  background-color: black;
+
+}
+
+.food {
+  background-color:red;
+  position: absolute;
+}
+
+.snake {
+  background-color: #ffa500;
+  position: absolute;
+}
