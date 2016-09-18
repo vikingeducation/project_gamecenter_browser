@@ -68,6 +68,10 @@ var model = {
 		this.score += 1;
 	},
 
+	getScore: function () {
+		return this.score;
+	},
+
 	getSnake: function () {
 		return this.snake;
 	},

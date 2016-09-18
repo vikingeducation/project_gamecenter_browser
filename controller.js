@@ -29,6 +29,7 @@ var controller = {
 
 	userLoss: function () {
 		if (model.outBoundary() || model.touchSelf()) {
+			view.showGameOver();
 			return true;
 		} else {
 			return false;
@@ -40,7 +41,14 @@ var controller = {
 		if (model.foodOnSnake(food)) {
 			this.placeFood();
 			model.snakeGrow();
+			this.updateScore();
 		};
+	},
+
+	updateScore: function () {
+		model.incrementScore();
+		var score = model.getScore();
+		view.showScore(score);
 	},
 
 	pressKeyLisener: function () {

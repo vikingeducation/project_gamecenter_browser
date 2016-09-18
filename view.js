@@ -41,4 +41,12 @@ var view = {
 		ctx.strokeStyle = strokeColor;
 		ctx.strokeRect(x * size, y * size, size, size);
 	},
+
+	showScore: function (score) {
+		$(".score").html("Your score is: " + score);
+	},
+
+	showGameOver: function () {
+		$('header').append("<h1>Game Over</h1>");
+	}
 }
