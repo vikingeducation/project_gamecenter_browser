@@ -11,7 +11,9 @@ var view = {
 		$('#start').click(function (event) {
 			var $target = $(event.target);
 			$target.hide();
-			controller.moveSanke();
+			controller.placeFood();
+			controller.moveSnake();
+			controller.pressKeyLisener();
 		});
 	},
 
@@ -22,7 +24,7 @@ var view = {
 
 	draw: function (snake) {
 		snake.forEach(function (el) {
-			view.snakeCellPaint(el, "blue", "white")
+			view.snakeCellPaint(el, "grey", "white")
 		});
 	},
 
