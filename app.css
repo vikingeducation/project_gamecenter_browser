@@ -1,0 +1,14 @@
+header {
+  text-align: center;
+  font-family: sans-serif; }
+  header .gameover {
+    position: absolute; }
+
+canvas {
+  display: block;
+  width: 500px;
+  height: auto;
+  border: solid 1px #333;
+  margin: 50px auto; }
+
+/*# sourceMappingURL=app.css.map */
