@@ -131,10 +131,10 @@ var model = {
 
     //left wall, right wall, upper wall, lower wall
 
-    if (this.snake.body[0][0] < (this.gridSize * 2/40) || this.snake.body[0][0] > ( this.gridSize *38/40)) {
+    if (this.snake.body[0][0] < (this.gridSize * 1/40) || this.snake.body[0][0] > ( this.gridSize *38/40)) {
       return true;
     }
-    if (this.snake.body[0][1] < (this.gridSize *2/40 ) || this.snake.body[0][1] > ( this.gridSize *38/40)) {
+    if (this.snake.body[0][1] < (this.gridSize *1/40 ) || this.snake.body[0][1] > ( this.gridSize *38/40)) {
       return true;
     }
     return false;
