@@ -1,0 +1,23 @@
+#div_main {
+  width: 400px;
+  height: 400px;
+  background-color: #ccc;
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.cell {
+  background: #E89C84;
+  width: 20px;
+  height: 20px;
+  float: left;
+}
+
+.snake {
+  background: #FFDE00;
+}
+
+.food {
+  background-image: url('apple.png');
+  background-repeat: no-repeat;
+}
