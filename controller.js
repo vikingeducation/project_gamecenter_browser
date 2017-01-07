@@ -3,7 +3,10 @@ snakeGame.controller = {
     var size = num || 25;
     this.setReferences();
     this.reset(size);
-    this.view.init({dir: this.changeDirection, start: this.run});
+    this.view.init({
+      dir: this.changeDirection,
+      start: this.run
+    });
     this.view.render(this.board);
   },
   setReferences: function(){
@@ -16,15 +19,19 @@ snakeGame.controller = {
     this.board.init(size, this.snake.snakeBody);
   },
   run: function(e) {
-    console.log("running")
+    console.log("Game Started")
     var self = snakeGame.controller;
     self.view.render(self.board)
     self.gameSpeed(1);
   },
   gameOver: function() {
-    clearInterval(this.gameLoop)
-    this.reset(this.board.size);
-    this.view.listeners({start: this.run});
+    console.log("Game Over")
+    clearInterval(this.gameLoop);
+    var self = this;
+    setTimeout(function(){
+      self.reset(self.board.size);
+      self.view.listeners({start: self.run});
+    }, 200)
   },
   gameSpeed: function(modifier){
     clearInterval(this.gameLoop);
@@ -49,42 +56,51 @@ snakeGame.controller = {
       this.board.changedCells = [];
     }
   },
-  changeDirection: function(e) {
-    var sM = snakeGame.snakeModel
+  changeDirection: function(e){
     var dir = {
-      37: {x: -1, y: 0},// left
-      38: {y: -1, x: 0},// up
-      39: {x: 1, y: 0},// right
-      40: {y: 1, x: 0},// down
-    }[e.which || e.keyCode]
+      "left": {x: -1, y: 0},// left
+      "up": {y: -1, x: 0},// up
+      "right": {x: 1, y: 0},// right
+      "down": {y: 1, x: 0},// down
+    }[e]
     if(dir)
       snakeGame.snakeModel.addDirChange(dir)
-    // var dir = {
-    //   37: function(){ //left
-    //     console.log("left")
-    //     if(sM.snakeHead.d.x === 0){
-    //       return {x: -1, y: 0}
-    //     }
-    //   },
-    //   38: function(){ // up
-    //     if(sM.snakeHead.d.y === 0){
-    //       return {y: -1, x: 0}
-    //     }
-    //   },
-    //   39: function(){// right
-    //     if(sM.snakeHead.d.x === 0){
-    //       return {x: 1, y: 0}
-    //     }
-    //   },
-    //   40: function(){ // down
-    //     console.log("down")
-    //     if(sM.snakeHead.d.y === 0){
-    //       return {y: 1, x: 0}
-    //     }
-    //   },
-    // }[e.which || e.keyCode]
-    //
-    // if(dir = (dir ? dir() : false))
-      // snakeGame.snakeModel.addDirChange(dir)
-  }
+  },
+  // keyboardChangeDirection: function(e) {
+  //   var dir = {
+  //     37: {x: -1, y: 0},// left
+  //     38: {y: -1, x: 0},// up
+  //     39: {x: 1, y: 0},// right
+  //     40: {y: 1, x: 0},// down
+  //   }[e.which || e.keyCode]
+  //   if(dir)
+  //     snakeGame.snakeModel.addDirChange(dir)
+  //   // var dir = {
+  //   //   37: function(){ //left
+  //   //     console.log("left")
+  //   //     if(sM.snakeHead.d.x === 0){
+  //   //       return {x: -1, y: 0}
+  //   //     }
+  //   //   },
+  //   //   38: function(){ // up
+  //   //     if(sM.snakeHead.d.y === 0){
+  //   //       return {y: -1, x: 0}
+  //   //     }
+  //   //   },
+  //   //   39: function(){// right
+  //   //     if(sM.snakeHead.d.x === 0){
+  //   //       return {x: 1, y: 0}
+  //   //     }
+  //   //   },
+  //   //   40: function(){ // down
+  //   //     console.log("down")
+  //   //     if(sM.snakeHead.d.y === 0){
+  //   //       return {y: 1, x: 0}
+  //   //     }
+  //   //   },
+  //   // }[e.which || e.keyCode]
+  //   //
+  //   // if(dir = (dir ? dir() : false))
+  //     // snakeGame.snakeModel.addDirChange(dir)
+  // }
 }

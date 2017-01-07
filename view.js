@@ -7,24 +7,12 @@ snakeGame.view = {
   },
   listeners: function(cb){
     if(cb.start){
-      document.addEventListener('keyup',function viewStartListener(e){
-        var dir = {
-          37: {x: -1, y: 0},// left
-          38: {y: -1, x: 0},// up
-          39: {x: 1, y: 0},// right
-          40: {y: 1, x: 0},// down
-        }[e.which || e.keyCode]
-        if(dir){
-          document.removeEventListener('keyup', viewStartListener);
-          cb.start(e);
-        }
-      });
+      snakeGame.TouchListener(this.gameWrapper, cb.start, true);
+      snakeGame.KeyboardListener(cb.start, true)
     }
-
     if(cb.dir){
-      document.addEventListener('keyup',function viewMoveListener(e){
-        cb.dir(e);
-      });
+      snakeGame.TouchListener(this.gameWrapper, cb.dir);
+      snakeGame.KeyboardListener(cb.dir)
     }
   },
   windowSize: function(){

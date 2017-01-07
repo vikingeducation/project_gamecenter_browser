@@ -5,7 +5,6 @@ snakeGame.boardModel = {
     this._setupNewBoard(this.size, snake);
   },
   _setupNewBoard: function(size, snake) {
-    console.log("setup");
     this._newBoard(size)
         ._addSnake(snake)
         ._placeFood();
