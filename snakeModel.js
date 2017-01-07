@@ -51,7 +51,18 @@ snakeGame.snakeModel = {
     }
   },
   addDirChange: function(change){
-    this.changes.push(change)
+    if((
+        (change.x !== this.snakeHead.d.x) ||
+        (change.y !== this.snakeHead.d.y)
+      ) &&
+      (
+        (this.changes.length === 0) ||
+        (change.x !== this.changes[this.changes.length-1].x) ||
+        (change.y !== this.changes[this.changes.length-1].y))
+     ){
+       console.log("changed")
+     }
+      this.changes.push(change)
   },
 
 }
