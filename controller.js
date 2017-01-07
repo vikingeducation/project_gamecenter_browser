@@ -56,6 +56,12 @@ snakeGame.controller = {
       38: {y: -1, x: 0},// up
       39: {x: 1, y: 0},// right
       40: {y: 1, x: 0},// down
+      65: {x: -1, y: 0}, // a
+      87: {y: -1, x: 0},// w
+      83: {y: 1, x: 0},// s
+      68: {x: 1, y: 0},// d
+      
+      
     }[e.which || e.keyCode]
     if(dir)
       snakeGame.snakeModel.addDirChange(dir)
