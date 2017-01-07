@@ -1,0 +1,25 @@
+* {
+  box-sizing: border-box;
+}
+snake-game {
+  width: 75vw;
+  margin: auto;
+  display: block;
+  position: relative;
+}
+
+snake-game .cell {
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  border: 2px solid #bbb;
+  padding: 0;
+  margin: 0;
+  background-color: white;
+  transition: all 1s ease;
+  position: absolute;
+}
+
+snake-game .cell.snake {
+  background-color: green;
+}
