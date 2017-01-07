@@ -1,0 +1,56 @@
+snake-game {
+  width: 100%;
+}
+
+snake-game * {
+  box-sizing: border-box;
+}
+
+snake-game > game-display,
+snake-game > game-buttons {
+  width: 75%;
+  margin: auto;
+  display: block;
+  position: relative;
+}
+
+snake-game > game-display .welcome {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.8);
+  width: calc(100% + 20px);
+  height: calc(100% + 20px);
+  z-index: 1000;
+}
+
+snake-game > game-display .cell {
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  border: 2px solid #bbb;
+  padding: 0;
+  margin: 0;
+  background-color: white;
+  transition: all 0s ease;
+  position: absolute;
+}
+
+snake-game > game-buttons {
+  top:20px;
+ height: 100px;
+ padding: 0;
+ margin: 0;
+ background-color: white;
+ display: block;
+}
+
+snake-game > game-buttons > button {
+  height: 100px;
+}
+
+snake-game > game-display .cell.snake {
+  background-color: green;
+}
+
+snake-game > game-display .cell.food {
+  background-color: black;
+}
