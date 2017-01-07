@@ -11,8 +11,7 @@ snakeGame.view = {
       snakeGame.KeyboardListener(cb.start, true)
     }
     if(cb.dir){
-      snakeGame.TouchListener(document, cb.start, true);
-      // snakeGame.TouchListener(this.gameWrapper, cb.dir);
+      snakeGame.TouchListener(this.gameWrapper, cb.dir);
       snakeGame.KeyboardListener(cb.dir)
     }
   },
