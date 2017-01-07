@@ -7,6 +7,7 @@ this is a simple javascript snake game
 
 Snake! supports Swipe, WASD, and Arrow Key controls, as well as permanent on screen buttons
 
+###[Click Here To Play](https://htmlpreview.github.io/?https://github.com/SampsonCrowley/project_game_center_browser/blob/master/index.html)
 
 ## About the game
 
