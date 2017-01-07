@@ -19,14 +19,18 @@ snakeGame.controller = {
     this.board.init(size, this.snake.snakeBody);
   },
   run: function(e) {
-    console.log("Game Started")
     var self = snakeGame.controller;
-    self.view.render(self.board)
-    self.gameSpeed(1);
+    if(!self.gameRunning){
+      console.log("Game Started")
+      self.gameRunning = true;
+      self.view.render(self.board)
+      self.gameSpeed(1);
+    }
   },
   gameOver: function() {
     console.log("Game Over")
     clearInterval(this.gameLoop);
+    this.gameRunning = false;
     var self = this;
     setTimeout(function(){
       self.reset(self.board.size);
