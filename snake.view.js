@@ -1,6 +1,8 @@
 snakeGame.view = {
   init: function(cb) {
-    this.gameWrapper = document.getElementsByTagName('snake-game')[0];
+    this.snakeWrapper = document.getElementsByTagName('snake-game')[0] || this.createWrapper();
+    this.gameWrapper = this.snakeWrapper.getElementsByTagName('game-display')[0] || this.createGameWrapper();
+    this.buttonWrapper = this.snakeWrapper.getElementsByTagName('game-buttons')[0] || this.createButtons();
     this.gameWrapper.style.height = this.windowSize()
     this.gameWrapper.style.width = this.windowSize()
     this.listeners(cb);
@@ -9,12 +11,12 @@ snakeGame.view = {
     if(cb.start){
       snakeGame.TouchListener(this.gameWrapper, cb.start, true);
       snakeGame.KeyboardListener(cb.start, true)
-      snakeGame.ButtonListener(this.gameWrapper, cb.start, true);
+      snakeGame.ButtonListener(this.buttonWrapper, cb.start, true);
     }
     if(cb.dir){
       snakeGame.TouchListener(this.gameWrapper, cb.dir);
       snakeGame.KeyboardListener(cb.dir)
-      snakeGame.ButtonListener(this.gameWrapper, cb.dir);
+      snakeGame.ButtonListener(this.buttonWrapper, cb.dir);
     }
   },
   windowSize: function(){
@@ -42,20 +44,32 @@ snakeGame.view = {
       this.gameWrapper.appendChild(cell);
 
     }
-    this.addButtons();
   },
-  addButtons: function(){
-    var cell  = document.createElement('DIV'),
-        left  = document.createElement('BUTTON'),
+  createWrapper: function(){
+    var wrapper = document.createElement('snake-game')
+    document.body.appendChild(wrapper);
+    return wrapper;
+  },
+  createGameWrapper: function(){
+    var gameWrapper = document.createElement('game-display')
+    this.snakeWrapper.appendChild(gameWrapper);
+    return gameWrapper;
+  },
+  createButtons: function(){
+    var buttonWrapper = document.createElement('game-buttons')
+    this.snakeWrapper.appendChild(buttonWrapper);
+    return this.addButtons(buttonWrapper);
+  },
+  addButtons: function(buttonWrapper){
+    var left  = document.createElement('BUTTON'),
         right = document.createElement('BUTTON'),
         up    = document.createElement('BUTTON'),
         down  = document.createElement('BUTTON'),
         buttons = [left, up, down, right];
-    cell.classList.add('snake-buttons');
-    cell.style.height = 100;
-    cell.style.width = this.windowSize();
-    cell.style.top = this.windowSize() + 50;
-    cell.style.margin = "auto";
+    buttonWrapper.classList.add('snake-buttons');
+    buttonWrapper.style.height = 100;
+    buttonWrapper.style.width = this.windowSize();
+    buttonWrapper.style.margin = "auto";
 
     for(i = 0; i < 4; i++){
       buttons[i].style.width =(this.windowSize()/4) - 5;
@@ -73,26 +87,26 @@ snakeGame.view = {
     down.setAttribute('direction', "down");
 
 
-    cell.appendChild(left);
-    cell.appendChild(up);
-    cell.appendChild(down);
-    cell.appendChild(right);
-    this.gameWrapper.appendChild(cell);
+    buttonWrapper.appendChild(left);
+    buttonWrapper.appendChild(up);
+    buttonWrapper.appendChild(down);
+    buttonWrapper.appendChild(right);
+    return buttonWrapper;
   },
   addWelcome: function(waiting){
     var welcome = document.createElement('DIV');
     welcome.innerHTML =
       "<h1>" +
         (waiting || "") +
-      `</h1>
-      <h3>Swipe, click the buttons at the bottom, or press one of the keyboard controls to begin</h3>
-      <h3>Keyboard Controls:</h3>
-      <ul>
-        <li>W, &uArr; = Up</li>
-        <li>A, &lArr; = Left</li>
-        <li>D, &rArr; = Right</li>
-        <li>S, &dArr; = Down</li>
-      </ul>`;
+      "</h1>" +
+      "<h3>Swipe, click the buttons at the bottom, or press one of the keyboard controls to begin</h3>" +
+      "<h3>Keyboard Controls:</h3>" +
+      "<ul>" +
+        "<li>W, &uArr; = Up</li>" +
+        "<li>A, &lArr; = Left</li>" +
+        "<li>D, &rArr; = Right</li>" +
+        "<li>S, &dArr; = Down</li>" +
+      "</ul>";
 
     welcome.classList.add('welcome');
 

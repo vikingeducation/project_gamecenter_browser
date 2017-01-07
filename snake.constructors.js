@@ -17,6 +17,7 @@ snakeGame.TouchListener = function(el, cb, remove) {
       elapsedTime, startTime,
       allowedTime = 500,
       self = this;
+
   this.touchStart = function(e){
     var touchobj = e.changedTouches[0];
     dist = 0;
@@ -25,16 +26,19 @@ snakeGame.TouchListener = function(el, cb, remove) {
     startTime = new Date().getTime(); // record time when finger first makes contact with surface
     e.preventDefault();
   }
+
   this.touchMove = function(e){
-    e.preventDefault(); // prevent scrolling when inside DIV
+    e.preventDefault(); // prevent scrolling when inside el
   }
+
   this.touchEnd = function(e){
     var touchobj = e.changedTouches[0];
     distX = touchobj.pageX - startX; // get total dist in X direction
-    distY = touchobj.pageY - startY;
-    dist = Math.max(Math.abs(distX), Math.abs(distY))
+    distY = touchobj.pageY - startY;// get total dist in Y direction
+    dist = Math.max(Math.abs(distX), Math.abs(distY)) //get farther distance between x and y
     elapsedTime = new Date().getTime() - startTime // get time elapsed
-    // check that elapsed time is within specified, horizontal dist traveled >= threshold, and vertical dist traveled <= 100
+
+    // check that elapsed time is within specified, and distance is farther than threshold
     if ((elapsedTime <= allowedTime) && (dist > threshold)){
       if(remove){
         el.removeEventListener('touchstart', self.touchStart);
