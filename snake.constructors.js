@@ -15,7 +15,7 @@ snakeGame.TouchListener = function(el, cb, remove) {
       distX, distY,
       dist, threshold = 150,
       elapsedTime, startTime,
-      allowedTime = 200,
+      allowedTime = 500,
       self = this;
   this.touchStart = function(e){
     var touchobj = e.changedTouches[0];
