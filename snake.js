@@ -109,8 +109,11 @@ snakeGame.Coord = function(x,y, value) {
   this.x = x;
   this.y = y;
   this.value = value || null;
+  this.toPropKey = function(){
+    return this.x + "_" + this.y;
+  }
 }
 
 Ready.run( function() {
-  snakeGame.controller.init(15);
+  snakeGame.controller.init();
 });

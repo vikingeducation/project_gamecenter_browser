@@ -1,35 +1,57 @@
 snakeGame.snakeModel = {
-  init: function() {
-    this.moveHead(); // Add head to body
+  init: function(size) {
+    size = size || 0
+    this.snakeHead = {
+      x: Math.floor(size/2),
+      y: Math.floor(size/2),
+      d: {x: 0, y: 0}
+    };
+    this.snakeBody = [];
+    this.changes = [];
+    this._moveHead(); // Add head to body
   },
-  moveHead: function() {
-    return this.snakeBody.unshift( new snakeGame.Coord(this.headVector.x, this.headVector.y, "snake"));
+  _moveHead: function() {
+    return this.snakeBody.unshift( new snakeGame.Coord(this.snakeHead.x, this.snakeHead.y, "snake"));
   },
-  moveTail: function() {
+  _moveTail: function() {
     return this.snakeBody.pop();
   },
-  headVector: {
-    x: 0,
-    y: 0,
-    d: {x: 1, y: 0}
+
+  nextPostion: function(){
+    return {
+      x: this.snakeHead.x + this.snakeHead.d.x,
+      y: this.snakeHead.y + this.snakeHead.d.y
+    }
+  },
+  _setNextPosition: function(){
+    var pos = this.nextPostion()
+    this.snakeHead.x = pos.x
+    this.snakeHead.y = pos.y
   },
   move: function(grow) {
-    this.headVector[x] += this.headVector.d.x
-    this.headVector[y] += this.headVector.d.y
 
-    this.moveHead();
+
+    this._setNextPosition()
+
+    this._moveHead();
 
     // if not "growing"
     var tail;
     if (!grow) {
-      tail = this.moveTail();
+      tail = this._moveTail();
     }
 
-    return [this.headVector, tail]
+    return tail;
   },
-  changeDirection: function(newDirection) {
-    this.headVector.d.x = newDirection.x || this.headVector.d.x
-    this.headVector.d.y = newDirection.y || this.headVector.d.y
+  changeDirection: function() {
+    if(this.changes.length > 0){
+      var newDirection = this.changes.shift()
+      this.snakeHead.d.x = newDirection.x || 0
+      this.snakeHead.d.y = newDirection.y || 0
+    }
   },
-  snakeBody: []
+  addDirChange: function(change){
+    this.changes.push(change)
+  },
+
 }
