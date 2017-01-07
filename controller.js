@@ -7,7 +7,7 @@ snakeGame.controller = {
       dir: this.changeDirection,
       start: this.run
     });
-    this.view.render(this.board);
+    this.view.render(this.board, "Welcome to Snake")
   },
   setReferences: function(){
     this.board = snakeGame.boardModel;

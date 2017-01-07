@@ -53,12 +53,12 @@ snakeGame.view = {
         buttons = [left, up, down, right];
     cell.classList.add('snake-buttons');
     cell.style.height = 100;
-    cell.style.width = Math.min(this.windowSize(), 500);
+    cell.style.width = this.windowSize();
     cell.style.top = this.windowSize() + 50;
     cell.style.margin = "auto";
 
     for(i = 0; i < 4; i++){
-      buttons[i].style.width =(Math.min(this.windowSize(), 500)/4) - 5;
+      buttons[i].style.width =(this.windowSize()/4) - 5;
       if (i < 3){buttons[i].style.marginRight = 5};
     }
 
@@ -81,7 +81,19 @@ snakeGame.view = {
   },
   addWelcome: function(waiting){
     var welcome = document.createElement('DIV');
-    welcome.innerHTML = "<h1>" + (waiting || "") + "</h1><h2>Press an Arrow Key to Play</h2>";
+    welcome.innerHTML =
+      "<h1>" +
+        (waiting || "") +
+      `</h1>
+      <h3>Swipe, click the buttons at the bottom, or press one of the keyboard controls to begin</h3>
+      <h3>Keyboard Controls:</h3>
+      <ul>
+        <li>W, &uArr; = Up</li>
+        <li>A, &lArr; = Left</li>
+        <li>D, &rArr; = Right</li>
+        <li>S, &dArr; = Down</li>
+      </ul>`;
+
     welcome.classList.add('welcome');
 
 
