@@ -81,3 +81,22 @@ snakeGame.KeyboardListener = function(cb, remove){
   }
   document.addEventListener('keyup', this.listener);
 }
+
+snakeGame.ButtonListener = function(el, cb, remove){
+  if(!(this instanceof snakeGame.ButtonListener)){
+    return new snakeGame.ButtonListener(el, cb, remove)
+  }
+  var self = this;
+  this.listener = function(e){
+    var dir = e.target.getAttribute('direction')
+    if(dir){
+      if(remove){
+        document.removeEventListener('click', self.listener);
+        document.removeEventListener('touchstart', self.listener);
+      }
+      cb(dir);
+    }
+  }
+  document.addEventListener('click', this.listener);
+  document.addEventListener('touchstart', this.listener);
+}

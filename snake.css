@@ -16,7 +16,7 @@ snake-game .welcome {
   z-index: 1000;
 }
 
-snake-game .cell {
+snake-game .cell, snake-game .snake-buttons {
   display: inline-block;
   width: 100px;
   height: 100px;
@@ -26,6 +26,10 @@ snake-game .cell {
   background-color: white;
   transition: all 0s ease;
   position: absolute;
+}
+
+snake-game .snake-buttons > button {
+  height: 100px;
 }
 
 snake-game .cell.snake {

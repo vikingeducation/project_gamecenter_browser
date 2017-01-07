@@ -9,14 +9,16 @@ snakeGame.view = {
     if(cb.start){
       snakeGame.TouchListener(this.gameWrapper, cb.start, true);
       snakeGame.KeyboardListener(cb.start, true)
+      snakeGame.ButtonListener(this.gameWrapper, cb.start, true);
     }
     if(cb.dir){
       snakeGame.TouchListener(this.gameWrapper, cb.dir);
       snakeGame.KeyboardListener(cb.dir)
+      snakeGame.ButtonListener(this.gameWrapper, cb.dir);
     }
   },
   windowSize: function(){
-    return (Math.min(window.innerWidth,window.innerHeight) - 100 )
+    return (Math.min(window.innerWidth,window.innerHeight) - 200 )
   },
   render: function(board, waiting) {
     this.elements = {};
@@ -24,8 +26,9 @@ snakeGame.view = {
     if(waiting){
       this.addWelcome(waiting);
     }
-    var size = Math.round(this.windowSize()/ board.size);
-    var grid = board.grid;
+    var size = Math.round(this.windowSize()/ board.size),
+        grid = board.grid,
+        cell;
     for(coord in grid) {
       cell = this.elements[grid[coord].toPropKey()] = document.createElement('DIV');
       cell.classList.add('cell');
@@ -39,6 +42,42 @@ snakeGame.view = {
       this.gameWrapper.appendChild(cell);
 
     }
+    this.addButtons();
+  },
+  addButtons: function(){
+    var cell  = document.createElement('DIV'),
+        left  = document.createElement('BUTTON'),
+        right = document.createElement('BUTTON'),
+        up    = document.createElement('BUTTON'),
+        down  = document.createElement('BUTTON'),
+        buttons = [left, up, down, right];
+    cell.classList.add('snake-buttons');
+    cell.style.height = 100;
+    cell.style.width = Math.min(this.windowSize(), 500);
+    cell.style.top = this.windowSize() + 50;
+    cell.style.margin = "auto";
+
+    for(i = 0; i < 4; i++){
+      buttons[i].style.width =(Math.min(this.windowSize(), 500)/4) - 5;
+      if (i < 3){buttons[i].style.marginRight = 5};
+    }
+
+    left.innerHTML = "&lArr;";
+    right.innerHTML = "&rArr;";
+    up.innerHTML = "&uArr;";
+    down.innerHTML = "&dArr;";
+
+    left.setAttribute('direction', "left");
+    right.setAttribute('direction', "right");
+    up.setAttribute('direction', "up");
+    down.setAttribute('direction', "down");
+
+
+    cell.appendChild(left);
+    cell.appendChild(up);
+    cell.appendChild(down);
+    cell.appendChild(right);
+    this.gameWrapper.appendChild(cell);
   },
   addWelcome: function(waiting){
     var welcome = document.createElement('DIV');
