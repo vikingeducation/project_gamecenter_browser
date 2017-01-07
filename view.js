@@ -4,6 +4,7 @@ snakeGame.view = {
   },
   render: function(board, snakeBody) {
     this.gameWrapper.innerHTML = "";
+    var size = Math.round(500 / board.size);
     var grid = board.grid;
 
     // for(var i = 0; i < grid.length; i++) {
@@ -25,9 +26,10 @@ snakeGame.view = {
       cell.classList.add('cell');
 
       if (grid[coord].value) {cell.classList.add(grid[coord].value)};
-
-      cell.style.top = grid[coord].y * 100;
-      cell.style.left = grid[coord].x * 100;
+      cell.style.height = size;
+      cell.style.width = size;
+      cell.style.top = grid[coord].y * size;
+      cell.style.left = grid[coord].x * size;
 
       this.gameWrapper.appendChild(cell);
     }

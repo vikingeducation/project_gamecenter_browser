@@ -1,7 +1,7 @@
 snakeGame.boardModel = {
   init: function(boardSize, snake) {
-    boardSize = boardSize || 5;
-    this.grid = this.setupBoard(boardSize, snake);
+    this.size = boardSize || 5;
+    this.grid = this.setupBoard(this.size, snake);
   },
   setupBoard: function(size, snake) {
     console.log("setup");
@@ -9,8 +9,6 @@ snakeGame.boardModel = {
     return this.addSnake(board, snake);
   },
   addSnake: function(board, snake){
-    console.log("snake")
-    console.log(snake)
     var c;
     for(i = 0; i < snake.length; i ++){
       c = snake[i].x + "_" + snake[i].y;

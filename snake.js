@@ -112,5 +112,5 @@ snakeGame.Coord = function(x,y, value) {
 }
 
 Ready.run( function() {
-  snakeGame.controller.init();
+  snakeGame.controller.init(15);
 });
