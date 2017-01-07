@@ -17,8 +17,8 @@ snake-game > game-buttons {
 snake-game > game-display .welcome {
   position: absolute;
   background: rgba(255, 255, 255, 0.8);
-  width: 105%;
-  height: 105%;
+  width: calc(100% + 20px);
+  height: calc(100% + 20px);
   z-index: 1000;
 }
 
