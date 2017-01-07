@@ -13,7 +13,7 @@ snakeGame.TouchListener = function(el, cb, remove) {
   }
   var startX, startY,
       distX, distY,
-      dist, threshold = 0,
+      dist, threshold = 150,
       elapsedTime, startTime,
       allowedTime = 500,
       self = this;
