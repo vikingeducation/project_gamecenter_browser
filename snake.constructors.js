@@ -13,7 +13,7 @@ snakeGame.TouchListener = function(el, cb, remove) {
   }
   var startX, startY,
       distX, distY,
-      dist, threshold = 10,
+      dist, threshold = 0,
       elapsedTime, startTime,
       allowedTime = 500,
       self = this;
@@ -35,7 +35,7 @@ snakeGame.TouchListener = function(el, cb, remove) {
     dist = Math.max(Math.abs(distX), Math.abs(distY))
     elapsedTime = new Date().getTime() - startTime // get time elapsed
     // check that elapsed time is within specified, horizontal dist traveled >= threshold, and vertical dist traveled <= 100
-    if ((elapsedTime <= allowedTime) && (dist >= threshold)){
+    if ((elapsedTime <= allowedTime) && (dist > threshold)){
       if(remove){
         el.removeEventListener('touchstart', self.touchStart);
         el.removeEventListener('touchmove', self.touchMove);
