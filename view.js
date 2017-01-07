@@ -20,14 +20,14 @@ snakeGame.view = {
     // }
 
 
-    for(coor in grid) {
+    for(coord in grid) {
       var cell = document.createElement('DIV');
       cell.classList.add('cell');
 
-      if (grid[coor].value) cell.classList.add(grid[coor].value);
+      if (grid[coord].value) {cell.classList.add(grid[coord].value)};
 
-      cell.style.top = grid[coor].y * 100;
-      cell.style.left = grid[coor].x * 100;
+      cell.style.top = grid[coord].y * 100;
+      cell.style.left = grid[coord].x * 100;
 
       this.gameWrapper.appendChild(cell);
     }

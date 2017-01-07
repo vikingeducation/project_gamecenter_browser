@@ -3,7 +3,7 @@ snakeGame.snakeModel = {
     this.moveHead(); // Add head to body
   },
   moveHead: function() {
-    return this.snakeBody.shift( new snakeGame.Coord(this.headVector.x, this.headVector.y, "snake"));
+    return this.snakeBody.unshift( new snakeGame.Coord(this.headVector.x, this.headVector.y, "snake"));
   },
   moveTail: function() {
     return this.snakeBody.pop();
