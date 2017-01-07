@@ -66,7 +66,11 @@ snakeGame.KeyboardListener = function(cb, remove){
       37: "left",
       38: "up",
       39: "right",
-      40: "down"
+      40: "down",
+      65: "left", // a
+      87: "up",// w
+      83: "down",// s
+      68: "right",// d
     }[e.which || e.keyCode]
     if(dir){
       if(remove){
