@@ -10,34 +10,18 @@ var model = {
 
   //cached game-board data
   board: [
-    // 2d array of [x, y]
+    // [], []...
   ],
 
   snake: [
-    //{SnakeSegment}, {SnakeSegment}, {SnakeSegment}
+    // [x,y], [x,y]...
   ],
 
-  SnakeSegment: function(x, y){
-    this.x = x;
-    this.y = y;
-  },
-
-  addSnakeSegment: function(x, y){
-    var newSegment = new this.SnakeSegment(x, y);
-    this.snake.push(newSegment);
-  },
-
   createSnake: function(size, startingX, startingY){
-    var totalSize = size || 1,
-        i = 0,
-        nextX = startingX + 1;
-    //create head
-    this.addSnakeSegment(startingX, startingY);
-
-    //add body segments to head
-    for (i; i <= size; i++) {
-      this.addSnakeSegment(nextX, startingY);
-      nextX++;
+    for (var i = 0; i <= size; i++) {
+      var newSegment = [startingX, startingY];
+      this.snake.push(newSegment);
+      startingX++;
     }
   },
 
@@ -52,7 +36,12 @@ var model = {
     model.snake.y++;
   },
   down: function(){
-    model.snake.y++;
+    var head = model.snake[0];
+    var x = head[0];
+    var y = head[1];
+    this.snake.unshift([(x + 1), y]);
+
+    this.snake.pop();
   },
 
 

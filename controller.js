@@ -9,7 +9,7 @@ var controller = {
     model.cacheBoard(cols, rows);
     model.createSnake(5, 3, 8);
 
-    controller.play();
+    // controller.play();
   },
 
   play: function(){
@@ -21,13 +21,15 @@ var controller = {
   },
 
   render: function(){
+    model.down();
     view.render(model.snake);
-    this.updateSnake();
+
+    // this.updateSnake();
     // this.updateDirection();
   },
 
   updateSnake: function(){
-
+    model.down();
   },
 
   updateDirection: function(){
