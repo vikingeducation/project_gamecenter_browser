@@ -2,43 +2,39 @@
 
 var controller = {
   init: function(){
-    view.init({});
-    this.cacheBoard(10);
-    this.play();
+    var cols = model.rows,
+        rows = model.columns;
 
-  },
+    view.init(cols, rows);
+    model.cacheBoard(cols, rows);
+    model.createSnake(5, 3, 8);
 
-  cacheBoard: function(rows){
-    for (var row = 0; row <= rows; row++){
-      var cachedRow = $('.cell[x="' + row + '"]');
-      model.board.push(cachedRow);
-    }
+    controller.play();
   },
 
   play: function(){
-    var miliseconds = model.gameSpeed,
-        x = model.snake.x,
-        y = model.snake.y;
+    var miliseconds = model.gameSpeed;
 
-    // setInterval(function(){
-    //   console.log("yay");
-    //   moveSnake(x, y);
-    // }, miliseconds);
+    setInterval(function(){
+      controller.render();
+    }, miliseconds);
+  },
 
+  render: function(){
+    view.render(model.snake);
+    this.updateSnake();
+    // this.updateDirection();
+  },
 
+  updateSnake: function(){
 
   },
 
-  moveSnake: function(){
-    // setTimeout(function(){
-    //   console.log("Finally!")
-    // },10000);
-    $()
-
-
-
-
+  updateDirection: function(){
+    model.snake.y++;
   },
+
+
 
 
 

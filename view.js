@@ -1,20 +1,31 @@
 'use strict';
 
 var view = {
-
-  init: function(){
-    view.createBoard(10, 10);
-    // view.createSnake(3, 8);
-  },
-
-  render: function(){
-
-  },
-
   gameBoard: $('.game-board'),
 
-  createBoard: function(rows, columns){
+  init: function(cols, rows){
+    view.createBoard(cols, rows);
+  },
 
+  render: function(snakeSegments){
+    var x,
+        y,
+        currentSegment;
+    snakeSegments.forEach(function(segment) {
+      x = segment.x;
+      y = segment.y;
+      $(model.board[x][y]).addClass('snake');;
+
+      // console.log(segment)
+    });
+
+    // setTimeout(function(){
+    //   cell.removeClass('snake');
+    // }, 600);
+
+  },
+
+  createBoard: function(rows, columns){
     for (var row = 0; row <= rows; row++){
       for (var col = 0; col <= columns; col++){
         var cellEl = $('<div>').addClass('cell')
