@@ -1,3 +1,27 @@
-asdf {
-    
+.container {
+  background-color: #8cffde;
+  width: 100%;
+  height: 800px;
+}
+
+.game-board {
+  line-height: 0px;
+  border: 4px solid red;
+  display: inline-block;
+}
+
+.cell {
+  width: 15px;
+  height: 15px;
+  border: 1px solid black;
+  display: inline-block;
+  margin: 0;
+}
+
+.snake {
+  background-color: green;
+}
+
+.food {
+  background-color: blue;
 }

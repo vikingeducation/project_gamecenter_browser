@@ -1,18 +1,24 @@
 'use strict';
 
 var model = {
-  // in mili-seconds
-  gameSpeed: 200,
+  // gamspeed in mili-seconds
+  gameSpeed: 600,
+
+  //game-board size
   rows: 25,
   columns: 25,
+
+  //game-board data
+  board: [
+    // [],
+    // []...
+  ],
+
   points: 0,
 
-
-  board: {
-
-  },
-
   snake: {
+    x: 3,
+    y: 8
 
   },
 
