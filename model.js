@@ -2,7 +2,7 @@
 
 var model = {
   // gamspeed in mili-seconds
-  gameSpeed: 200,
+  gameSpeed: 100,
 
   //game-board size
   rows: 25,
@@ -19,16 +19,15 @@ var model = {
   ],
 
   createSnake: function(size, startingX, startingY){
-    // for (var i = 0; i <= size; i++) {
-    //   var newSegment = [startingX, startingY];
-    //   this.snake.push(newSegment);
-    //   startingX++;
-    // }
-    
-    this.snake = [ [6,3], [5,3], [4,3], [3,3], [2,3], [1,3] ]; 
-    
+    for (var i = 0; i <= size; i++) {
+      var newSegment = [startingX, startingY];
+      this.snake.push(newSegment);
+      startingX--;
+    }
+    // this.snake = [ [6,3], [5,3], [4,3], [3,3], [2,3], [1,3] ]; 
   },
   
+  //direction to go
   keyCode: 40,
 
   updateSnake: function(keyCode){
@@ -51,9 +50,27 @@ var model = {
         newX++;
         break;        
     }
+    
+    this.checkAll(newX, newY);
 
     this.snake.unshift([newX, newY]);
     this.snake.pop();    
+  },
+  
+  checkAll: function(x, y){
+    if (this.checkXboundries(x) || this.checkYboundries(y)) {
+      controller.gameOver();
+    }
+  },
+  
+  checkXboundries: function(x){
+    var losingX = this.rows + 2;
+    return !!(x < 0 || x > losingX);
+  },
+  
+  checkYboundries: function(y){
+    var losingY = this.columns + 2;
+    return !!(y < 0 || y > losingY);
   },
 
 

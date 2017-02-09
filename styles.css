@@ -1,4 +1,6 @@
-
+h1 {
+  text-align: center;
+}
 .container {
   background-color: #8cffde;
   width: 100%;
@@ -17,7 +19,7 @@
 .cell {
   width: 15px;
   height: 15px;
-  border: 1px solid black;
+  /*border: 1px solid black;*/
   display: inline-block;
   margin: 0;
   padding: 0;
