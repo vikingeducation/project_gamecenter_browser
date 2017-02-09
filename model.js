@@ -1,6 +1,8 @@
 'use strict';
 
 var model = {
+  score: 0,
+  
   // gamspeed in mili-seconds
   gameSpeed: 100,
 
@@ -33,7 +35,8 @@ var model = {
   updateSnake: function(keyCode){
     var head = this.snake[0],
         newX = head[0],
-        newY = head[1];
+        newY = head[1],
+        newHead;
         
     //left, up, right, down    
     switch(keyCode){
@@ -58,19 +61,32 @@ var model = {
   },
   
   checkAll: function(x, y){
-    if (this.checkXboundries(x) || this.checkYboundries(y)) {
+    if (this.checkXboundries(x) || 
+        this.checkYboundries(y) ||
+        this.checkSelfCollision(x,y)){
       controller.gameOver();
     }
   },
   
   checkXboundries: function(x){
-    var losingX = this.rows + 2;
+    var losingX = this.rows;
     return !!(x < 0 || x > losingX);
   },
   
   checkYboundries: function(y){
-    var losingY = this.columns + 2;
+    var losingY = this.columns;
     return !!(y < 0 || y > losingY);
+  },
+  
+  checkSelfCollision: function(newX, newY){
+    var head = [newX, newY],
+        body = this.snake.slice(0, this.snake.length),
+        collided;
+        
+    collided = body.some(function(segment){
+      return (segment[0] === head[0]) && (segment[1] === head[1]);
+    });
+    return !!(collided);
   },
 
 

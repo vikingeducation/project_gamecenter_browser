@@ -5,7 +5,7 @@ var view = {
 
   init: function(cols, rows){
     view.createBoard(cols, rows);
-    $(document).keyup(function(event){
+    $(document).keydown(function(event){
       model.keyCode = event.which;
       event.preventDefault();
     });

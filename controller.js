@@ -23,27 +23,13 @@ var controller = {
 
   render: function(){
     view.render(model.snake);
-    
-    
-    
     model.updateSnake(model.keyCode);
-  },
-  
-  losingConditions: function(snake){
-    var head = snake[0],
-        headX = head[0],
-        headY = head[1];
   },
   
   gameOver: function(){
     clearInterval(this.interval);
     console.log('Game Over!')
   }
-  
-  
-  
-  
-  
 };
 
 $(document).ready(function(){
