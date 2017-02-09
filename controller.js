@@ -21,12 +21,8 @@ var controller = {
 
   render: function(){
     view.render(model.snake);
-    model.down();
-  },
-
-
-
-
+    model.updateSnake(model.keyCode);
+  }
 };
 
 $(document).ready(function(){

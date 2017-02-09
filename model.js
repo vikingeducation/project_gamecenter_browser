@@ -2,7 +2,7 @@
 
 var model = {
   // gamspeed in mili-seconds
-  gameSpeed: 600,
+  gameSpeed: 200,
 
   //game-board size
   rows: 25,
@@ -17,11 +17,6 @@ var model = {
   snake: [
     // [x,y], [x,y]...
   ],
-  
-  //queried objects
-  snakeQuery: [
-    
-  ],
 
   createSnake: function(size, startingX, startingY){
     // for (var i = 0; i <= size; i++) {
@@ -30,35 +25,42 @@ var model = {
     //   startingX++;
     // }
     
-    this.snake = [ [3,3], [2,3], [1,3] ]; 
+    this.snake = [ [6,3], [5,3], [4,3], [3,3], [2,3], [1,3] ]; 
     
   },
+  
+  keyCode: 40,
 
-  //
-  // right: function(){
-  //   model.snake.y++;
-  // },
-  // up: function(){
-  //   model.snake.y++;
-  // },
-  // left: function(){
-  //   model.snake.y++;
-  // },
-  down: function(){
+  updateSnake: function(keyCode){
     var head = this.snake[0],
-        newX = head[0] + 1,
+        newX = head[0],
         newY = head[1];
-    
+        
+    //left, up, right, down    
+    switch(keyCode){
+      case 37:
+        newY--;
+        break;
+      case 38:
+        newX--;
+        break;        
+      case 39:
+        newY++;
+        break;
+      case 40:
+        newX++;
+        break;        
+    }
+
     this.snake.unshift([newX, newY]);
-    this.snake.pop();
+    this.snake.pop();    
   },
 
-  direction: 'right',
 
   cacheBoard: function(rows){
     for (var row = 0; row <= rows; row++){
       var cachedRow = $('.cell[x="' + row + '"]');
       this.board.push(cachedRow);
     }
-  },
+  }
 };

@@ -5,6 +5,10 @@ var view = {
 
   init: function(cols, rows){
     view.createBoard(cols, rows);
+    $(document).keyup(function(event){
+      model.keyCode = event.which;
+      event.preventDefault();
+    });
   },
 
   render: function(snakeSegments){
