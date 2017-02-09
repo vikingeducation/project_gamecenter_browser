@@ -3,39 +3,26 @@
 var controller = {
   init: function(){
     var cols = model.rows,
-        rows = model.columns;
+        rows = model.columns,
+        miliseconds = model.gameSpeed;
 
     view.init(cols, rows);
     model.cacheBoard(cols, rows);
     model.createSnake(5, 3, 8);
 
-    // controller.play();
+    controller.play(miliseconds);
   },
 
-  play: function(){
-    var miliseconds = model.gameSpeed;
-
+  play: function(miliseconds){
     setInterval(function(){
       controller.render();
     }, miliseconds);
   },
 
   render: function(){
-    model.down();
     view.render(model.snake);
-
-    // this.updateSnake();
-    // this.updateDirection();
-  },
-
-  updateSnake: function(){
     model.down();
   },
-
-  updateDirection: function(){
-    model.snake.y++;
-  },
-
 
 
 

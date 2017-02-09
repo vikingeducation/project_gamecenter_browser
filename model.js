@@ -13,40 +13,45 @@ var model = {
     // [], []...
   ],
 
+  //x,y coordinates
   snake: [
     // [x,y], [x,y]...
   ],
+  
+  //queried objects
+  snakeQuery: [
+    
+  ],
 
   createSnake: function(size, startingX, startingY){
-    for (var i = 0; i <= size; i++) {
-      var newSegment = [startingX, startingY];
-      this.snake.push(newSegment);
-      startingX++;
-    }
+    // for (var i = 0; i <= size; i++) {
+    //   var newSegment = [startingX, startingY];
+    //   this.snake.push(newSegment);
+    //   startingX++;
+    // }
+    
+    this.snake = [ [3,3], [2,3], [1,3] ]; 
+    
   },
 
   //
-  right: function(){
-    model.snake.y++;
-  },
-  up: function(){
-    model.snake.y++;
-  },
-  left: function(){
-    model.snake.y++;
-  },
+  // right: function(){
+  //   model.snake.y++;
+  // },
+  // up: function(){
+  //   model.snake.y++;
+  // },
+  // left: function(){
+  //   model.snake.y++;
+  // },
   down: function(){
-    var head = model.snake[0];
-    var x = head[0];
-    var y = head[1];
-    this.snake.unshift([(x + 1), y]);
-
+    var head = this.snake[0],
+        newX = head[0] + 1,
+        newY = head[1];
+    
+    this.snake.unshift([newX, newY]);
     this.snake.pop();
   },
-
-
-
-
 
   direction: 'right',
 

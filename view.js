@@ -8,30 +8,15 @@ var view = {
   },
 
   render: function(snakeSegments){
-    $('.cell').removeClass('snake');
-
-    snakeSegments.forEach(function(coords){
-      var x = coords[0],
+    var x, y, coords;
+    $('.snake').removeClass('snake');
+    
+    for (var i = 0; i < snakeSegments.length; i++){
+      coords = snakeSegments[i];
+          x = coords[0];
           y = coords[1];
       $(model.board[x][y]).addClass('snake');
-    });
-
-    // $(snakeSegments).addClass('snake');
-    // var x,
-    //     y,
-    //     currentSegment;
-    // snakeSegments.forEach(function(segment) {
-    //   x = segment.x;
-    //   y = segment.y;
-    //   $(model.board[x][y]).addClass('snake');;
-    //
-    //   console.log(segment)
-    // });
-
-    // setTimeout(function(){
-    //   cell.removeClass('snake');
-    // }, 600);
-
+    }
   },
 
   createBoard: function(rows, columns){
