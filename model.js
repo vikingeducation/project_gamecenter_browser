@@ -29,35 +29,54 @@ var model = {
     // this.snake = [ [6,3], [5,3], [4,3], [3,3], [2,3], [1,3] ]; 
   },
   
+  //previous direction selected
+  lastKeyCode: 37,
+  
   //direction to go
   keyCode: 40,
+  
+  updateKeyCode: function(eventKeyCode){
+    this.lastKeyCode = this.keyCode;
+    this.keyCode = eventKeyCode;
+  },
 
   updateSnake: function(keyCode){
     var head = this.snake[0],
         newX = head[0],
         newY = head[1],
+        lastKeyCode = this.lastKeyCode,
         newHead;
         
-    //left, up, right, down    
+    keyCode = controller.preventReverse(lastKeyCode, keyCode);    
+        
     switch(keyCode){
+      //left
       case 37:
         newY--;
         break;
+        
+      //up  
       case 38:
         newX--;
-        break;        
+        break;
+        
+      //right  
       case 39:
         newY++;
         break;
+        
+      //down  
       case 40:
         newX++;
         break;        
+      
     }
     
     this.checkAll(newX, newY);
 
     this.snake.unshift([newX, newY]);
-    this.snake.pop();    
+    this.snake.pop();   
+    // this.updateKeyCode()
   },
   
   checkAll: function(x, y){
@@ -66,6 +85,10 @@ var model = {
         this.checkSelfCollision(x,y)){
       controller.gameOver();
     }
+  },
+  
+  checkReverse: function(){
+    
   },
   
   checkXboundries: function(x){

@@ -6,7 +6,9 @@ var view = {
   init: function(cols, rows){
     view.createBoard(cols, rows);
     $(document).keydown(function(event){
-      model.keyCode = event.which;
+      // model.keyCode = event.which;
+      model.updateKeyCode(event.which);
+      
       event.preventDefault();
     });
   },
