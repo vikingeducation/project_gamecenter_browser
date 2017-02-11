@@ -19,19 +19,28 @@ var model = {
     // [x,y], [x,y]...
   ],
 
-  apple: [
-    // [x,y]
-  ],
+  apple: {
+          // x: 0,
+          // y: 0,
+          // element: null
+        },
 
-  randomBoardPiece: function(){
+  randomBoardCoords: function(){
     var randomRow = Math.floor((Math.random() * this.rows)),
         randomCol = Math.floor((Math.random() * this.columns));
 
-    return this.board[randomRow][randomCol]
+    return [randomRow, randomCol];
+    // return this.board[randomRow][randomCol];
   },
 
   createApple: function(){
-    return this.randomBoardPiece();
+    var coords = model.randomBoardCoords(),
+        x = coords[0],
+        y = coords[1];
+
+      this.apple.x = x;
+      this.apple.y = y;
+      this.apple.element = this.board[x][y];
   },
 
   createSnake: function(size, startingX, startingY){
@@ -96,6 +105,8 @@ var model = {
     this.snake.unshift([newX, newY]);
     this.snake.pop();
   },
+
+
 
   checkAll: function(x, y){
     if (this.checkXboundries(x) ||

@@ -1,9 +1,9 @@
 'use strict';
 
 var view = {
-  gameBoard: $('.game-board'),
 
   init: function(cols, rows){
+
     view.createBoard(cols, rows);
     $(document).keydown(function(event){
       // model.keyCode = event.which;
@@ -28,19 +28,24 @@ var view = {
     }
   },
 
-  displayScore: {
-
+  renderNewApple: function(appleEl){
+    console.log('renderNewApple')
+    console.log(appleEl)
+    $('.apple').removeClass('apple');
+    $(appleEl).addClass('apple');
   },
 
   createBoard: function(rows, columns){
+    var gameBoard = $('.game-board');
+
     for (var row = 0; row <= rows; row++){
       for (var col = 0; col <= columns; col++){
         var cellEl = $('<div>').addClass('cell')
                                .attr('x', row)
                                .attr('y', col);
-         view.gameBoard.append(cellEl);
+         gameBoard.append(cellEl);
       }
-      view.gameBoard.append('<br>');
+      gameBoard.append('<br>');
     }
   }
 
