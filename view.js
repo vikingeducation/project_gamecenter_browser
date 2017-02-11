@@ -7,8 +7,11 @@ var view = {
     view.createBoard(cols, rows);
     $(document).keydown(function(event){
       // model.keyCode = event.which;
-      model.updateKeyCode(event.which);
-      
+      var notReversed = model.checkReverse(event.which)
+
+      if (notReversed) {
+        model.updateKeyCode(event.which);
+      }
       event.preventDefault();
     });
   },
@@ -16,13 +19,17 @@ var view = {
   render: function(snakeSegments){
     var x, y, coords;
     $('.snake').removeClass('snake');
-    
+
     for (var i = 0; i < snakeSegments.length; i++){
       coords = snakeSegments[i];
           x = coords[0];
           y = coords[1];
       $(model.board[x][y]).addClass('snake');
     }
+  },
+
+  displayScore: {
+
   },
 
   createBoard: function(rows, columns){
