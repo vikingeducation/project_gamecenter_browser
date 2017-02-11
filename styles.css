@@ -1,11 +1,14 @@
-body, 
+body,
 html {
   margin:0;
   padding:0;
 }
 
+h1 {
+  text-align: center;
+}
+
 .container {
-  background-color: #8cffde;
   width: 100%;
   height: 400px;
   display: flex;
@@ -14,6 +17,8 @@ html {
 }
 
 .game-board {
+  background-color: #8cffde;
+
   line-height: 0px;
   border: 4px solid red;
   display: inline-block;
@@ -38,4 +43,15 @@ html {
 
 .apple {
   background-color: red;
+}
+
+.score {
+  margin: 0 auto;
+  border: 2px solid black;
+  height: 50px;
+  width: 100px;
+
+  text-align: center;
+  line-height:  50px;
+  font-size: 2em;
 }

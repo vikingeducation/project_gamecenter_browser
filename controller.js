@@ -28,6 +28,7 @@ var controller = {
     model.updateSnake(model.keyCode);
     this.updateApple(model.apple);
     view.render(model.snake);
+
   },
 
   updateApple: function(apple){
@@ -35,6 +36,7 @@ var controller = {
     (apple.y === model.snake[0][1])){
       model.score++;
       model.createApple();
+      view.renderNewScore(model.score);
       view.renderNewApple(model.apple.element);
     }
   },

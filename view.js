@@ -14,6 +14,8 @@ var view = {
       }
       event.preventDefault();
     });
+
+    this.renderNewScore("0");
   },
 
   render: function(snakeSegments){
@@ -33,6 +35,10 @@ var view = {
     console.log(appleEl)
     $('.apple').removeClass('apple');
     $(appleEl).addClass('apple');
+  },
+
+  renderNewScore: function(score){
+    $('.score').text(score);
   },
 
   createBoard: function(rows, columns){
