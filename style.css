@@ -1,0 +1,13 @@
+#board {
+  margin-top: 20px;
+  border: 10px solid black;
+  display: inline;
+}
+
+.canvas-container {
+  width: 100%;
+}
+
+.game-over {
+  color: red;
+}
