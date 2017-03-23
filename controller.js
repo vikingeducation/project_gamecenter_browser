@@ -25,11 +25,7 @@ var controller = {
 
   render: function(){
     model.updateSnake(model.keyCode);
-
-
     this.updateApple(model.apple);
-
-
     view.renderNewScore(model.score);
     view.render(model.snake);
   },
@@ -68,7 +64,6 @@ var controller = {
   }
 };
 
-//runs the game
 $(document).ready(function(){
     controller.init();
   $(".play").click(function(){
