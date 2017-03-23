@@ -61,7 +61,9 @@ var Model = {
   keyCode: 40,
 
   updateKeyCode: function(eventKeyCode){
-    Model.keyCode = eventKeyCode;
+    if (Model.validNewDirection(eventKeyCode)) {
+      Model.keyCode = eventKeyCode;
+    }
   },
 
   validNewDirection: function(nextCode){
