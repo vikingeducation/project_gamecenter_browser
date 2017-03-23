@@ -6,13 +6,11 @@ var view = {
 
     view.createBoard(cols, rows);
     $(document).keydown(function(event){
-      // model.keyCode = event.which;
       var notReversed = model.checkReverse(event.which)
 
       if (notReversed) {
         model.updateKeyCode(event.which);
       }
-      event.preventDefault();
     });
 
     this.renderNewScore("0");
@@ -31,8 +29,6 @@ var view = {
   },
 
   renderNewApple: function(appleEl){
-    console.log('renderNewApple')
-    console.log(appleEl)
     $('.apple').removeClass('apple');
     $(appleEl).addClass('apple');
   },
@@ -53,6 +49,8 @@ var view = {
       }
       gameBoard.append('<br>');
     }
-  }
+  },
+
+
 
 };
