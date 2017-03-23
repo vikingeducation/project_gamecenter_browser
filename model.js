@@ -55,13 +55,12 @@ var Model = {
 
   //starting direction = down
   keyCode: 40,
-  lastKeyCode: [],
 
   updateKeyCode: function(eventKeyCode){
     Model.keyCode = eventKeyCode;
   },
 
-  checkReverse: function(nextCode){
+  validNewDirection: function(nextCode){
     var lastCode = this.keyCode;
 
     if (((lastCode === 37) && (nextCode === 39)) ||
