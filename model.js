@@ -2,6 +2,7 @@
 
 var model = {
   score: 0,
+  points: 100,
 
   // miliseconds
   gameSpeed: 100,
@@ -52,7 +53,7 @@ var model = {
     // this.snake = [ [6,3], [5,3], [4,3], [3,3], [2,3], [1,3] ];
   },
 
-  //direction to go
+  //starting direction = down
   keyCode: 40,
 
   updateKeyCode: function(eventKeyCode){
@@ -105,8 +106,6 @@ var model = {
     this.snake.unshift([newX, newY]);
     this.snake.pop();
   },
-
-
 
   checkAll: function(x, y){
     if (this.checkXboundries(x) ||
