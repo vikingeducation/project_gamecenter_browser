@@ -3,11 +3,7 @@
 var controller = {
   init: function(){
     var cols = model.rows,
-        miliseconds = model.gameSpeed,
-                rows = model.columns,
-        cols = model.rows,
-
-        appleEl = model.apple.element;
+        rows = model.rows;
 
     view.init(cols, rows);
     model.cacheBoard(cols, rows);
@@ -16,17 +12,10 @@ var controller = {
   interval: undefined,
 
   play: function(){
-    var miliseconds = model.gameSpeed,
-        rows = model.columns,
-        cols = model.rows,
-        appleEl = model.apple.element;
-    model.snake = [];
-    model.apple = {};
-    model.score = 0;
-    model.gameSpeed = 100;
-    model.keyCode = 40;
+    this.resetModel();
+    var miliseconds = model.gameSpeed;
 
-    model.createSnake(5, 10, 3);
+    model.createSnake(5, 10, 3); // (size, startingX, startingY)
     model.createApple();
     view.renderNewApple(model.apple.element);
     this.interval = setInterval(function(){
@@ -49,6 +38,14 @@ var controller = {
       view.renderNewScore(model.score);
       view.renderNewApple(model.apple.element);
     }
+  },
+
+  resetModel: function(){
+    model.snake = [];
+    model.apple = {};
+    model.score = 0;
+    model.gameSpeed = 100;
+    model.keyCode = 40;
   },
 
   gameOver: function(){
