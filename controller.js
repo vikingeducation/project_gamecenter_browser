@@ -41,6 +41,7 @@ var Controller = {
 
   updateApple: function(apple){
     if (this.consumedApple(apple)) {
+      Model.growSnake();
       View.renderNewScore(Model.score);
       this.advanceScore();
       Model.createApple();

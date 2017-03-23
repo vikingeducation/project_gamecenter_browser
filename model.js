@@ -53,6 +53,10 @@ var Model = {
     // this.snake = [ [6,3], [5,3], [4,3], [3,3], [2,3], [1,3] ];
   },
 
+  growSnake: function(){
+    this.snake.push(this.tailAddon);
+  },
+
   //starting direction = down
   keyCode: 40,
 
@@ -72,6 +76,8 @@ var Model = {
       return true;
     }
   },
+
+  tailAddon: undefined,
 
   updateSnake: function(keyCode){
     var head = this.snake[0],
@@ -104,10 +110,11 @@ var Model = {
       Controller.gameOver();
     } else {
       this.snake.unshift([newX, newY]);
-      this.snake.pop();
+      this.tailAddon = this.snake.pop();
     }
 
   },
+
 
   checkSelfCollision: function(newX, newY){
     var head = [newX, newY],
