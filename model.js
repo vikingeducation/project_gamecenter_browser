@@ -4,6 +4,7 @@ var model = {
   score: 0,
   points: 100,
   gameOver: false,
+
   // miliseconds
   gameSpeed: 100,
 
@@ -54,9 +55,10 @@ var model = {
 
   //starting direction = down
   keyCode: 40,
+  lastKeyCode: [],
 
   updateKeyCode: function(eventKeyCode){
-      this.lastKeyCode = this.keyCode;
+      // this.lastKeyCode = this.keyCode;
       this.keyCode = eventKeyCode;
   },
 
@@ -100,18 +102,22 @@ var model = {
         break;
     }
 
-    this.checkAll(newX, newY);
+    if (this.checkAll(newX, newY)) {
+      controller.gameOver();
+    } else {
+      this.snake.unshift([newX, newY]);
+      this.snake.pop();
+    }
 
-    this.snake.unshift([newX, newY]);
-    this.snake.pop();
   },
 
-  checkAll: function(x, y){
-    if (this.checkXboundries(x) ||
-        this.checkYboundries(y) ||
-        this.checkSelfCollision(x,y)){
-      controller.gameOver();
-    }
+  checkSelfCollision: function(newX, newY){
+    var head = [newX, newY],
+        body = this.snake.slice(1, this.snake.length);
+
+    return body.some(function(segment){
+      return (segment[0] === head[0]) && (segment[1] === head[1]);
+    });
   },
 
   checkXboundries: function(x){
@@ -124,15 +130,10 @@ var model = {
     return (y < 0) || (y > losingY);
   },
 
-  checkSelfCollision: function(newX, newY){
-    var head = [newX, newY],
-        body = this.snake.slice(1, this.snake.length),
-        collided;
-
-    collided = body.some(function(segment){
-      return (segment[0] === head[0]) && (segment[1] === head[1]);
-    });
-    return !!(collided);
+  checkAll: function(x, y){
+    return (this.checkSelfCollision(x,y) ||
+        this.checkXboundries(x) ||
+        this.checkYboundries(y))
   },
 
   cacheBoard: function(rows){

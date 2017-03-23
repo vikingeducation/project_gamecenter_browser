@@ -12,25 +12,20 @@ var controller = {
   interval: undefined,
 
   play: function(){
-    this.resetModel();
-    view.renderNewScore(model.score);
-
-    var miliseconds = model.gameSpeed;
-
-    model.createSnake(5, 10, 3); // (size, startingX, startingY)
+    this.reset();
+    model.createSnake(5, 6, 3); // (size, startingX, startingY)
     model.createApple();
     view.renderNewApple(model.apple.element);
     this.interval = setInterval(function(){
       controller.render();
-    }, miliseconds);
+    }, model.gameSpeed);
   },
 
   render: function(){
     model.updateSnake(model.keyCode);
     if (model.gameOver === false) {
-    this.updateApple(model.apple);
-    view.render(model.snake);
-
+      this.updateApple(model.apple);
+      view.render(model.snake);
     }
   },
 
@@ -42,19 +37,19 @@ var controller = {
   updateApple: function(apple){
     if (this.consumedApple(apple)) {
       view.renderNewScore(model.score);
-      this.increaseScore();
+      this.advanceScore();
       model.createApple();
       view.renderNewScore(model.score);
       view.renderNewApple(model.apple.element);
     }
   },
 
-  increaseScore: function(){
+  advanceScore: function(){
     model.score += model.points;
     model.points += 100;
   },
 
-  resetModel: function(){
+  reset: function(){
     model.snake = [];
     model.apple = {};
     model.score = 0;
@@ -62,10 +57,12 @@ var controller = {
     model.gameSpeed = 100;
     model.keyCode = 40;
     model.gameOver = false;
+    view.renderNewScore(model.score);
   },
 
   gameOver: function(){
     model.gameOver = true;
+    view.renderSnakeDeath();
     clearInterval(this.interval);
     $('.play').show();
   },
@@ -74,7 +71,7 @@ var controller = {
     controller.init();
     $('.play').click(function(){
       controller.play();
-      $(this).hide();
+      $(this).slideUp('swing');
     });
   }
 };

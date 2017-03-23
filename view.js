@@ -3,17 +3,20 @@
 var view = {
 
   init: function(cols, rows){
+    this.createBoard(cols, rows);
+    this.addArrowKeyListeners();
+    this.renderNewScore("0");
+  },
 
-    view.createBoard(cols, rows);
+  addArrowKeyListeners: function(){
     $(document).keydown(function(event){
-      var notReversed = model.checkReverse(event.which)
+      var keycode = event.which,
+          validKeyCodes = [37, 38, 39, 40];
 
-      if (notReversed) {
-        model.updateKeyCode(event.which);
+      if (validKeyCodes.indexOf(keycode) !== -1) {
+        model.keyCode = keycode;
       }
     });
-
-    this.renderNewScore("0");
   },
 
   render: function(snakeSegments){
@@ -37,6 +40,10 @@ var view = {
     $('.score').text(score);
   },
 
+  renderSnakeDeath: function(){
+    $('.snake').fadeIn().fadeOut().fadeIn();
+  },
+
   createBoard: function(rows, columns){
     var gameBoard = $('.game-board');
 
@@ -49,8 +56,6 @@ var view = {
       }
       gameBoard.append('<br>');
     }
-  },
-
-
+  }
 
 };
