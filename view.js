@@ -1,20 +1,19 @@
 'use strict';
 
-var view = {
+var View = {
 
   init: function(cols, rows){
     this.createBoard(cols, rows);
-    this.addArrowKeyListeners();
     this.renderNewScore("0");
   },
 
-  addArrowKeyListeners: function(){
+  addArrowKeyListeners: function(updateKeyCode){
     $(document).keydown(function(event){
       var keycode = event.which,
           validKeyCodes = [37, 38, 39, 40];
 
       if (validKeyCodes.indexOf(keycode) !== -1) {
-        model.keyCode = keycode;
+        updateKeyCode(keycode);
       }
     });
   },
@@ -27,7 +26,7 @@ var view = {
       coords = snakeSegments[i];
           x = coords[0];
           y = coords[1];
-      $(model.board[x][y]).addClass('snake');
+      $(Model.board[x][y]).addClass('snake');
     }
   },
 

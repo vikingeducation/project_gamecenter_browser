@@ -1,6 +1,6 @@
 'use strict';
 
-var model = {
+var Model = {
   score: 0,
   points: 100,
   gameOver: false,
@@ -35,7 +35,7 @@ var model = {
   },
 
   createApple: function(){
-    var coords = model.randomBoardCoords(),
+    var coords = this.randomBoardCoords(),
         x = coords[0],
         y = coords[1];
 
@@ -58,8 +58,7 @@ var model = {
   lastKeyCode: [],
 
   updateKeyCode: function(eventKeyCode){
-      // this.lastKeyCode = this.keyCode;
-      this.keyCode = eventKeyCode;
+    Model.keyCode = eventKeyCode;
   },
 
   checkReverse: function(nextCode){
@@ -103,7 +102,7 @@ var model = {
     }
 
     if (this.checkAll(newX, newY)) {
-      controller.gameOver();
+      Controller.gameOver();
     } else {
       this.snake.unshift([newX, newY]);
       this.snake.pop();

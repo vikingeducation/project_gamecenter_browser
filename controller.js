@@ -1,81 +1,86 @@
 'use strict';
 
-var controller = {
+var Controller = {
   init: function(){
-    var cols = model.rows,
-        rows = model.rows;
+    var cols = Model.rows,
+        rows = Model.rows;
 
-    view.init(cols, rows);
-    model.cacheBoard(cols, rows);
+    View.init(cols, rows);
+    Model.cacheBoard(cols, rows);
+    this.updateUserDirection(Model.updateKeyCode);
   },
 
   interval: undefined,
 
+  updateUserDirection: function(keyCodeCallback){
+    View.addArrowKeyListeners(keyCodeCallback);
+  },
+
   play: function(){
     this.reset();
-    model.createSnake(5, 6, 3); // (size, startingX, startingY)
-    model.createApple();
-    view.renderNewApple(model.apple.element);
+    Model.createSnake(5, 6, 3); // (size, startingX, startingY)
+    Model.createApple();
+    View.renderNewApple(Model.apple.element);
     this.interval = setInterval(function(){
-      controller.render();
-    }, model.gameSpeed);
+      Controller.render();
+    }, Model.gameSpeed);
   },
 
   render: function(){
-    model.updateSnake(model.keyCode);
-    if (model.gameOver === false) {
-      this.updateApple(model.apple);
-      view.render(model.snake);
+    if (Model.gameOver === false) {
+      this.updateApple(Model.apple);
+      View.render(Model.snake);
     }
+    Model.updateSnake(Model.keyCode);
   },
 
   consumedApple: function(apple){
-    return ((apple.x === model.snake[0][0]) &&
-            (apple.y === model.snake[0][1]))
+    return ((apple.x === Model.snake[0][0]) &&
+            (apple.y === Model.snake[0][1]))
   },
 
   updateApple: function(apple){
     if (this.consumedApple(apple)) {
-      view.renderNewScore(model.score);
+      View.renderNewScore(Model.score);
       this.advanceScore();
-      model.createApple();
-      view.renderNewScore(model.score);
-      view.renderNewApple(model.apple.element);
+      Model.createApple();
+      View.renderNewScore(Model.score);
+      View.renderNewApple(Model.apple.element);
     }
   },
 
   advanceScore: function(){
-    model.score += model.points;
-    model.points += 100;
+    Model.score += Model.points;
+    Model.points += 100;
   },
 
   reset: function(){
-    model.snake = [];
-    model.apple = {};
-    model.score = 0;
-    model.points = 100;
-    model.gameSpeed = 100;
-    model.keyCode = 40;
-    model.gameOver = false;
-    view.renderNewScore(model.score);
+    Model.snake = [];
+    Model.apple = {};
+    Model.score = 0;
+    Model.points = 100;
+    Model.gameSpeed = 100;
+    Model.keyCode = 40;
+    Model.gameOver = false;
+    View.renderNewScore(Model.score);
   },
 
   gameOver: function(){
-    model.gameOver = true;
-    view.renderSnakeDeath();
+    Model.gameOver = true;
+    View.renderSnakeDeath();
     clearInterval(this.interval);
     $('.play').show();
   },
 
   run: function(){
-    controller.init();
+    Controller.init();
     $('.play').click(function(){
-      controller.play();
+      Controller.play();
       $(this).slideUp('swing');
     });
   }
 };
 
 $(document).ready(function(){
-  controller.run();
+  Controller.run();
 });
