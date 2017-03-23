@@ -3,7 +3,7 @@
 var model = {
   score: 0,
   points: 100,
-
+  gameOver: false,
   // miliseconds
   gameSpeed: 100,
 
@@ -31,7 +31,6 @@ var model = {
         randomCol = Math.floor((Math.random() * this.columns));
 
     return [randomRow, randomCol];
-    // return this.board[randomRow][randomCol];
   },
 
   createApple: function(){
@@ -117,12 +116,12 @@ var model = {
 
   checkXboundries: function(x){
     var losingX = this.rows;
-    return !!(x < 0 || x > losingX);
+    return (x < 0) || (x > losingX);
   },
 
   checkYboundries: function(y){
     var losingY = this.columns;
-    return !!(y < 0 || y > losingY);
+    return (y < 0) || (y > losingY);
   },
 
   checkSelfCollision: function(newX, newY){

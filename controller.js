@@ -13,6 +13,8 @@ var controller = {
 
   play: function(){
     this.resetModel();
+    view.renderNewScore(model.score);
+
     var miliseconds = model.gameSpeed;
 
     model.createSnake(5, 10, 3); // (size, startingX, startingY)
@@ -25,9 +27,11 @@ var controller = {
 
   render: function(){
     model.updateSnake(model.keyCode);
+    if (model.gameOver === false) {
     this.updateApple(model.apple);
-    view.renderNewScore(model.score);
     view.render(model.snake);
+
+    }
   },
 
   consumedApple: function(apple){
@@ -37,6 +41,7 @@ var controller = {
 
   updateApple: function(apple){
     if (this.consumedApple(apple)) {
+      view.renderNewScore(model.score);
       this.increaseScore();
       model.createApple();
       view.renderNewScore(model.score);
@@ -56,17 +61,24 @@ var controller = {
     model.points = 100;
     model.gameSpeed = 100;
     model.keyCode = 40;
+    model.gameOver = false;
   },
 
   gameOver: function(){
+    model.gameOver = true;
     clearInterval(this.interval);
-    console.log('Game Over!')
+    $('.play').show();
+  },
+
+  run: function(){
+    controller.init();
+    $('.play').click(function(){
+      controller.play();
+      $(this).hide();
+    });
   }
 };
 
 $(document).ready(function(){
-    controller.init();
-  $(".play").click(function(){
-    controller.play();
-  });
+  controller.run();
 });
