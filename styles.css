@@ -1,0 +1,70 @@
+body,
+html {
+  margin:0;
+  padding:0;
+}
+
+h1 {
+  text-align: center;
+}
+
+.play {
+  width: 200px;
+  height: 80px;
+  background-color: green;
+  border: 2px solid black;
+  margin: 0 auto;
+  color: white;
+  font-size: 2em;
+  line-height: 80px;
+  text-align: center;
+}
+
+.container {
+  width: 100%;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.game-board {
+  background-color: #8cffde;
+
+  line-height: 0px;
+  border: 4px solid red;
+  display: inline-block;
+}
+
+.cell {
+  width: 15px;
+  height: 15px;
+  /*border: 1px solid black;*/
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+
+.snake {
+  background-color: green;
+}
+
+.hidden {
+  background-color: #8cffde;
+}
+
+.apple {
+  background-color: red;
+  border-radius: 50%;
+}
+
+.score {
+  margin: 0 auto;
+  border: 2px solid black;
+  height: 50px;
+  width: 100px;
+
+  text-align: center;
+  line-height:  50px;
+  font-size: 2em;
+}

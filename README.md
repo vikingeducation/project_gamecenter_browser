@@ -1,4 +1,5 @@
-project_gamecenter_browser
-==========================
+# Snake
+***
 
-hiss hiss gulp grow hiss...
+[Click here to play!](http://htmlpreview.github.io/?https://github.com/kotten1/project_game_center_browser/blob/master/snake.html)
+
