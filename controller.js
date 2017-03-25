@@ -7,13 +7,13 @@ var Controller = {
 
     View.init(cols, rows);
     Model.cacheBoard(cols, rows);
-    this.updateUserDirection(Model.updateKeyCode);
+    this.updateUserDirection();
   },
 
   interval: undefined,
 
   updateUserDirection: function(keyCodeCallback){
-    View.addArrowKeyListeners(keyCodeCallback);
+    View.addArrowKeyListeners(Model.updateKeyCode, Controller.render);
   },
 
   play: function(){
@@ -28,10 +28,10 @@ var Controller = {
 
   render: function(){
     if (Model.gameOver === false) {
-      this.updateApple(Model.apple);
+      Controller.updateApple(Model.apple);
       View.render(Model.snake);
-    }
     Model.updateSnake(Model.keyCode);
+    }
   },
 
   consumedApple: function(apple){
@@ -77,7 +77,7 @@ var Controller = {
     Controller.init();
     $('.play').click(function(){
       Controller.play();
-      $(this).slideUp('swing');
+      $(this).fadeOut();
     });
   }
 };

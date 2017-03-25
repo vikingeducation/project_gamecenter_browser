@@ -7,13 +7,14 @@ var View = {
     this.renderNewScore("0");
   },
 
-  addArrowKeyListeners: function(updateKeyCode){
+  addArrowKeyListeners: function(updateKeyCode, controllerRender){
     $(document).keydown(function(event){
-      var keycode = event.which,
+      var keyCode = event.which,
           validKeyCodes = [37, 38, 39, 40];
 
-      if (validKeyCodes.indexOf(keycode) !== -1) {
-        updateKeyCode(keycode);
+      if ((validKeyCodes.indexOf(keyCode) !== -1) && (keyCode !== Model.keyCode)) {
+        updateKeyCode(keyCode);
+        controllerRender();
       }
     });
   },

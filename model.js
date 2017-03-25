@@ -27,6 +27,10 @@ var Model = {
           // element: null
         },
 
+  //starting direction = down
+  keyCode: 40,
+  lastKeyCode: undefined,
+
   randomBoardCoords: function(){
     var randomRow = Math.floor((Math.random() * this.rows)),
         randomCol = Math.floor((Math.random() * this.columns));
@@ -57,12 +61,12 @@ var Model = {
     this.snake.push(this.tailAddon);
   },
 
-  //starting direction = down
-  keyCode: 40,
 
   updateKeyCode: function(eventKeyCode){
     if (Model.validNewDirection(eventKeyCode)) {
+      Model.lastKeyCode = Model.keyCode;
       Model.keyCode = eventKeyCode;
+
     }
   },
 
