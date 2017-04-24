@@ -1,0 +1,27 @@
+body {
+  background-color: #f0f8ff;
+}
+.s-hr {
+  border-top: 1px solid #b0e0e6;
+}
+.snake-play-custom {
+  margin-left: 10px;
+}
+.snake-canvas {
+  border: 1px solid transparent;
+}
+.sc-hidden {
+  width: 0;
+  height: 0;
+}
+.sc-visible {
+  border: 1px solid #daa520;
+  background-color: #fafad2;
+  -moz-transition: height 0.5s ease-in, background-color 1s ease-in, border 1s ease-in;
+  -webkit-transition: height 0.5s ease-in, background-color 1s ease-in, border 1s ease-in;
+  -o-transition: height 0.5s ease-in, background-color 1s ease-in, border 1s ease-in;
+  transition: height 0.5s ease-in, background-color 1s ease-in, border 1s ease-in;
+}
+.spcs-submit-close {
+  display: none;
+}

@@ -7,9 +7,60 @@
 </head>
 <body>
   <div class="container">
-    <h1>Snake</h1>
-    <hr>
-    <hr>
+    <h1 class="text-center">Snake</h1>
+    <hr class="s-hr">
+    <div class="text-center">
+      <button type="button" class="btn btn-primary snake-play">Play!</button>
+      <button type="button" class="btn btn-primary snake-play-custom" data-toggle="modal" data-target="#snake-play-custom-settings">
+        Custom Settings
+      </button>
+    </div>
+    <div class="snake-board row">
+      <div class="col-sm-2">
+        Instructions
+      </div>
+      <div class="col-sm-8 text-center">
+        <canvas class="snake-canvas sc-hidden"></canvas>
+      </div>
+      <div class="col-sm-2">
+      High Scores
+      </div>
+    </div>
+    <hr class="s-hr">
+  </div>
+
+  <!-- modal: snake game custom settings -->
+  <div class="modal fade" id="snake-play-custom-settings" tabindex="-1" role="dialog" aria-labelledby="spcs-label">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="spcs-label">Snake custom settings:</h4>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <label for="sc-width">Width</label>
+                  <input class="form-control" type="number" value="400" min="100" max="600" step="10" id="sc-width">
+                </div>
+              </div>
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <label for="sc-height" >Height</label>
+                  <input class="form-control" type="number" value="400" min="100" max="600" step="10" id="sc-height">
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary spcs-submit">Play!</button>
+          <button type="button" class="spcs-submit-close" data-dismiss="modal" aria-hidden="true"></button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script
@@ -17,6 +68,9 @@
   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
   crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="snake_model.js"></script>
+  <script type="text/javascript" src="snake_view.js"></script>
+  <script type="text/javascript" src="snake_controller.js"></script>
   <script type="text/javascript" src="snake_game.js"></script>
 </body>
 </html>
