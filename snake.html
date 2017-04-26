@@ -9,21 +9,44 @@
   <div class="container">
     <h1 class="text-center">Snake</h1>
     <hr class="s-hr">
-    <div class="text-center">
+    <div class="snake-play-buttons text-center">
       <button type="button" class="btn btn-primary snake-play">Play!</button>
       <button type="button" class="btn btn-primary snake-play-custom" data-toggle="modal" data-target="#snake-play-custom-settings">
         Custom Settings
       </button>
     </div>
-    <div class="snake-board row">
+    <div class="row">
       <div class="col-sm-2">
-        Instructions
       </div>
       <div class="col-sm-8 text-center">
-        <canvas class="snake-canvas sc-hidden"></canvas>
+        <span class="snake-board">
+          <canvas class="snake-canvas sc-hidden"></canvas>
+          <div class="sb-score text-left">            
+            <div class="sb-s-main"><strong>Score:</strong> <span id="sb-score-val"></span></div>
+            <div class="sb-s-other">
+              <div>Length: <span id="sb-length"></span></div>
+              <div>Distance: <span id="sb-distance"></span></div>
+              <div>Time Elapsed <small>(sec)</small>: <span id="sb-time"></span></div>
+              <div>Speed <small>(units/sec)</small>: <span id="sb-speed"></span></div>
+              <div>Avg Speed: <span id="sb-avg-speed"></span></div>
+            </div>
+          </div>
+          <div id="sb-pause" class="sb-popup sb-popup-hidden">Game Paused</div>
+          <div id="sb-game-over" class="sb-popup sb-popup-hidden">
+            <div class="sb-go-flex-el"><hr></div>
+            <div class="sb-go-flex-el"><strong>Game Over</strong></div>
+            <div class="sb-go-flex-el sb-go-score-comp">
+              Base Score (<span class="sb-go-var">b</span>): <span id="sb-go-base"></span><br>
+              Fatigue (<span class="sb-go-var">f</span>): <span id="sb-go-fatigue"></span><br>
+              Speed Multiplier (<span class="sb-go-var">m</span>): <span id="sb-go-multiplier"></span><br>
+              Score: (<span class="sb-go-var">b</span>-<span class="sb-go-var">f</span>)*<span class="sb-go-var">m</span><br>
+            </div>   
+            <div class="sb-go-flex-el"><strong>Score: </strong><span id="sb-go-score"></span></div>
+            <div class="sb-go-flex-el"><hr></div>
+          </div>
+        </span>
       </div>
       <div class="col-sm-2">
-      High Scores
       </div>
     </div>
     <hr class="s-hr">
@@ -57,7 +80,6 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary spcs-submit">Play!</button>
-          <button type="button" class="spcs-submit-close" data-dismiss="modal" aria-hidden="true"></button>
         </div>
       </div>
     </div>

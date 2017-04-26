@@ -7,8 +7,70 @@ body {
 .snake-play-custom {
   margin-left: 10px;
 }
+.snake-board {
+  position: relative;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
 .snake-canvas {
   border: 1px solid transparent;
+}
+.sb-score {
+  padding: 5px;
+  background-color: #e7e7ca;
+  border: 1px solid #daa520;
+}
+.sb-s-main {
+  font-size: 16px;
+}
+.sb-s-other {
+  font-size: 12px;
+}
+#sb-pause{
+  background-color: #0000ff;
+  color: #fff;
+}
+#sb-game-over {
+  background-color: #ff3030;
+  color: #fff;
+  flex-wrap: wrap;
+}
+.sb-go-flex-el {
+  width: 100%;
+}
+.sb-go-score-comp {
+  font-size: 12px;
+}
+.sb-go-var {
+  font-style: italic;
+  padding: 0 1px;
+}
+#sb-go-score {
+  padding-left: 5px;
+  font-size: 20px;
+}
+.sb-popup {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sb-popup-hidden {
+  opacity: 0;
+  -moz-transition: all 0.5s ease-in;
+  -webkit-transition: all 0.5s ease-in;
+  -o-transition: all 0.5s ease-in;
+  transition: all 0.5s ease-in;
+}
+.sb-popup-visible {
+  opacity: 0.5;
+  -moz-transition: all 0.5s ease-in;
+  -webkit-transition: all 0.5s ease-in;
+  -o-transition: all 0.5s ease-in;
+  transition: all 0.5s ease-in;
 }
 .sc-hidden {
   width: 0;
@@ -21,7 +83,4 @@ body {
   -webkit-transition: height 0.5s ease-in, background-color 1s ease-in, border 1s ease-in;
   -o-transition: height 0.5s ease-in, background-color 1s ease-in, border 1s ease-in;
   transition: height 0.5s ease-in, background-color 1s ease-in, border 1s ease-in;
-}
-.spcs-submit-close {
-  display: none;
 }
