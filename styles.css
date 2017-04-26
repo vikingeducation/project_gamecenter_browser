@@ -84,3 +84,13 @@ body {
   -o-transition: height 0.5s ease-in, background-color 1s ease-in, border 1s ease-in;
   transition: height 0.5s ease-in, background-color 1s ease-in, border 1s ease-in;
 }
+.ss-hidden {
+  opacity: 0;
+}
+.ss-visible {
+  opacity: 1;
+  -moz-transition: all 1s ease-in;
+  -webkit-transition: all 1s ease-in;
+  -o-transition: all 1s ease-in;
+  transition: all 1s ease-in;
+}

@@ -49,12 +49,14 @@ var snakeView = {
     ctx.fillRect(0, 0, snakeModel.canvasWidth, snakeModel.canvasHeight);
   },
   renderCanvas: function(array) {
-    $('.snake-canvas').removeClass('sc-hidden')
-                      .css({"width": array[0] + "px", "height": array[1] + "px"})
+    $('.snake-canvas').css({"width": array[0] + "px", "height": array[1] + "px"})
+                      .removeClass('sc-hidden')
                       .addClass('sc-visible');
     $('.snake-canvas')[0].width = array[0];
     $('.snake-canvas')[0].height = array[1];
-    $('.sb-score').css({"width": snakeModel.canvasWidth + "px"});
+    $('.sb-score').css({"width": snakeModel.canvasWidth + "px"})
+                  .removeClass('ss-hidden')
+                  .addClass('ss-visible');
   },
   hideBoard: function() {
     $(".snake-board").hide();
@@ -65,6 +67,11 @@ var snakeView = {
   hideButtons: function() {
     $(".snake-play").hide();
     $(".snake-play-custom").hide();
+  },
+  showButtons: function() {
+    $(".snake-play").show();
+    $(".snake-play-custom").show();
+    $(".snake-play-buttons").css({"margin-bottom": "0"});
   },
   playAgain: function() {
     $(".snake-play").text("Play Again!").show();
@@ -90,5 +97,14 @@ var snakeView = {
   },
   hidePausePopup: function() {
     $('#sb-pause').removeClass('sb-popup-visible').addClass('sb-popup-hidden');
+  },
+  reset: function() {
+    snakeView.hideBoard();
+    snakeView.showButtons();
+    $(".snake-play").text("Play!")
+    $('.snake-canvas').css({"width": "0", "height": "0"})
+                      .removeClass('sc-visible')
+                      .addClass('sc-hidden');
+    $('.sb-score').removeClass('ss-visible').addClass('ss-hidden');
   }
 }

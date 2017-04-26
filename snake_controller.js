@@ -19,7 +19,7 @@ var snakeController = {
           if (keycode === 80) {
             snakeView.renderPausePopup();
           } else if (keycode === 27) {
-            // reset game
+            snakeController.resetGame();
           } else if (keycode === 189) {
             if (direction !== null) {
               snakeController.speed += 10;
@@ -50,7 +50,7 @@ var snakeController = {
         snakeModel.new();
         snakeView.init([w, h]);
         snakeController.inputEnabled = true;
-        // dry?
+        // dry....!
         $(document).keydown( function(event) {
         if (snakeController.inputEnabled) {
           var keycode = event.keyCode; 
@@ -60,7 +60,7 @@ var snakeController = {
           if (keycode === 80) {
             snakeView.renderPausePopup();
           } else if (keycode === 27) {
-            // reset game
+            snakeController.resetGame();
           } else if (keycode === 189) {
             if (direction !== null) {
               snakeController.speed += 10;
@@ -107,7 +107,13 @@ var snakeController = {
       clearInterval(snakeController.loop);
       snakeController.inputEnabled = false;
       snakeView.renderGameOverPopup();
+      snakeController.speed = 100;
       snakeView.playAgain();
     };
+  }, 
+  resetGame: function() {
+    clearInterval(snakeController.loop);
+    snakeController.speed = 100;
+    snakeView.reset();
   }
 }
