@@ -85,7 +85,7 @@ var view = {
       .append($('<p><u>').text('Welcome to Snack!'))
       .append($('<p>').text('Your goal is to help the snake snack up.'))
       .append($('<p>').text('Use the up, down, left and right arrow keys to lead the snake to the snack.'))
-      .append($('<p>').text('BEWARE: It\'s game over if you hit the wall or if the snake tries to snake on itself!'))
+      .append($('<p>').text('BEWARE: It\'s game over if you hit the wall or if the snake tries to snack on itself!'))
       .append($('<a>').addClass('btn').attr('id', 'start').text('Start'))
     $('#grid').addClass('screen').append($instructions);
   },
