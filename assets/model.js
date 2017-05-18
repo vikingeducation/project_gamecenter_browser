@@ -142,7 +142,7 @@ var model = {
   },
 
   hatchSnake: function() {
-    var start = [Math.floor(Math.random() * (this.grid.width - this.padding)) + 2, Math.floor(Math.random() * (this.grid.height - this.padding)) + 2];
+    var start = [Math.floor(Math.random() * (this.grid.width - this.padding)) + this.padding / 2, Math.floor(Math.random() * (this.grid.height - this.padding)) + this.padding / 2];
     switch (this.direction) {
       case 'left':
         this.snake = [{
