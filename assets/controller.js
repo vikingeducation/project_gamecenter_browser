@@ -2,54 +2,71 @@
 
 var controller = {
 
-  gameOver: false,
-
   init: function() {
-    view.init({
-      startGame: this.startGame,
+    isGameOver: false,
+    model.init({
+      grid: {
+        width: 40,
+        height: 40
+      }
     });
-    model.init();
-    controller.render();
-    view.initialRender(model.getFood(), model.getScore());
+    view.init({
+      setUpGame: this.setUpGame,
+      keyDown: this.keyDown,
+      snake: model.getSnake(),
+      grid: model.getGrid(),
+      food: model.getFood(),
+      runGame: this.runGame
+    });
   },
 
-  startGame: function() {
-    view.transitionElements();
-    controller.gameOn = setInterval(function() {
-      model.moveSnake({
-        updateGame: controller.updateGame,
-        endGame: controller.endGame,
-      });
-      controller.render(model.getSnake());
-    }, 75);
+  setUpGame: function() {
+    view.setUpBoard(model.getGrid());
+    controller.runGame = window.setInterval(controller.runGame, 75);
   },
 
-  endGame: function() {
-    controller.gameOver = true;
-    clearInterval(controller.gameOn);
+  gameSpeed: function(speed) {
+    controller.runGame = window.setInterval(controller.runGame, speed);
+  },
+
+  runGame: function() {
+    model.moveSnake();
+    if (model.isCollision()) {
+      return controller.gameOver();
+    }
+    if (model.foodEaten()) {
+      controller.updateGame();
+    } else {
+      view.cutSnakeTail(model.getSnake());
+      model.cutSnakeTail();
+    }
+    model.attachNewHead();
+    view.addSnakeHead(model.getSnake());
+
+  },
+
+  updateGame: function() {
+    model.updateSettings();
+    view.updateScore(model.getScore());
+    model.createFood();
+    view.updateFood(model.getFood());
+  },
+
+  gameOver: function() {
+    this.isGameOver = true;
+    window.clearInterval(controller.runGame);
     view.gameOver({
       reset: controller.reset
     });
   },
 
   reset: function() {
-    model.reset();
-    view.reset();
-    controller.gameOver = false;
+    view.clearScreen();
     controller.init();
   },
 
-  keyPress: function(e) {
-    model.setNewDirection(e.keyCode);
+  keyDown: function(key) {
+    model.setNewDirection(key.keyCode);
   },
 
-  render: function() {
-    if (!this.gameOver) {
-      view.render(model.getSnake());
-    }
-  },
-
-  updateGame: function() {
-    view.renderUpdate(model.getFood(), model.getScore());
-  }
 }

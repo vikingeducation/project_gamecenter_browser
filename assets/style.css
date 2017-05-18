@@ -1,90 +1,58 @@
 
+
 body {
-  background-color: #efefef;
-  font-family: 'VT323', monospace;
-  height:100%;
-  text-align: center;
-  font-size:16px;
+  text-align:center;
+  background: #efefef;
+  font-family: 'Roboto Mono', monospace;
 }
-
-h1 {
-  font-weight:bold;
-  font-size:50px;
-}
-
-.reset {
-  font-size: 20px;
-}
-
 #grid {
-background: #fff;
-margin: 0 auto;
-width:400px;
-height:400px;
-position:relative;
+  margin:0 auto;
+  background: white;
+  position: relative;
 }
-
+.game-over h3 {
+  font-size:50px;
+  font-weight:bold;
+}
 .score {
-  margin:20px;
-}
-
-.opacity .part, .opacity .snack {
-  opacity: .4;
-}
-
-.instructions {
-  padding:20px;
-  font-size:20px;
-}
-
-.instructions + .part {
-  opacity: 1;
-}
-
-.game-over {
   font-size:30px;
 }
-
-.snack {
-  position:absolute;
-  color: #fff;
-  background: #ffc000;
-  width:10px;
-  height:10px;
-
+.screen .snake {
+  opacity: .5;
 }
-
-#score {
-  text-align:left;
-  width:400px;
-  margin:10px auto;
+.block.snack {
+  background: #ffcc00;
 }
-.part {
+.block.snake {
   background: #333;
+}
+.screen .snake.head {
+  opacity:.3;
+}
+
+.block {
+float: left;
   height:10px;
   width:10px;
-  position:absolute;
+  background: #fff;
 }
 
-.v-middle {
-      position: relative;
-    top: 50%;
-    transform: translateY(-50%);
+.aligner{
+  position: absolute;
+  z-index:2;
+  padding:20px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
-.btn{
-  margin: 20px auto;
-  display: block;
-padding: 10px;  
-min-width:100px;
-max-width:150px;
-border: 2px solid #333;
-text-decoration: none;
-color: #333;
-
+.btn {
+  margin-top:20px;
+  border:2px solid #333;
+  cursor: pointer;
+  padding:10px 20px;
+  display:block;
 }
-
-.btn:hover {
-  background: #333;
+.btn:hover{
+  background: #0043ff;
   color: #fff;
 }
