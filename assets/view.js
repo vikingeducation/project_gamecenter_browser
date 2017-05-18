@@ -9,7 +9,7 @@ var view = {
     this.createGrid(callbacks.grid);
     this.displaySnake(callbacks.snake);
     this.displayFood(callbacks.food);
-    view.runGame = callbacks.runGame;
+    this.runGame = callbacks.runGame;
     $('#start').on('click', callbacks.setUpGame);
     $(document).on('keydown', callbacks.keyDown);
   },

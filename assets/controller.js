@@ -22,11 +22,7 @@ var controller = {
 
   setUpGame: function() {
     view.setUpBoard(model.getGrid());
-    controller.runGame = window.setInterval(controller.runGame, 75);
-  },
-
-  gameSpeed: function(speed) {
-    controller.runGame = window.setInterval(controller.runGame, speed);
+    controller.startGame = window.setInterval(controller.runGame, 75);
   },
 
   runGame: function() {
@@ -54,7 +50,7 @@ var controller = {
 
   gameOver: function() {
     this.isGameOver = true;
-    window.clearInterval(controller.runGame);
+    window.clearInterval(controller.startGame);
     view.gameOver({
       reset: controller.reset
     });
