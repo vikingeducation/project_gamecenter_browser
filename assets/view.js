@@ -20,7 +20,6 @@ var view = {
   },
 
   displaySnake: function(snake) {
-    console.log(snake);
     for (var i = 0; i < snake.length; i++) {
       var $block = $('div[data-x=' + snake[i].x + '][data-y=' + snake[i].y + ']');
       if (i === 0) {
@@ -44,14 +43,11 @@ var view = {
   },
 
   updateFood: function(food) {
-    console.log('updateFood');
-    console.log('food', food);
     $('.snack').removeClass('snack');
     this.getBlock(food).addClass('snack');
   },
 
   cutSnakeTail: function(snake) {
-    console.log('snake')
     var tail = snake[snake.length - 1];
     this.getBlock(tail).removeClass('snake');
   },
