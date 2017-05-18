@@ -1,0 +1,58 @@
+
+
+body {
+  text-align:center;
+  background: #efefef;
+  font-family: 'Roboto Mono', monospace;
+}
+#grid {
+  margin:0 auto;
+  background: white;
+  position: relative;
+}
+.game-over h3 {
+  font-size:50px;
+  font-weight:bold;
+}
+.score {
+  font-size:30px;
+}
+.screen .snake {
+  opacity: .5;
+}
+.block.snack {
+  background: #ffcc00;
+}
+.block.snake {
+  background: #333;
+}
+.screen .snake.head {
+  opacity:.3;
+}
+
+.block {
+float: left;
+  height:10px;
+  width:10px;
+  background: #fff;
+}
+
+.aligner{
+  position: absolute;
+  z-index:2;
+  padding:20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.btn {
+  margin-top:20px;
+  border:2px solid #333;
+  cursor: pointer;
+  padding:10px 20px;
+  display:block;
+}
+.btn:hover{
+  background: #0043ff;
+  color: #fff;
+}
